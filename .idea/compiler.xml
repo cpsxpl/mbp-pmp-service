@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="util" />
+        <module name="pmp-module-work" />
+        <module name="res" />
+        <module name="error" />
+        <module name="pmp-server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="error" target="8" />
+      <module name="mbp-framework" target="1.5" />
+      <module name="mbp-pmp-service" target="1.8" />
+      <module name="pmp-common" target="1.8" />
+      <module name="pmp-dependencies" target="1.5" />
+      <module name="pmp-framework" target="1.8" />
+      <module name="pmp-module-work" target="17" />
+      <module name="pmp-server" target="17" />
+      <module name="res" target="8" />
+      <module name="util" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

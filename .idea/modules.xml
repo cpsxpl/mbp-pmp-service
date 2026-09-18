@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pmp-framework/pmp-common/error/error.iml" filepath="$PROJECT_DIR$/pmp-framework/pmp-common/error/error.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-framework/mbp-framework.iml" filepath="$PROJECT_DIR$/pmp-framework/mbp-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mbp-pmp-service.iml" filepath="$PROJECT_DIR$/.idea/mbp-pmp-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-framework/pmp-common/pmp-common.iml" filepath="$PROJECT_DIR$/pmp-framework/pmp-common/pmp-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-dependencies/pmp-dependencies.iml" filepath="$PROJECT_DIR$/pmp-dependencies/pmp-dependencies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-framework/pmp-framework.iml" filepath="$PROJECT_DIR$/pmp-framework/pmp-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-module-work/pmp-module-work.iml" filepath="$PROJECT_DIR$/pmp-module-work/pmp-module-work.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-server/pmp-server.iml" filepath="$PROJECT_DIR$/pmp-server/pmp-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-framework/pmp-common/res/res.iml" filepath="$PROJECT_DIR$/pmp-framework/pmp-common/res/res.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmp-framework/pmp-common/util/util.iml" filepath="$PROJECT_DIR$/pmp-framework/pmp-common/util/util.iml" />
+    </modules>
+  </component>
+</project>

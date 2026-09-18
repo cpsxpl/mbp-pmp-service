@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/pmp-framework/pmp-common/error/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-framework/pmp-common/error/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-framework/pmp-common/res/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-framework/pmp-common/util/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-framework/pmp-common/util/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-module-work/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-module-work/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pmp-server/src/main/java" charset="UTF-8" />
+  </component>
+</project>
