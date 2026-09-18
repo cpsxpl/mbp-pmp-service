@@ -183,6 +183,14 @@
             </dependency>
             <!--模块-framework-common相关_end-->
 
+            <!--模块-module-example相关_start-->
+            <dependency>
+                <groupId>com.mbp.xxx.pmp</groupId>
+                <artifactId>pmp-module-work</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!--模块-module-example相关_end-->
+
             <!--模块相关_end-->
 
 
