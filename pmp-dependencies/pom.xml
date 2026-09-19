@@ -183,6 +183,18 @@
             </dependency>
             <!--模块-framework-common相关_end-->
 
+            <dependency>
+                <groupId>com.mbp.xxx.pmp</groupId>
+                <artifactId>pmp-spring-boot-starter-mybatis</artifactId>
+                <version>${revision}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>error_prone_annotations</artifactId>
+                        <groupId>com.google.errorprone</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
             <!--模块-module-example相关_start-->
             <dependency>
                 <groupId>com.mbp.xxx.pmp</groupId>
