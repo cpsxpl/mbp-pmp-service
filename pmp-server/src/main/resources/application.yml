@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mbp-app
+    name: pmp-app
 
   profiles:
     active: local
@@ -124,7 +124,7 @@ spring:
 mbp:
   info:
     version: 1.0.0
-    base-package: com.mbp.eng
+    base-package: com.mbp.pmp
     # 动态控制全局异常处理器的拦截范围(固定前缀 + 任意层级 + controller + 任意子包）
     controller-pattern: "${mbp.info.base-package}.**.controller.**"
   web:

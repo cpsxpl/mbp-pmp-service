@@ -1,0 +1,15 @@
+package com.mbp.eng.module.work.mapper;
+
+import com.kakarote.common.servlet.BaseMapper;
+import com.mbp.eng.module.work.entity.PO.AdminUserRole;
+
+/**
+ * <p>
+ * 用户角色对应关系表 Mapper 接口
+ * </p>
+ *
+ * @author cpsxpl
+ * @since 2020-04-27
+ */
+public interface ProjectUserRoleMapper extends BaseMapper<AdminUserRole> {
+}

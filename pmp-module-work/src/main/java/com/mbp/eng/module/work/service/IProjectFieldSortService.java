@@ -1,0 +1,38 @@
+package com.mbp.eng.module.work.service;
+
+import com.kakarote.common.servlet.BaseService;
+import com.mbp.eng.module.work.common.project.ProjectFieldSortAddBO;
+import com.mbp.eng.module.work.common.project.ProjectFieldSortQueryBO;
+import com.mbp.eng.module.work.entity.PO.ProjectFieldSort;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 字段排序表 服务类
+ * </p>
+ *
+ * @author cpsxpl
+ * @since 2022-09-16
+ */
+public interface IProjectFieldSortService extends BaseService<ProjectFieldSort> {
+    /**
+     * 功能描述: <br>
+     * 〈查询字自定义字段段列表〉
+     *
+     * @param * @param projectFieldSortQueryBO
+     * @return java.util.List<com.kakarote.work.entity.PO.ProjectFieldSort>
+     * @author cpsxpl
+     */
+    List<ProjectFieldSort> selectUserSort(ProjectFieldSortQueryBO projectFieldSortQueryBO);
+
+    /**
+     * 功能描述: <br>
+     * 〈设置个人字段排序〉
+     *
+     * @param * @param projectFieldSortAddBO
+     * @return java.lang.Boolean
+     * @author cpsxpl
+     */
+    Boolean addOrUpdateUserSort(ProjectFieldSortAddBO projectFieldSortAddBO);
+}
