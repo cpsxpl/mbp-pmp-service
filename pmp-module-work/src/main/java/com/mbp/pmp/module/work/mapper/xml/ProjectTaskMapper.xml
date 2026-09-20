@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.eng.module.work.mapper.ProjectTaskMapper">
-    <select id="getProjectByTime" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskNumVO">
+<mapper namespace="com.mbp.pmp.module.work.mapper.ProjectTaskMapper">
+    <select id="getProjectByTime" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskNumVO">
         SELECT t1.DAY            AS updateTime,
                COUNT(t2.task_id) AS num
         FROM (SELECT DATE( create_time ) AS DAY FROM wk_temp_date t WHERE t.create_time BETWEEN #{startTime} and #{endTime}) t1
@@ -25,7 +25,7 @@
         ORDER BY
             t1.DAY ASC
     </select>
-    <select id="getTaskByTime" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskNumVO">
+    <select id="getTaskByTime" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskNumVO">
         SELECT t1.DAY as updateTime,COUNT(t2.task_id)as num
         FROM
         ( SELECT DATE(create_time) AS DAY FROM wk_temp_date t WHERE t.create_time BETWEEN #{startTime} and #{endTime})
@@ -47,7 +47,7 @@
         ORDER BY
         t1.DAY ASC
     </select>
-    <select id="getTaskByTimeNoStart" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskNumVO">
+    <select id="getTaskByTimeNoStart" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskNumVO">
         SELECT t1.DAY as updateTime,COUNT(t2.task_id)as num
         FROM
         ( SELECT DATE(create_time) AS DAY FROM wk_temp_date t WHERE t.create_time BETWEEN #{startTime} and #{endTime})
@@ -69,7 +69,7 @@
         ORDER BY
         t1.DAY ASC
     </select>
-    <select id="getTaskByTimeRun" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskNumVO">
+    <select id="getTaskByTimeRun" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskNumVO">
         SELECT t1.DAY as updateTime,COUNT(t2.task_id)as num
         FROM
         ( SELECT DATE(create_time) AS DAY FROM wk_temp_date t WHERE t.create_time BETWEEN #{startTime} and #{endTime})
@@ -91,7 +91,7 @@
         ORDER BY
         t1.DAY ASC
     </select>
-    <select id="getTaskBurnout" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskBurnoutVO">
+    <select id="getTaskBurnout" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskBurnoutVO">
 
         SELECT
         t1.DAY AS updateTime,
@@ -139,7 +139,7 @@
         WHERE project_id = #{projectId}
     </select>
 
-    <select id="queryAddTaskPageWithUserSort" resultType="com.mbp.eng.module.work.entity.PO.ProjectTask">
+    <select id="queryAddTaskPageWithUserSort" resultType="com.mbp.pmp.module.work.entity.PO.ProjectTask">
         SELECT * FROM
         (
         SELECT
@@ -259,7 +259,7 @@
     </select>
 
 
-    <select id="queryTaskPageWithUserSort" resultType="com.mbp.eng.module.work.entity.PO.ProjectTask">
+    <select id="queryTaskPageWithUserSort" resultType="com.mbp.pmp.module.work.entity.PO.ProjectTask">
         SELECT
         pt.*,
         IFNULL(us.sort_num,0) sort_num
@@ -313,7 +313,7 @@
         ORDER BY us.sort_num DESC
     </select>
 
-    <select id="queryUserTaskList" resultType="com.mbp.eng.module.work.entity.PO.ProjectTask">
+    <select id="queryUserTaskList" resultType="com.mbp.pmp.module.work.entity.PO.ProjectTask">
         SELECT t.*,
         (SELECT name FROM wk_project WHERE project_id = t.project_id) AS project_name,
         (SELECT name FROM wk_project WHERE project_id = t.project_id) AS belong_project_name,
@@ -348,7 +348,7 @@
         </if>
     </select>
 
-    <select id="queryUserTaskCount" resultType="com.mbp.eng.module.work.entity.VO.ProjectUserTaskCountVO">
+    <select id="queryUserTaskCount" resultType="com.mbp.pmp.module.work.entity.VO.ProjectUserTaskCountVO">
         SELECT
             IFNULL( COUNT( t.task_id ), 0 ) `all`,
             IFNULL( sum( CASE WHEN t.`type` = 1 THEN 1 ELSE 0 END ), 0 ) iteration,
@@ -361,7 +361,7 @@
             t.STATUS != 3   and p.status=1
 	AND t.main_user_id = #{userTaskQueryBO.mainUserId}
     </select>
-    <select id="getTaskExtendInfo" resultType="com.mbp.eng.module.work.entity.PO.ProjectTask">
+    <select id="getTaskExtendInfo" resultType="com.mbp.pmp.module.work.entity.PO.ProjectTask">
         SELECT
         pt.task_id,
         pt.NAME,

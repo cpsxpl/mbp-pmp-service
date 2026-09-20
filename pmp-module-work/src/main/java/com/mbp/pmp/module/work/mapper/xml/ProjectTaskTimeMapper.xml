@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.eng.module.work.mapper.ProjectTaskTimeMapper">
+<mapper namespace="com.mbp.pmp.module.work.mapper.ProjectTaskTimeMapper">
 
-    <select id="queryProjectTaskTimeList" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskTimeListVO">
+    <select id="queryProjectTaskTimeList" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskTimeListVO">
         select wpt.task_id,wpt.type, wpt.name,wpt.belong_iteration_id, (SELECT sum(wptt.actual_hour) FROM
         wk_project_task_time as wptt WHERE wptt.task_id
         = wpt.task_id) as totalTime from
@@ -31,7 +31,7 @@
         ) AS dateType
     </select>
 
-    <select id="queryProjectTaskTimeByTaskId" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskTimeVO">
+    <select id="queryProjectTaskTimeByTaskId" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskTimeVO">
         select wpt.task_id, wpt.actual_hour, (SELECT sum(wptt.actual_hour) FROM wk_project_task_time as wptt WHERE
         wptt.task_id
         = wpt.task_id) as registeredHours from
@@ -41,7 +41,7 @@
             and wpt.task_id = #{taskId}
         </if>
     </select>
-    <select id="queryProjectTaskTimeMaxAndMin" resultType="com.mbp.eng.module.work.entity.VO.ProjectTaskTimeMaxAndMinVO">
+    <select id="queryProjectTaskTimeMaxAndMin" resultType="com.mbp.pmp.module.work.entity.VO.ProjectTaskTimeMaxAndMinVO">
         SELECT MIN(tt.begin_time) as begin_time, MAX(tt.end_time) as end_time
         from wk_project_task_time tt
                  INNER JOIN wk_project_task pt on tt.task_id = pt.task_id

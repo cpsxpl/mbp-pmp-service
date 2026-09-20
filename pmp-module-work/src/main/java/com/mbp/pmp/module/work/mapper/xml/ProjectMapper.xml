@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.eng.module.work.mapper.ProjectMapper">
+<mapper namespace="com.mbp.pmp.module.work.mapper.ProjectMapper">
     <select id="queryRoleName" resultType="java.lang.String">
         select a.role_name
         from wk_admin_role as a
         where a.role_id = #{roleId}
     </select>
-    <select id="queryOwnerRoleList" resultType="com.mbp.eng.module.work.entity.BO.ProjectOwnerRoleSimpleBO">
+    <select id="queryOwnerRoleList" resultType="com.mbp.pmp.module.work.entity.BO.ProjectOwnerRoleSimpleBO">
         select a.user_id,a.role_id, c.role_name
         from wk_project_user as a
                  left join wk_admin_role as c on a.role_id = c.role_id
         where a.project_id = #{projectId}
     </select>
-    <select id="getProjectCount" resultType="com.mbp.eng.module.work.common.project.ProjectCountBO">
+    <select id="getProjectCount" resultType="com.mbp.pmp.module.work.common.project.ProjectCountBO">
 
         SELECT
         p.project_id,
@@ -33,7 +33,7 @@
 
 
     </select>
-    <select id="allProject" resultType="com.mbp.eng.module.work.entity.PO.Project">
+    <select id="allProject" resultType="com.mbp.pmp.module.work.entity.PO.Project">
         select * from  wk_project;
     </select>
 

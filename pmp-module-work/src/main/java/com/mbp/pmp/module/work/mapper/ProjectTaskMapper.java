@@ -9,7 +9,6 @@ import com.mbp.pmp.module.work.entity.PO.ProjectTask;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskBurnoutVO;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskNumVO;
 import com.mbp.pmp.module.work.entity.VO.ProjectUserTaskCountVO;
-import com.mbp.pmp.module.work.entity.BO.ProjectTaskQueryBO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;

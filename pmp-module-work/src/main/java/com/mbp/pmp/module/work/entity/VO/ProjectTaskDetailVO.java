@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.mbp.pmp.module.work.entity.BO.FileEntity;
 import com.mbp.pmp.module.work.entity.BO.ProjectTaskLabelBO;
 import com.mbp.pmp.module.work.entity.BO.SimpleCrmEntity;
-import com.mbp.pmp.module.work.entity.BO.FileEntity;
-import com.mbp.pmp.module.work.entity.BO.ProjectTaskLabelBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

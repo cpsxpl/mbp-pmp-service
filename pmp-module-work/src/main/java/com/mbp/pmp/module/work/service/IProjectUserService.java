@@ -9,9 +9,6 @@ import com.mbp.pmp.module.work.common.project.ProjectOwnerRoleBO;
 import com.mbp.pmp.module.work.entity.BO.ProjectRoleQueryBO;
 import com.mbp.pmp.module.work.entity.PO.ProjectUser;
 import com.mbp.pmp.module.work.entity.VO.ProjectRolesGroupVO;
-import com.mbp.pmp.module.work.common.admin.AdminEditProjectRoleBO;
-import com.mbp.pmp.module.work.common.admin.AdminProjectRole;
-import com.mbp.pmp.module.work.common.admin.AdminProjectRoleBO;
 
 import java.util.List;
 

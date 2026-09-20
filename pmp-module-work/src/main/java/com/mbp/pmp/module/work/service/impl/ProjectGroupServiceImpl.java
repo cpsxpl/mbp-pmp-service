@@ -15,7 +15,6 @@ import com.mbp.pmp.module.work.service.IProjectGroupManagementService;
 import com.mbp.pmp.module.work.service.IProjectGroupService;
 import com.mbp.pmp.module.work.service.IProjectService;
 import com.mbp.pmp.module.work.service.IProjectUserService;
-import com.mbp.pmp.module.work.constant.GroupTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

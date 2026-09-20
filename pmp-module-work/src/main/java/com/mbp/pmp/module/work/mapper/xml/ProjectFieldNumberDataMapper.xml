@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.eng.module.work.mapper.ProjectFieldNumberDataMapper">
+<mapper namespace="com.mbp.pmp.module.work.mapper.ProjectFieldNumberDataMapper">
     <select id="queryMaxNumber" resultType="java.lang.Integer">
         SELECT max(field_number) FROM wk_project_field_number_data
         WHERE field_id = #{fieldId}

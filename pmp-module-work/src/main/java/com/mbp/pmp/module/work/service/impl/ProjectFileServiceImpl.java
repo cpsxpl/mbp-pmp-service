@@ -20,7 +20,6 @@ import com.mbp.pmp.module.work.entity.BO.FileEntity;
 import com.mbp.pmp.module.work.entity.PO.AdminFile;
 import com.mbp.pmp.module.work.mapper.ProjectFileMapper;
 import com.mbp.pmp.module.work.service.IProjectFileService;
-import com.mbp.pmp.module.work.common.admin.AdminDeleteByBatchIdBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

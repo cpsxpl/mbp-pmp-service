@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.eng.module.work.mapper.ProjectEventStatusMapper">
-    <select id="queryEventStatusByEventId" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+<mapper namespace="com.mbp.pmp.module.work.mapper.ProjectEventStatusMapper">
+    <select id="queryEventStatusByEventId" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,
                ps.sys_type,
@@ -15,7 +15,7 @@
         where (pes.use_status=1 or pes.use_status=2)  and  pes.project_event_id = #{eventId}
     </select>
 
-    <select id="queryEventStatusByEventIdAndSysType" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="queryEventStatusByEventIdAndSysType" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         SELECT
         pes.id,
         pes.project_event_id,
@@ -37,7 +37,7 @@
 
     </select>
 
-    <select id="notAddStatus" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="notAddStatus" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select es.id, es.project_event_id, ps.sys_type, ps.status_name, ps.project_status_id, ps.status_type,es.sorting
         from wk_project_event_status es
                  INNER JOIN wk_project_status ps on es.project_status_id = ps.project_status_id
@@ -50,7 +50,7 @@
                       from wk_project_scheme_relation_board srb
                       where srb.scheme_relation_id = #{schemeRelationId}));
     </select>
-    <select id="queryEventStatusByEventStatusId" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="queryEventStatusByEventStatusId" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,
                pes.use_status,
@@ -63,7 +63,7 @@
                  INNER JOIN wk_project_status ps on pes.project_status_id = ps.project_status_id
         where pes.id = #{eventStatusId}
     </select>
-    <select id="queryEventStatusByEventIdAndUseStatus" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="queryEventStatusByEventIdAndUseStatus" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,
                ps.sys_type,
@@ -77,7 +77,7 @@
         where pes.project_event_id = #{eventId}
           and pes.use_status = #{useStatus}
     </select>
-    <select id="queryEventStatusById" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="queryEventStatusById" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,
                ps.sys_type,
@@ -89,7 +89,7 @@
                  INNER JOIN wk_project_status ps on pes.project_status_id = ps.project_status_id
         where pes.id = #{id}
     </select>
-    <select id="applicationSchemeStatusList" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="applicationSchemeStatusList" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,
                pes.use_status,
@@ -105,7 +105,7 @@
        order by   pes.sorting asc
 /*          and (pes.use_status =0 or pes.use_status = 1)
 */    </select>
-    <select id="applicationSchemeProjectStatusList" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="applicationSchemeProjectStatusList" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,
                pes.use_status,
@@ -123,7 +123,7 @@
         order by   pes.sorting asc
 /*          and (pes.use_status =0 or pes.use_status = 1)
 */    </select>
-    <select id="queryEventStatusByStatusName" resultType="com.mbp.eng.module.work.entity.PO.ProjectEventStatus">
+    <select id="queryEventStatusByStatusName" resultType="com.mbp.pmp.module.work.entity.PO.ProjectEventStatus">
         select  pes.* from wk_project_event_status pes INNER JOIN wk_project_status ps on pes.project_status_id=ps.project_status_id where
             (pes.use_status=1 or pes.use_status=2) and  ps.status_name=#{statusName} and project_event_id=#{eventId}
       and project_id=#{projectId} LIMIT 1
