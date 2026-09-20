@@ -55,6 +55,7 @@
         <easy-trans.version>3.1.5</easy-trans.version>
         <tk.mybatis.version>3.4.6</tk.mybatis.version>
         <!-- DB 相关_end -->
+        <jetcache.starter.redis.version>2.7.1</jetcache.starter.redis.version>
         <!-- easy poi_start -->
         <easypoi.version>3.2.0</easypoi.version>
         <!-- easy poi_end -->
@@ -577,6 +578,12 @@
             </dependency>-->
             <!-- 通用Mapper_end -->
             <!-- DB 相关_end -->
+
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-starter-redis-lettuce</artifactId>
+                <version>${jetcache.starter.redis.version}</version>
+            </dependency>
 
             <!-- easy poi_start -->
             <dependency>
