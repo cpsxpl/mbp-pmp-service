@@ -1,7 +1,5 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.BO.ProjectTaskUserBO;
 import com.kakarote.work.service.IProjectTaskUserService;
@@ -18,14 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
  * 项目任务成员表 前端控制器
  * </p>
  *
- * @author zyh
+ * @author cpsxpl
  * @since 2022-10-27
  */
 @RestController
 @RequestMapping("/projectTaskUser")
 @Api(tags = "项目任务成员管理")
 public class ProjectUserTaskController {
-
     @Autowired
     private IProjectTaskUserService projectTaskUserService;
 
@@ -36,4 +33,3 @@ public class ProjectUserTaskController {
         return Result.ok();
     }
 }
-

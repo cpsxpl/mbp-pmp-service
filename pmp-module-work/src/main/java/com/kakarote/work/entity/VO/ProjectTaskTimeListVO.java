@@ -14,7 +14,7 @@ import java.util.List;
  * 项目事项工时列表VO
  * </p>
  *
- * @author zhangyongjie
+ * @author cpsxpl
  * @since 2022-09-21
  */
 @Data
@@ -22,7 +22,6 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskTimeListVO对象", description = "项目事项工时列表VO")
 public class ProjectTaskTimeListVO {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "项目事项主键ID")
@@ -38,8 +37,8 @@ public class ProjectTaskTimeListVO {
     @ApiModelProperty(value = "所属迭代ID")
     private Long belongIterationId;
 
-//    @ApiModelProperty(value = "统计集合")
+    //    @ApiModelProperty(value = "统计集合")
 //    private List<Map<String, Object>> actualHourList;
-@ApiModelProperty(value = "工时列表")
-private List<ProjectTaskTime> taskTimeVOS;
+    @ApiModelProperty(value = "工时列表")
+    private List<ProjectTaskTime> taskTimeVOS;
 }

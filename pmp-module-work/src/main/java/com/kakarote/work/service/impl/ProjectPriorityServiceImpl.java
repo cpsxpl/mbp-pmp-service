@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
  * 事件绑定属性表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-20
  */
 @Service
-public class ProjectPriorityServiceImpl  implements IProjectPriorityService {
-
-
+public class ProjectPriorityServiceImpl implements IProjectPriorityService {
     /**
      * 获取优先级描述
      *

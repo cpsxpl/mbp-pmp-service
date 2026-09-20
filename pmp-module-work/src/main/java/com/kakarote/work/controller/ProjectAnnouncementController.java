@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.BO.DeleteProjectAnnouncementBO;
 import com.kakarote.work.entity.BO.ProjectAnnouncementBO;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
  * 项目公告表 前端控制器
- * </p>
  *
  * @author cpsxpl
  * @since 2022-09-09
@@ -29,7 +26,6 @@ import java.util.List;
 @RequestMapping("/projectAnnouncement")
 @Api(tags = "项目公告new")
 public class ProjectAnnouncementController {
-
     @Autowired
     private IProjectAnnouncementService projectAnnouncementService;
 
@@ -59,5 +55,4 @@ public class ProjectAnnouncementController {
     public Result<List<ProjectAnnouncementVO>> getProjectAnnouncement(@RequestBody ProjectAnnouncementBO projectAnnouncementBO) {
         return Result.ok(projectAnnouncementService.getProjectAnnouncement(projectAnnouncementBO));
     }
-
 }

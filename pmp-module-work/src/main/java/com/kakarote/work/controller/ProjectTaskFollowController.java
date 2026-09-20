@@ -1,10 +1,7 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.result.Result;
-
 import com.kakarote.work.entity.BO.ProjectTaskFollowsQueryBO;
 import com.kakarote.work.entity.PO.ProjectTaskFollows;
 import com.kakarote.work.entity.VO.ProjectTaskFollowsVO;
@@ -12,14 +9,16 @@ import com.kakarote.work.service.IProjectTaskFollowsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/projectTaskFollow")
 @Api(tags = "任务评论记录活动new")
 public class ProjectTaskFollowController {
-
     @Autowired
     IProjectTaskFollowsService projectFollowsService;
 
@@ -45,9 +44,7 @@ public class ProjectTaskFollowController {
     @PostMapping("/delProjectFollows")
     @ApiOperation("删除评论记录活动")
     public Result delProjectFollows(@RequestParam("taskFollowId") Long taskFollowId) {
-          projectFollowsService.removeById(taskFollowId);
-          return Result.ok();
+        projectFollowsService.removeById(taskFollowId);
+        return Result.ok();
     }
-
 }
-

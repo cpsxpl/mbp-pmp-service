@@ -7,12 +7,11 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author zyh
+ * @author cpsxpl
  */
 @Data
 @ApiModel("任务成员")
 public class ProjectTaskUserBO {
-
     @ApiModelProperty("项目id")
     private Long projectId;
 
@@ -21,5 +20,4 @@ public class ProjectTaskUserBO {
 
     @ApiModelProperty("成员ids")
     private List<Long> userIds;
-
 }

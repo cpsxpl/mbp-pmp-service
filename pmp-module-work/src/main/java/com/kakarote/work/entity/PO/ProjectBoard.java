@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,17 +19,16 @@ import java.time.LocalDateTime;
  * 项目管理 看板信息
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_project_board")
-@ApiModel(value="ProjectBoard对象", description="项目管理 看板信息")
+@ApiModel(value = "ProjectBoard对象", description = "项目管理 看板信息")
 public class ProjectBoard implements Serializable {
-
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
     @TableId(value = "project_board_id", type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "状态id")
     private Long projectBoardId;
@@ -52,7 +55,4 @@ public class ProjectBoard implements Serializable {
     @ApiModelProperty(value = "创建人ID")
     @TableField(fill = FieldFill.INSERT)
     private Long createUserId;
-
-
-
 }

@@ -1,6 +1,5 @@
 package com.kakarote.work.entity.VO;
 
-
 import com.kakarote.common.result.BasePage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @AllArgsConstructor

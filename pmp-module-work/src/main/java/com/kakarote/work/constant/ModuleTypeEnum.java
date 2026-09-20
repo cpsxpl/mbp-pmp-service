@@ -3,26 +3,25 @@ package com.kakarote.work.constant;
 import java.util.Objects;
 
 /**
- * @author zyh
+ * @author cpsxpl
  * 缺陷类型
  */
 
 public enum ModuleTypeEnum {
     //缺陷类型
-    ALL(0,"全部事项"),
-    ITERATION(1,"迭代"),
-    NEED(2,"需求"),
-    TASK(3,"任务"),
-    DEFECT(4,"缺陷"),
-    ;
+    ALL(0, "全部事项"),
+    ITERATION(1, "迭代"),
+    NEED(2, "需求"),
+    TASK(3, "任务"),
+    DEFECT(4, "缺陷");
 
-    private ModuleTypeEnum(Integer type, String desc) {
+    ModuleTypeEnum(Integer type, String desc) {
         this.type = type;
         this.desc = desc;
     }
 
-    private Integer type;
-    private String desc;
+    private final Integer type;
+    private final String desc;
 
     public Integer getType() {
         return type;
@@ -49,5 +48,4 @@ public enum ModuleTypeEnum {
         }
         return null;
     }
-
 }

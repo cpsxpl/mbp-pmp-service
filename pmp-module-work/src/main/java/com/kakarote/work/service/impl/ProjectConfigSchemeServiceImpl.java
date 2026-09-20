@@ -4,8 +4,6 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.work.entity.PO.ProjectConfigScheme;
@@ -22,22 +20,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.baomidou.mybatisplus.extension.toolkit.Db.removeById;
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
+
 /**
  * <p>
  * 项目配置方案表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @Service
 public class ProjectConfigSchemeServiceImpl extends BaseServiceImpl<ProjectConfigSchemeMapper, ProjectConfigScheme> implements IProjectConfigSchemeService {
-
     @Autowired
     IProjectEventService projectEventService;
     @Autowired
     IProjectSchemeRelationService projectSchemeRelationService;
-
 
     @Override
     public void add(ProjectConfigScheme projectConfigScheme) {

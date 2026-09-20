@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -10,7 +9,12 @@ import com.kakarote.common.result.BasePage;
 import com.kakarote.common.result.Result;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
-import com.kakarote.work.common.project.*;
+import com.kakarote.work.common.project.BaseUtil;
+import com.kakarote.work.common.project.BatchSetTaskBO;
+import com.kakarote.work.common.project.EscapeUtil;
+import com.kakarote.work.common.project.ProjectTaskUserSortBO;
+import com.kakarote.work.common.project.ProjectUserTaskQueryBO;
+import com.kakarote.work.common.project.ProjectUtil;
 import com.kakarote.work.entity.BO.ProjectTaskCountBO;
 import com.kakarote.work.entity.BO.ProjectTaskDescriptionBO;
 import com.kakarote.work.entity.BO.ProjectTaskExportBO;
@@ -24,17 +28,29 @@ import com.kakarote.work.entity.BO.RelevancyRelatedDemandIdBO;
 import com.kakarote.work.entity.BO.StartBelongIterationBO;
 import com.kakarote.work.entity.PO.ProjectTask;
 import com.kakarote.work.entity.PO.ProjectTaskLog;
-import com.kakarote.work.entity.VO.*;
+import com.kakarote.work.entity.VO.ProjectBelongIterationVO;
+import com.kakarote.work.entity.VO.ProjectBoardVO;
+import com.kakarote.work.entity.VO.ProjectTaskBurnoutVO;
+import com.kakarote.work.entity.VO.ProjectTaskCountVO;
+import com.kakarote.work.entity.VO.ProjectTaskEventCountVO;
+import com.kakarote.work.entity.VO.ProjectUserTaskCountVO;
 import com.kakarote.work.service.IProjectService;
 import com.kakarote.work.service.IProjectTaskLogService;
 import com.kakarote.work.service.IProjectTaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,22 +64,19 @@ import java.util.Optional;
  * 任务表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @RestController
 @RequestMapping("/projectTask")
 @Api(tags = "任务new")
 public class ProjectTaskController {
-
     @Autowired
     private IProjectTaskService projectTaskService;
     @Autowired
     private IProjectService projectService;
     @Autowired
     private IProjectTaskLogService projectTaskLogService;
-
-
 
     @PostMapping("/saveProjectTask")
     @ApiOperation("新建项目任务")
@@ -93,8 +106,8 @@ public class ProjectTaskController {
         ProjectTaskLog projectTaskLog = new ProjectTaskLog();
         projectTaskLog.setTaskId(projectTask.getPid());
         projectTaskLog.setType(1);
-        String contentLog ="创建了子工作项"+ projectTask.getName();
-         projectTaskLog.setContent(contentLog);
+        String contentLog = "创建了子工作项" + projectTask.getName();
+        projectTaskLog.setContent(contentLog);
         projectTaskLogService.saveTaskLog(projectTaskLog);
         return Result.ok();
     }
@@ -115,7 +128,6 @@ public class ProjectTaskController {
     @PostMapping("/setProgress")
     @ApiOperation("更新进度")
     public Result<Boolean> setProgress(@RequestBody ProjectTask projectTask) {
-
         return Result.ok(projectTaskService.setProgress(projectTask));
     }
 
@@ -180,7 +192,6 @@ public class ProjectTaskController {
         return Result.ok(projectTaskService.getAllMatters(projectTaskQueryBO));
     }
 
-
     @RequestMapping(value = "/queryProjectPlanTaskList", method = RequestMethod.POST)
     @ApiOperation("分页查询待规划")
     public Result<BasePage<ProjectTask>> queryProjectPlanTaskList(@RequestBody ProjectTaskQueryBO projectTaskQueryBO) {
@@ -235,7 +246,7 @@ public class ProjectTaskController {
         projectTaskLog.setTaskId(projectTaskDescriptionBO.getTaskId());
         projectTaskLog.setType(1);
         String content = "";
-        String clean = EscapeUtil.clean(Optional.ofNullable(projectTaskDescriptionBO.getDescription()).orElse(StrUtil.EMPTY).toString());
+        String clean = EscapeUtil.clean(Optional.ofNullable(projectTaskDescriptionBO.getDescription()).orElse(StrUtil.EMPTY));
         projectTaskLog.setContent(content.concat(" 设置任务描述 ").concat(clean));
         projectTaskLogService.saveTaskLog(projectTaskLog);
         return Result.ok();
@@ -256,7 +267,6 @@ public class ProjectTaskController {
                 set(ProjectTask::getFinishTime, startBelongIterationBO.getStopTime()).update();
         return Result.ok();
     }
-
 
     @PostMapping("/belongIterationDetails/{taskId}")
     @ApiOperation("迭代详情")
@@ -431,7 +441,6 @@ public class ProjectTaskController {
     @PostMapping("/projectTaskExportColumn")
     @ApiOperation("获取导出字段列表")
     public Result<List<JSONObject>> projectTaskExportColumn(@RequestParam("taskType") Integer taskType) {
-
         return Result.ok(projectTaskService.projectTaskExportColumn(taskType));
     }
 
@@ -459,8 +468,5 @@ public class ProjectTaskController {
     public Result<Boolean> batchSetProjectTask(BatchSetTaskBO batchSetTaskBO) {
         projectTaskService.batchSetProjectTask(batchSetTaskBO);
         return Result.ok();
-
     }
-
 }
-

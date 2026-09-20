@@ -1,14 +1,16 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.PO.ProjectGroup;
 import com.kakarote.work.service.IProjectGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,14 +19,13 @@ import java.util.List;
  * 项目分组表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-09
  */
 @RestController
 @RequestMapping("/projectGroup")
 @Api(tags = "项目分组new")
 public class ProjectGroupController {
-
     @Autowired
     private IProjectGroupService projectGroupService;
 
@@ -62,4 +63,3 @@ public class ProjectGroupController {
         return Result.ok();
     }
 }
-

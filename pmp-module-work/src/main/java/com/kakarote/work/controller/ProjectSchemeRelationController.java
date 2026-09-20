@@ -1,7 +1,5 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.PO.ProjectSchemeRelation;
 import com.kakarote.work.service.IProjectSchemeRelationService;
@@ -18,14 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
  * 项目配置方案和事件关系表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @RestController
 @RequestMapping("/projectSchemeRelation")
 @Api(tags = "目配置方案和事件关系")
 public class ProjectSchemeRelationController {
-
     @Autowired
     private IProjectSchemeRelationService projectSchemeRelationService;
 
@@ -35,6 +32,4 @@ public class ProjectSchemeRelationController {
         ProjectSchemeRelation projectSchemeRelation = projectSchemeRelationService.queryEventId(schemeId, taskType);
         return Result.ok(projectSchemeRelation);
     }
-
 }
-

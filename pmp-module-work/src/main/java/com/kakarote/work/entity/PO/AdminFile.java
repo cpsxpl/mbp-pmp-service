@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,12 +26,11 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_admin_file")
-@ApiModel(value="AdminFile对象", description="附件表")
+@ApiModel(value = "AdminFile对象", description = "附件表")
 public class AdminFile implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID=1L;
-
-    @TableId(value = "file_id",type = IdType.ASSIGN_ID)
+    @TableId(value = "file_id", type = IdType.ASSIGN_ID)
     private Long fileId;
 
     @ApiModelProperty(value = "附件名称")
@@ -69,5 +72,4 @@ public class AdminFile implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
-
 }

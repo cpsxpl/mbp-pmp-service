@@ -22,13 +22,10 @@ import java.util.Date;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskNumVO对象", description = "事项完成情况统计VO")
 public class ProjectTaskNumVO {
-
     @ApiModelProperty(value = "完成数量")
     private Integer num;
 
     @ApiModelProperty(value = "时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
-
-
 }

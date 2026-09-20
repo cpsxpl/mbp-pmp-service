@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.AdminRoleMenu;
 
@@ -22,5 +21,5 @@ public interface IProjectRoleMenuService extends BaseService<AdminRoleMenu> {
      * @param menuIdList:menuIdList
      * @return
      */
-    public void saveRoleMenu(Long roleId, List<Long> menuIdList);
+    void saveRoleMenu(Long roleId, List<Long> menuIdList);
 }

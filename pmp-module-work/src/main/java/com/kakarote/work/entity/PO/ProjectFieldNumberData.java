@@ -16,15 +16,14 @@ import java.time.LocalDateTime;
  * 自定义编号字段存值表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("wk_project_field_number_data")
-@ApiModel(value="ProjectFieldNumberData对象", description="自定义编号字段存值表")
+@ApiModel(value = "ProjectFieldNumberData对象", description = "自定义编号字段存值表")
 public class ProjectFieldNumberData implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键ID")
@@ -56,6 +55,4 @@ public class ProjectFieldNumberData implements Serializable {
 
     @ApiModelProperty(value = "修改人ID")
     private Long updateUserId;
-
-
 }

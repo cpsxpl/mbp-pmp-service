@@ -14,17 +14,16 @@ import java.util.List;
  * 项目管理 看板信息
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 
-@ApiModel(value="ProjectBoard对象", description="项目管理 看板信息")
+@ApiModel(value = "ProjectBoard对象", description = "项目管理 看板信息")
 public class ProjectBoardTaskVO implements Serializable {
-
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     private Long projectBoardId;
 

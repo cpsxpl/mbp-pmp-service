@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.BO.ProjectBoardTaskBO;
 import com.kakarote.work.entity.VO.ProjectBoardVO;
@@ -8,7 +7,11 @@ import com.kakarote.work.service.IProjectBoardTaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,17 +21,15 @@ import java.util.List;
  * 项目管理 看板信息
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 @RestController
 @RequestMapping("/projectBoardTask")
 @Api(tags = "项目管理：看板任务信息")
 public class ProjectBoardTaskController implements Serializable {
-
     @Autowired
     IProjectBoardTaskService boardTaskService;
-
 
     @PostMapping("/queryBoardList")
     @ApiOperation("看板任务列表")

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
  * 项目管理：状态表 Mapper 接口
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 public interface ProjectStatusMapper extends BaseMapper<ProjectStatus> {

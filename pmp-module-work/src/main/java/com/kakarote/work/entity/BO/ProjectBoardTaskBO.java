@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class ProjectBoardTaskBO {
-
     Long projectId;
     Integer taskType;
 

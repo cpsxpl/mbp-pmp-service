@@ -4,9 +4,6 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kakarote.common.exception.BusinessException;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.work.constant.ProjectCodeEnum;
@@ -16,7 +13,11 @@ import com.kakarote.work.entity.PO.ProjectBoardStatus;
 import com.kakarote.work.entity.PO.ProjectEventStatus;
 import com.kakarote.work.entity.PO.ProjectTask;
 import com.kakarote.work.mapper.ProjectEventStatusMapper;
-import com.kakarote.work.service.*;
+import com.kakarote.work.service.IProjectBoardStatusService;
+import com.kakarote.work.service.IProjectEventStatusService;
+import com.kakarote.work.service.IProjectSchemeRelationBoardService;
+import com.kakarote.work.service.IProjectService;
+import com.kakarote.work.service.IProjectTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,12 +31,11 @@ import java.util.List;
  * 事件属性表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @Service
 public class ProjectEventStatusServiceImpl extends BaseServiceImpl<ProjectEventStatusMapper, ProjectEventStatus> implements IProjectEventStatusService {
-
     @Autowired
     private IProjectService projectService;
     @Autowired
@@ -52,9 +52,7 @@ public class ProjectEventStatusServiceImpl extends BaseServiceImpl<ProjectEventS
         if (this.lambdaQuery().eq(ProjectEventStatus::getProjectId, projectEventStatus.getProjectId()).
                 eq(ProjectEventStatus::getProjectEventId, projectEventStatus.getProjectEventId()).
                 eq(ProjectEventStatus::getProjectStatusId, projectEventStatus.getProjectStatusId()).count() > 0) {
-
             throw new BusinessException(ProjectCodeEnum.PROJECT_EVENT_STATUS_REPETITION_ERROR);
-
         }
         projectEventStatus.setInitStatus(0);
         projectEventStatus.setCreateUserId(UserUtil.getUserId());
@@ -76,9 +74,8 @@ public class ProjectEventStatusServiceImpl extends BaseServiceImpl<ProjectEventS
     }
 
     @Override
-    public List<ProjectEventStatus> queryEventStatusByEventId(Long eventId, Integer sysType,Long projectId) {
-
-        return this.baseMapper.queryEventStatusByEventIdAndSysType(eventId, sysType,projectId);
+    public List<ProjectEventStatus> queryEventStatusByEventId(Long eventId, Integer sysType, Long projectId) {
+        return this.baseMapper.queryEventStatusByEventIdAndSysType(eventId, sysType, projectId);
     }
 
     @Override
@@ -87,8 +84,8 @@ public class ProjectEventStatusServiceImpl extends BaseServiceImpl<ProjectEventS
     }
 
     @Override
-    public List<ProjectEventStatus> notAddStatus(Long eventId, Long schemeRelationId,Long projectId) {
-        return this.baseMapper.notAddStatus(eventId, schemeRelationId,projectId);
+    public List<ProjectEventStatus> notAddStatus(Long eventId, Long schemeRelationId, Long projectId) {
+        return this.baseMapper.notAddStatus(eventId, schemeRelationId, projectId);
     }
 
     @Override
@@ -138,9 +135,7 @@ public class ProjectEventStatusServiceImpl extends BaseServiceImpl<ProjectEventS
             projectService.initEventStatus(projectId, eventId);
             projectEventStatuses = this.baseMapper.applicationSchemeProjectStatusList(projectId, eventId);
         }
-
         return projectEventStatuses;
-
     }
 
     @Override
@@ -169,26 +164,22 @@ public class ProjectEventStatusServiceImpl extends BaseServiceImpl<ProjectEventS
         this.lambdaUpdate().eq(ProjectEventStatus::getUseStatus, 2).eq(ProjectEventStatus::getProjectEventId, projectTransferStatusBO.getEventId()).remove();
         this.lambdaUpdate().eq(ProjectEventStatus::getUseStatus, 0).eq(ProjectEventStatus::getProjectEventId, projectTransferStatusBO.getEventId()).
                 set(ProjectEventStatus::getUseStatus, 1).update();
-
     }
 
     @Override
     public void updateInitStatus(Long eventId, Long eventStatusId) {
         ProjectEventStatus projectEventStatus = this.lambdaUpdate().getBaseMapper().selectById(eventStatusId);
         if (projectEventStatus.getUseStatus() != 1) {
-
             throw new BusinessException(ProjectCodeEnum.PROJECT_EVENT_STATUS_INIT_ERROR);
-
         }
         this.lambdaUpdate().eq(ProjectEventStatus::getProjectEventId, eventId).set(ProjectEventStatus::getInitStatus, 0).update();
-
         this.lambdaUpdate().eq(ProjectEventStatus::getProjectEventId, eventId).eq(ProjectEventStatus::getId, eventStatusId)
                 .set(ProjectEventStatus::getInitStatus, 1).update();
     }
 
     @Override
-    public ProjectEventStatus queryEventStatusByStatusName(String statusName, Integer eventId,Long projectId) {
-        return this.baseMapper.queryEventStatusByStatusName(statusName, eventId,projectId);
+    public ProjectEventStatus queryEventStatusByStatusName(String statusName, Integer eventId, Long projectId) {
+        return this.baseMapper.queryEventStatusByStatusName(statusName, eventId, projectId);
     }
 
     @Override

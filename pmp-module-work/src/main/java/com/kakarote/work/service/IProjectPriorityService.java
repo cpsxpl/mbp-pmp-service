@@ -5,17 +5,17 @@ package com.kakarote.work.service;
  * 项目角色表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-10-27
  */
 public interface IProjectPriorityService {
-
     /**
      * 功能描述: <br>
      * 〈获取优先级〉
+     *
      * @param priority
      * @return java.lang.String
-     * @author ZYH
+     * @author cpsxpl
      */
-    public String getPriorityDesc(Integer priority);
+    String getPriorityDesc(Integer priority);
 }

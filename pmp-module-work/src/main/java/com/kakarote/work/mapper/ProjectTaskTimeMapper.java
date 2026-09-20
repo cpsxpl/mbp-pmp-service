@@ -1,6 +1,5 @@
 package com.kakarote.work.mapper;
 
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseMapper;
 import com.kakarote.work.entity.BO.ProjectGanttQueryBO;
 import com.kakarote.work.entity.PO.ProjectTaskTime;
@@ -17,18 +16,17 @@ import java.util.Map;
  * 项目事项工时表 Mapper 接口
  * </p>
  *
- * @author zhangyongjie
+ * @author cpsxpl
  * @since 2022-09-21
  */
 public interface ProjectTaskTimeMapper extends BaseMapper<ProjectTaskTime> {
-
     /**
      * 获取项目事项工时列表
      *
      * @param projectGanttQueryBO
      * @return
      */
-    List<ProjectTaskTimeListVO> queryProjectTaskTimeList( @Param("projectGanttQueryBO") ProjectGanttQueryBO projectGanttQueryBO);
+    List<ProjectTaskTimeListVO> queryProjectTaskTimeList(@Param("projectGanttQueryBO") ProjectGanttQueryBO projectGanttQueryBO);
 
     /**
      * 获取工时
@@ -46,6 +44,6 @@ public interface ProjectTaskTimeMapper extends BaseMapper<ProjectTaskTime> {
      * @return
      */
     ProjectTaskTimeVO queryProjectTaskTimeByTaskId(@Param("taskId") Long taskId);
-    ProjectTaskTimeMaxAndMinVO queryProjectTaskTimeMaxAndMin(@Param("projectId") Long projectId);
 
+    ProjectTaskTimeMaxAndMinVO queryProjectTaskTimeMaxAndMin(@Param("projectId") Long projectId);
 }

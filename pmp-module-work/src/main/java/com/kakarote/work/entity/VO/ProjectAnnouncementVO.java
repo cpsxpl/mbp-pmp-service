@@ -19,9 +19,8 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="ProjectAnnouncementVO对象", description="项目公告表")
+@ApiModel(value = "ProjectAnnouncementVO对象", description = "项目公告表")
 public class ProjectAnnouncementVO {
-
     @ApiModelProperty(value = "项目公告ID")
     private Long projectAnnouncementId;
 
@@ -48,5 +47,4 @@ public class ProjectAnnouncementVO {
 
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
-
 }

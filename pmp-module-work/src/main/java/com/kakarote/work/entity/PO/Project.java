@@ -1,7 +1,11 @@
 package com.kakarote.work.entity.PO;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
 import com.kakarote.work.entity.VO.ProjectTaskCountVO;
 import io.swagger.annotations.ApiModel;
@@ -20,7 +24,7 @@ import java.util.List;
  * 项目表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @Data
@@ -29,7 +33,6 @@ import java.util.List;
 @TableName("wk_project")
 @ApiModel(value = "Project对象", description = "项目表")
 public class Project implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "项目ID")
@@ -140,5 +143,4 @@ public class Project implements Serializable {
     @ApiModelProperty(value = "项目管理员列表")
     @TableField(exist = false)
     private List<String> projectAdminList;
-
 }

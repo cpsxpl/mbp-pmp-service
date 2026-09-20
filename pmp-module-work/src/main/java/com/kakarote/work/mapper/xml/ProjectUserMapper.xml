@@ -28,19 +28,19 @@
     </select>
 
 
-	<select id="queryProjectAdminUser" resultType="java.lang.Long">
+    <select id="queryProjectAdminUser" resultType="java.lang.Long">
 		select u.user_id from wk_project_user u
 								   INNER JOIN wk_admin_role r on r.role_id=u.role_id
 		where u.project_id=#{projectId}  and r.label=1;
 	</select>
 
-	<!--查询我可访问的项目id集合-->
-	<select id="queryMyProjectIds" resultType="java.lang.Long">
+    <!--查询我可访问的项目id集合-->
+    <select id="queryMyProjectIds" resultType="java.lang.Long">
 			select p.project_id  from wk_project_user u left  join wk_project p on p.project_id=u.project_id where p.status=1
 			and u.user_id = #{userId}
 	</select>
 
-	<select id="getProjectAuth" resultType="com.kakarote.work.entity.PO.AdminMenu">
+    <select id="getProjectAuth" resultType="com.kakarote.work.entity.PO.AdminMenu">
 
 		SELECT
 			a.menu_id,

@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.BO.ProjectGanttQueryBO;
 import com.kakarote.work.entity.PO.ProjectTaskTime;
@@ -15,11 +14,10 @@ import java.util.List;
  * 项目事项工时表 服务类
  * </p>
  *
- * @author zhangyongjie
+ * @author cpsxpl
  * @since 2022-09-21
  */
 public interface IProjectTaskTimeService extends BaseService<ProjectTaskTime> {
-
     /**
      * 获取项目事项工时列表
      *
@@ -43,5 +41,4 @@ public interface IProjectTaskTimeService extends BaseService<ProjectTaskTime> {
      * @return
      */
     ProjectTaskTimeVO queryProjectTaskTimeByTaskId(Long taskId);
-
 }

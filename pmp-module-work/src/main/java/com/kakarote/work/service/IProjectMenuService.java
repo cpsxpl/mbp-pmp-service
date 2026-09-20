@@ -8,9 +8,8 @@ import com.kakarote.work.entity.PO.AdminMenu;
  * 项目角色表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-10-27
  */
 public interface IProjectMenuService extends BaseService<AdminMenu> {
-
 }

@@ -16,7 +16,7 @@ import java.util.Date;
  * 事件绑定属性表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-20
  */
 @Data
@@ -24,7 +24,6 @@ import java.util.Date;
 @TableName("wk_project_event_field")
 @ApiModel(value = "ProjectEventField对象", description = "事件绑定属性表")
 public class ProjectEventField implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键ID")
@@ -65,6 +64,4 @@ public class ProjectEventField implements Serializable {
 
     @ApiModelProperty(value = "对应主键batchId")
     private String batchId;
-
-
 }

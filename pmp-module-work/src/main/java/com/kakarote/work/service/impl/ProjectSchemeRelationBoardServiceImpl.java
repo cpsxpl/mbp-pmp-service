@@ -1,7 +1,6 @@
 package com.kakarote.work.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.work.entity.BO.ProjectBoardBO;
 import com.kakarote.work.entity.BO.ResetBoardBO;
@@ -78,7 +77,6 @@ public class ProjectSchemeRelationBoardServiceImpl extends BaseServiceImpl<Proje
             });
             projectBoardStatusService.saveBatch(projectBoardStatusList);
         }
-
     }
 
     @Override
@@ -86,7 +84,6 @@ public class ProjectSchemeRelationBoardServiceImpl extends BaseServiceImpl<Proje
         ProjectSchemeRelation psr = schemeRelationService.getById(schemeRelationId);
         List<ProjectEventStatus> eventStatuts = eventStatusService.notAddStatus(psr.getEventId(), psr.getId(), projectId);
         return eventStatuts;
-
     }
 
     @Override

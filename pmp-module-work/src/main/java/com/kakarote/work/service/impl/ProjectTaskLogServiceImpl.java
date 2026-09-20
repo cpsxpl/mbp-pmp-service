@@ -3,10 +3,6 @@ package com.kakarote.work.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.kakarote.common.entity.UserInfo;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
@@ -31,16 +27,13 @@ import java.util.stream.Collectors;
  * 任务日志表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-14
  */
 @Service
 public class ProjectTaskLogServiceImpl extends BaseServiceImpl<ProjectTaskLogMapper, ProjectTaskLog> implements IProjectTaskLogService {
-
-
     @Autowired
     IProjectTaskService projectTaskService;
-
 
     @Override
     public List<ProjectTaskLogVO> queryTaskLog(Long taskId, Long type) {

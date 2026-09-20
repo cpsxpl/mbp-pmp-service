@@ -1,10 +1,7 @@
 package com.kakarote.work.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-
 import com.kakarote.common.result.BasePage;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.work.entity.BO.ProjectStatusQueryBO;
 import com.kakarote.work.entity.PO.ProjectStatus;
@@ -19,12 +16,11 @@ import java.util.List;
  * 项目管理：状态表 服务实现类
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 @Service
 public class ProjectStatusServiceImpl extends BaseServiceImpl<ProjectStatusMapper, ProjectStatus> implements IProjectStatusService {
-
     @Override
     public void add(ProjectStatus projectStatus) {
         Long sorting = this.lambdaQuery().count() + 1;
@@ -48,6 +44,4 @@ public class ProjectStatusServiceImpl extends BaseServiceImpl<ProjectStatusMappe
         BasePage<ProjectStatus> page = this.page(query.parse(), lambdaQueryWrapper);
         return page;
     }
-
-
 }

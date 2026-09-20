@@ -4,8 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.date.DateException;
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.date.*;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.NumberUtil;
@@ -18,19 +21,31 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.kakarote.common.entity.UserInfo;
 import com.kakarote.common.exception.BusinessException;
-import com.kakarote.common.result.*;
-
+import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.ApplicationContextHolder;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.RecursionUtil;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
-import com.kakarote.work.common.project.*;
 import com.kakarote.work.common.admin.AdminMessageEnum;
+import com.kakarote.work.common.project.BaseUtil;
+import com.kakarote.work.common.project.BatchSetTaskBO;
+import com.kakarote.work.common.project.EscapeUtil;
+import com.kakarote.work.common.project.ExcelParseUtil;
+import com.kakarote.work.common.project.ProjectAuthUtil;
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
+import com.kakarote.work.common.project.ProjectTaskUserSortBO;
+import com.kakarote.work.common.project.ProjectUserTaskQueryBO;
+import com.kakarote.work.common.project.ProjectUtil;
+import com.kakarote.work.common.project.SeparatorUtil;
 import com.kakarote.work.common.project.SystemCodeEnum;
-import com.kakarote.work.constant.*;
-import com.kakarote.work.entity.BO.*;
+import com.kakarote.work.common.project.TaskOwnerBO;
+import com.kakarote.work.constant.ModuleTypeEnum;
+import com.kakarote.work.constant.PriorityEnum;
+import com.kakarote.work.constant.ProjectCodeEnum;
+import com.kakarote.work.constant.TaskUserSortEnum;
+import com.kakarote.work.constant.WrongTypeEnum;
+import com.kakarote.work.entity.BO.FileEntity;
 import com.kakarote.work.entity.BO.ProjectTaskCountBO;
 import com.kakarote.work.entity.BO.ProjectTaskExportBO;
 import com.kakarote.work.entity.BO.ProjectTaskNameBO;
@@ -39,12 +54,56 @@ import com.kakarote.work.entity.BO.ProjectTaskUserBO;
 import com.kakarote.work.entity.BO.RelevancyBelongIterationBO;
 import com.kakarote.work.entity.BO.RelevancyChildTaskBO;
 import com.kakarote.work.entity.BO.RelevancyRelatedDemandIdBO;
-import com.kakarote.work.entity.PO.*;
-import com.kakarote.work.entity.VO.*;
+import com.kakarote.work.entity.PO.AdminRole;
+import com.kakarote.work.entity.PO.Project;
+import com.kakarote.work.entity.PO.ProjectEvent;
+import com.kakarote.work.entity.PO.ProjectEventStatus;
+import com.kakarote.work.entity.PO.ProjectLabel;
+import com.kakarote.work.entity.PO.ProjectSchemeRelation;
+import com.kakarote.work.entity.PO.ProjectSchemeRelationBoard;
+import com.kakarote.work.entity.PO.ProjectTask;
+import com.kakarote.work.entity.PO.ProjectTaskLog;
+import com.kakarote.work.entity.PO.ProjectTaskRelation;
+import com.kakarote.work.entity.PO.ProjectTaskTime;
+import com.kakarote.work.entity.PO.ProjectTaskUser;
+import com.kakarote.work.entity.PO.ProjectTaskUserSort;
+import com.kakarote.work.entity.VO.ProjectBoardStatusVO;
+import com.kakarote.work.entity.VO.ProjectBoardVO;
+import com.kakarote.work.entity.VO.ProjectTaskBurnoutVO;
+import com.kakarote.work.entity.VO.ProjectTaskCountVO;
+import com.kakarote.work.entity.VO.ProjectTaskEventCountVO;
+import com.kakarote.work.entity.VO.ProjectTaskNumVO;
+import com.kakarote.work.entity.VO.ProjectTaskVO;
+import com.kakarote.work.entity.VO.ProjectUserTaskCountVO;
 import com.kakarote.work.mapper.ProjectTaskMapper;
-import com.kakarote.work.service.*;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.*;
+import com.kakarote.work.service.IProjectBoardStatusService;
+import com.kakarote.work.service.IProjectBoardTaskService;
+import com.kakarote.work.service.IProjectEventService;
+import com.kakarote.work.service.IProjectEventStatusService;
+import com.kakarote.work.service.IProjectFileService;
+import com.kakarote.work.service.IProjectLabelService;
+import com.kakarote.work.service.IProjectSchemeRelationBoardService;
+import com.kakarote.work.service.IProjectSchemeRelationService;
+import com.kakarote.work.service.IProjectService;
+import com.kakarote.work.service.IProjectTaskLogService;
+import com.kakarote.work.service.IProjectTaskRelationService;
+import com.kakarote.work.service.IProjectTaskService;
+import com.kakarote.work.service.IProjectTaskTimeService;
+import com.kakarote.work.service.IProjectTaskUserService;
+import com.kakarote.work.service.IProjectTaskUserSortService;
+import com.kakarote.work.service.IProjectUserService;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,27 +111,39 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
 
 /**
  * <p>
  * 任务表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @Service
 public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, ProjectTask> implements IProjectTaskService {
-
     @Autowired
     private IProjectService projectService;
     @Autowired
@@ -106,7 +177,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
     @Autowired
     private IProjectTaskUserSortService projectTaskUserSortService;
 
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveProjectTask(ProjectTask projectTask) {
@@ -124,7 +194,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
 //        this.saveProjectTaskRelation(projectTask);
         //发送任务通知
         this.saveProjectTaskSend(projectTask);
-
     }
 
     @Override
@@ -213,7 +282,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
 
     @Override
     public List<ProjectTaskBurnoutVO> getTaskBurnout(ProjectTaskCountBO projectTaskQueryBO) {
-
         ProjectTask projectTask = lambdaQuery().eq(ProjectTask::getTaskId, projectTaskQueryBO.getTaskId()).one();
         //查询到当前迭代下的需求任务缺陷id
         List<ProjectTask> projectTaskList = new ArrayList<>();
@@ -334,7 +402,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         }
                     }
                 }
-
             }
         }
         projectTaskEventCountVO.setDemandNoStartNum(demandNoStartNum);
@@ -349,7 +416,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         return projectTaskEventCountVO;
     }
 
-
     @Override
     public BasePage<ProjectTask> getAllMatters(ProjectTaskQueryBO projectTaskQueryBO) {
         LambdaQueryWrapper<ProjectTask> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -359,7 +425,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         lambdaQueryWrapper.isNull(ProjectTask::getBelongIterationId);
         BasePage<ProjectTask> projectTaskPage = this.page(projectTaskQueryBO.parse(), lambdaQueryWrapper);
         if (projectTaskPage.getList().size() > 0) {
-
             Long projectId = projectTaskPage.getList().get(0).getProjectId();
             List<ProjectTask> projectTasks = this.lambdaQuery().eq(ProjectTask::getProjectId, projectId).list();
             setField(projectTaskPage.getList(), projectTasks, projectTaskQueryBO);
@@ -382,13 +447,13 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         lambdaQueryWrapper.ne(ProjectTask::getType, 1);
         lambdaQueryWrapper.isNull(ProjectTask::getBelongIterationId);
         //查询没有更新到个人排序的任务
-        List<ProjectTask> projectTasksAdd = this.getBaseMapper().queryAddTaskPageWithUserSort(projectTaskQueryBO,UserUtil.getUserId());
-        if(CollectionUtil.isNotEmpty(projectTasksAdd)){
-            Long maxSort = this.getBaseMapper().queryMaxTaskPageWithUserSort(projectTaskQueryBO,UserUtil.getUserId());
-            List<ProjectTaskUserSort>  addList = new ArrayList<>();
+        List<ProjectTask> projectTasksAdd = this.getBaseMapper().queryAddTaskPageWithUserSort(projectTaskQueryBO, UserUtil.getUserId());
+        if (CollectionUtil.isNotEmpty(projectTasksAdd)) {
+            Long maxSort = this.getBaseMapper().queryMaxTaskPageWithUserSort(projectTaskQueryBO, UserUtil.getUserId());
+            List<ProjectTaskUserSort> addList = new ArrayList<>();
             //如果需要增加则更新个人排序
             for (ProjectTask projectTask : projectTasksAdd) {
-                maxSort+=1;
+                maxSort += 1;
                 ProjectTaskUserSort projectTaskUserSort = BeanUtil.copyProperties(projectTask, ProjectTaskUserSort.class);
                 projectTaskUserSort.setUserId(UserUtil.getUserId());
                 projectTaskUserSort.setSortType(TaskUserSortEnum.TOPLAN.getType());
@@ -397,9 +462,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             }
             projectTaskUserSortService.saveBatch(addList);
         }
-
-
-        BasePage<ProjectTask> projectTaskPage = this.getBaseMapper().queryTaskPageWithUserSort(projectTaskQueryBO.parse(), projectTaskQueryBO,UserUtil.getUserId());
+        BasePage<ProjectTask> projectTaskPage = this.getBaseMapper().queryTaskPageWithUserSort(projectTaskQueryBO.parse(), projectTaskQueryBO, UserUtil.getUserId());
 //        projectTaskPage = this.page(projectTaskQueryBO.parse(), lambdaQueryWrapper);
         if (projectTaskPage.getList().size() > 0) {
             Long projectId = projectTaskPage.getList().get(0).getProjectId();
@@ -414,17 +477,17 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         LambdaQueryWrapper<ProjectTask> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         setLamdaQuery(lambdaQueryWrapper, projectTaskQueryBO);
         lambdaQueryWrapper.eq(ProjectTask::getType, ModuleTypeEnum.ITERATION.getType());
-        if(ObjectUtil.isNotEmpty(projectTaskQueryBO.getType()) && ModuleTypeEnum.ITERATION.getType().equals(projectTaskQueryBO.getType())){
+        if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getType()) && ModuleTypeEnum.ITERATION.getType().equals(projectTaskQueryBO.getType())) {
             //如果项目id为空则是工作台迭代，不包含已完成
-            if(ObjectUtil.isEmpty(projectTaskQueryBO.getProjectId())){
+            if (ObjectUtil.isEmpty(projectTaskQueryBO.getProjectId())) {
                 lambdaQueryWrapper.ne(ProjectTask::getStatus, 3);
-                List<Long> projectIds=ApplicationContextHolder.getBean(IProjectUserService.class).queryMyProjectIds();
-                if(ObjectUtil.isEmpty(projectIds) || CollUtil.isEmpty(projectIds)){
+                List<Long> projectIds = ApplicationContextHolder.getBean(IProjectUserService.class).queryMyProjectIds();
+                if (ObjectUtil.isEmpty(projectIds) || CollUtil.isEmpty(projectIds)) {
                     projectIds = CollUtil.newArrayList(0L);
                 }
-                lambdaQueryWrapper.in(ProjectTask::getProjectId,projectIds);
+                lambdaQueryWrapper.in(ProjectTask::getProjectId, projectIds);
             }
-        }else{
+        } else {
             lambdaQueryWrapper.ne(ProjectTask::getStatus, 3);
         }
 
@@ -446,7 +509,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             ProjectTask vo = new ProjectTask();
 
             //设置项目信息
-            if(CollUtil.isNotEmpty(projectMap) && projectMap.containsKey(p.getProjectId())){
+            if (CollUtil.isNotEmpty(projectMap) && projectMap.containsKey(p.getProjectId())) {
                 Project project = projectMap.get(p.getProjectId());
                 p.setBelongProjectName(project.getName());
                 p.setProjectType(project.getType());
@@ -479,11 +542,11 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
     }
 
     private void setLamdaQuery(LambdaQueryWrapper<ProjectTask> lamdaQuery, ProjectTaskQueryBO projectTaskQueryBO) {
-        if(ObjectUtil.isNotEmpty(projectTaskQueryBO.getType()) && projectTaskQueryBO.getType().equals(ModuleTypeEnum.ITERATION.getType())){
-            if(ObjectUtil.isNotEmpty(projectTaskQueryBO.getProjectId())){
+        if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getType()) && projectTaskQueryBO.getType().equals(ModuleTypeEnum.ITERATION.getType())) {
+            if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getProjectId())) {
                 lamdaQuery.eq(ProjectTask::getProjectId, projectTaskQueryBO.getProjectId());
             }
-        }else{
+        } else {
             lamdaQuery.eq(ProjectTask::getProjectId, projectTaskQueryBO.getProjectId());
         }
         lamdaQuery.eq(StrUtil.isNotBlank(projectTaskQueryBO.getStartTime()), ProjectTask::getStartTime, projectTaskQueryBO.getStartTime());
@@ -514,9 +577,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         newWrapper.isNull(ProjectTask::getBelongIterationId);
                     });
                 });
-
             }
-
         } else {
             if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getBelongIterationId())) {
                 lamdaQuery.eq(ObjectUtil.isNotEmpty(projectTaskQueryBO.getBelongIterationId()), ProjectTask::getBelongIterationId, projectTaskQueryBO.getBelongIterationId());
@@ -547,11 +608,11 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             lambdaQueryWrapper.eq(ProjectTask::getRelatedDemandId, projectTaskQueryBO.getRelatedDemandId());
         }
         if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getName())) {
-            lambdaQueryWrapper.and(StrUtil.isNotBlank(projectTaskQueryBO.getName()),wrapper->{
-                wrapper.or(newWrapper->{
+            lambdaQueryWrapper.and(StrUtil.isNotBlank(projectTaskQueryBO.getName()), wrapper -> {
+                wrapper.or(newWrapper -> {
                     newWrapper.like(ProjectTask::getName, projectTaskQueryBO.getName());
                 });
-                wrapper.or(newWrapper->{
+                wrapper.or(newWrapper -> {
                     newWrapper.like(ProjectTask::getNum, projectTaskQueryBO.getName());
                 });
             });
@@ -559,7 +620,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getTaskId())) {
             lambdaQueryWrapper.eq(ProjectTask::getPid, projectTaskQueryBO.getTaskId());
         } else {
-
             if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getType())) {
                 lambdaQueryWrapper.eq(ProjectTask::getType, projectTaskQueryBO.getType());
             }
@@ -573,7 +633,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         lambdaQueryWrapper.in(ObjectUtil.isNotEmpty(projectTaskQueryBO.getMainUserIdQuery()) && projectTaskQueryBO.getMainUserIdQuery().size() > 0, ProjectTask::getMainUserId, projectTaskQueryBO.getMainUserIdQuery());
         BasePage<ProjectTask> projectTaskPage = this.page(projectTaskQueryBO.parse(), lambdaQueryWrapper);
         if (projectTaskPage.getList().size() > 0) {
-
             Long projectId = projectTaskPage.getList().get(0).getProjectId();
             List<ProjectTask> projectTasks = this.lambdaQuery().eq(ProjectTask::getProjectId, projectId).list();
             setField(projectTaskPage.getList(), projectTasks, projectTaskQueryBO);
@@ -581,31 +640,30 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         return projectTaskPage;
     }
 
-
     private void setField(List<ProjectTask> projectTaskList, List<ProjectTask> projectTasks, ProjectTaskQueryBO projectTaskQueryBO) {
-        if(CollectionUtil.isEmpty(projectTaskList)){
+        if (CollectionUtil.isEmpty(projectTaskList)) {
             return;
         }
         List<Long> taskIds = projectTaskList.stream().map(ProjectTask::getTaskId).distinct().collect(Collectors.toList());
-        if(CollectionUtil.isEmpty(taskIds)){
+        if (CollectionUtil.isEmpty(taskIds)) {
             return;
         }
-        List<ProjectTask> extendTaskList =  this.getBaseMapper().getTaskExtendInfo(taskIds);
+        List<ProjectTask> extendTaskList = this.getBaseMapper().getTaskExtendInfo(taskIds);
         Map<Long, ProjectTask> taskMap = extendTaskList.stream().collect(Collectors.toMap(ProjectTask::getTaskId, Function.identity()));
 
         for (ProjectTask projectTask : projectTaskList) {
             ProjectTask extendTask = taskMap.get(projectTask.getTaskId());
-            if(ObjectUtil.isNotEmpty(extendTask)){
+            if (ObjectUtil.isNotEmpty(extendTask)) {
                 projectTask.setBelongIterationName(extendTask.getBelongIterationName());
                 projectTask.setRelatedDemandName(extendTask.getRelatedDemandName());
                 projectTask.setBoardStatusName(extendTask.getBoardStatusName());
                 UserInfo mainUser = UserCacheUtil.getUserInfo(projectTask.getMainUserId());
-                if(ObjectUtil.isNotEmpty(mainUser)){
+                if (ObjectUtil.isNotEmpty(mainUser)) {
                     projectTask.setMainUserName(mainUser.getNickname());
                     projectTask.setMainUserImg(mainUser.getUserImg());
                 }
                 UserInfo createUser = UserCacheUtil.getUserInfo(projectTask.getCreateUserId());
-                if(ObjectUtil.isNotEmpty(createUser)){
+                if (ObjectUtil.isNotEmpty(createUser)) {
                     projectTask.setCreateUserName(createUser.getNickname());
                     projectTask.setCreateUserImg(createUser.getUserImg());
                 }
@@ -615,10 +673,8 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                 Long eventId = projectEventService.lambdaQuery().eq(ProjectEvent::getType, projectTask.getType() - 1).list().get(0).getId();
                 projectTask.setEventId(eventId);
             }
-
             setField(projectTask, projectTasks, projectTaskQueryBO);
         }
-
     }
 
     private void setField(ProjectTask projectTask, List<ProjectTask> projectTasks, ProjectTaskQueryBO projectTaskQueryBO) {
@@ -628,7 +684,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             List<ProjectOwnerRoleBO> adminRoles = projectService.queryOwnerRoleList(projectTask.getProjectId()).stream().filter(r -> {
                 boolean bool = false;
                 for (AdminRole adminRole : r.getAdminRoles()) {
-
                     if (adminRole.getRoleName().equals("项目管理员")) {
                         bool = true;
                     }
@@ -648,36 +703,36 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
     @Override
     public ProjectTask getProjectTaskDetails(Long taskId) {
         ProjectTask projectTask = this.getById(taskId);
-        if(ObjectUtil.isEmpty(projectTask)){
+        if (ObjectUtil.isEmpty(projectTask)) {
             throw new BusinessException(ProjectCodeEnum.PROJECT_TASK_DELETE_ERROR);
         }
         ProjectTaskQueryBO projectTaskQueryBO = new ProjectTaskQueryBO();
         projectTaskQueryBO.setShowType(2);
         Long projectId = projectTask.getProjectId();
         Project project = projectService.getById(projectId);
-        if(ObjectUtil.isEmpty(project)){
+        if (ObjectUtil.isEmpty(project)) {
             //删除项目任务
             projectService.deleteProject(projectId);
             throw new BusinessException(ProjectCodeEnum.PROJECT_EXIST_ERROR);
         }
         List<ProjectTask> extendInfo = this.getBaseMapper().getTaskExtendInfo(Collections.singletonList(projectTask.getTaskId()));
-        if(CollectionUtil.isNotEmpty(extendInfo)){
-            if(CollectionUtil.isNotEmpty(extendInfo)){
-                extendInfo.forEach(item->{
+        if (CollectionUtil.isNotEmpty(extendInfo)) {
+            if (CollectionUtil.isNotEmpty(extendInfo)) {
+                extendInfo.forEach(item -> {
                     UserInfo mainUser = UserCacheUtil.getUserInfo(item.getMainUserId());
-                    if(ObjectUtil.isNotEmpty(mainUser)){
+                    if (ObjectUtil.isNotEmpty(mainUser)) {
                         item.setMainUserName(mainUser.getNickname());
                         item.setMainUserImg(mainUser.getUserImg());
                     }
                     UserInfo createUser = UserCacheUtil.getUserInfo(item.getCreateUserId());
-                    if(ObjectUtil.isNotEmpty(createUser)){
+                    if (ObjectUtil.isNotEmpty(createUser)) {
                         item.setCreateUserName(createUser.getNickname());
                         item.setCreateUserImg(createUser.getUserImg());
                     }
                 });
             }
         }
-        if(CollectionUtil.isNotEmpty(extendInfo)){
+        if (CollectionUtil.isNotEmpty(extendInfo)) {
             ProjectTask extendTask = CollectionUtil.getFirst(extendInfo);
             projectTask.setBelongIterationName(extendTask.getBelongIterationName());
             projectTask.setRelatedDemandName(extendTask.getRelatedDemandName());
@@ -751,7 +806,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
      *
      * @Param:
      * @Return:
-     * @Author: guole
+     * @Author: cpsxpl
      * @Date: 2022/9/30 17:31
      */
     private void setChildTree(ProjectTask projectTask, List<ProjectTask> projectTasks) {
@@ -896,7 +951,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         errList.add(rowList);
                         return;
                     }
-                    ProjectEventStatus projectEventStatus = projectEventStatusService.queryEventStatusByStatusName(rowList.get(3).toString(), taskType - 1,projectId);
+                    ProjectEventStatus projectEventStatus = projectEventStatusService.queryEventStatusByStatusName(rowList.get(3).toString(), taskType - 1, projectId);
                     if (ObjectUtil.isNull(projectEventStatus)) {
                         rowList.add(0, "无此状态");
                         errList.add(rowList);
@@ -913,7 +968,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         boardStatusId = eventStatuses.get(0).getId();
                         status = eventStatuses.get(0).getStatusType();
                     }
-
                 }
                 // 优先级 3高 2中 1低 0无
                 if (ObjectUtil.isNotEmpty(rowList.get(4))) {
@@ -933,10 +987,8 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         default:
                             rowList.add(0, "请填写正确优先级：高 中 低 无");
                             errList.add(rowList);
-
                     }
                 }
-
                 if (!StrUtil.isEmptyIfStr(rowList.get(5))) {
                     Object object = rowList.get(5);
                     String time;
@@ -965,9 +1017,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         return;
                     }
                 }
-
-
-                ;
                 Date startTime = null;
                 if (ObjectUtil.isNotEmpty(rowList.get(5))) {
                     startTime = DateUtil.parse(rowList.get(5).toString().trim());
@@ -976,7 +1025,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                 if (ObjectUtil.isNotEmpty(rowList.get(6))) {
                     stopTime = DateUtil.parse(rowList.get(6).toString().trim());
                 }
-
 
                 String labelIds = "";
                 if (!StrUtil.isEmptyIfStr(rowList.get(7))) {
@@ -994,13 +1042,11 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         if (CollectionUtil.isNotEmpty(labels)) {
                             labelIds = labels.stream().map(ProjectLabel::getLabelId).map(StrUtil::toString).collect(Collectors.joining(","));
                         } else {
-
                             rowList.add(0, "错误的标签");
                             errList.add(rowList);
                             return;
                         }
                     }
-
                 }
                 Integer progress = 0;
                 Integer estimatedManHours = 0;
@@ -1019,7 +1065,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         estimatedManHours = Integer.parseInt(cellStr);
                     }
                 }
-
                 if (taskType == 4) {
                     Object cellWrongType = rowList.get(12);
                     if (ObjectUtil.isNotEmpty(cellWrongType)) {
@@ -1030,7 +1075,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                         }
                     }
                 }
-
 
                 ProjectTask projectTask = new ProjectTask();
                 projectTask.setMainUserId(mainUserId);
@@ -1047,7 +1091,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                 projectTask.setEstimatedManHours(estimatedManHours);
                 projectTask.setWrongType(wrongType);
                 projectTask.setPriority(priority);
-                projectTask.setNum(this.getBaseMapper().getMaxNum(projectId)+ 1);
+                projectTask.setNum(this.getBaseMapper().getMaxNum(projectId) + 1);
                 //添加事项
                 this.save(projectTask);
                 //添加任务成员
@@ -1085,7 +1129,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                     }
                     projectTaskTimeService.save(projectTaskTime);
                 }
-
             } else {
                 if (rowIndex == 1) {
                     rowList.add(0, "错误信息");
@@ -1208,8 +1251,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                     cellFont.setColor(Font.COLOR_RED);
                     cellStyle.setFont(cellFont);
                     cell.setCellStyle(cellStyle);
-
-
                 } else {
                     cell.setCellValue(record.getString("name"));
                 }
@@ -1219,7 +1260,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
             response.setHeader("Content-Disposition", "attachment;filename=task_import.xls");
             wb.write(response.getOutputStream());
-
         } catch (Exception e) {
             log.error("error", e);
         } finally {
@@ -1247,7 +1287,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             ProjectEventStatus eventStatus = projectEventStatusService.queryEventStatusById((Long) map.get("boardStatusId"));
             map.put("boardStatusId", eventStatus.getStatusName());
             List<String> projectLabels = projectLabelService.lambdaQuery().in(ProjectLabel::getLabelId, map.get("label")).list().stream().map(ProjectLabel::getName).collect(Collectors.toList());
-            map.put("label", StrUtil.join(",",projectLabels));
+            map.put("label", StrUtil.join(",", projectLabels));
             //描述去除html标签获取文本
             Object description = map.get("description");
             String clean = EscapeUtil.clean(Optional.ofNullable(description).orElse(StrUtil.EMPTY).toString());
@@ -1272,31 +1312,18 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                     }
                 }
             }
-
         }
         if (projectTaskExport.getExportColumn().size() > 0) {
-
-
             for (JSONObject jsonObject : recordList) {
                 if (projectTaskExport.getExportColumn().contains(jsonObject.getString("fieldName"))) {
                     dataList.add(ExcelParseUtil.toEntity(jsonObject.getString("fieldName"), jsonObject.getString("name")));
-
-
                 }
-
             }
-
         } else {
-
-
             for (JSONObject jsonObject : recordList) {
                 dataList.add(ExcelParseUtil.toEntity(jsonObject.getString("fieldName"), jsonObject.getString("name")));
-
             }
-
         }
-
-
         ExcelParseUtil.exportExcel(list, new ExcelParseUtil.ExcelParseService() {
             @Override
             public String getExcelName() {
@@ -1317,14 +1344,13 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             public boolean isXlsx() {
                 return true;
             }
-        }, dataList,response,1);
+        }, dataList, response, 1);
     }
 
     @Override
     public List<JSONObject> projectTaskExportColumn(Integer taskType) {
         return getRecordList(taskType);
     }
-
 
     /**
      * 删除任务
@@ -1333,7 +1359,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
     public void deleteTask(Long taskId) {
         ProjectTask projectTask = this.getById(taskId);
         if (projectTask.getType() == 2) {
-
             this.lambdaUpdate().eq(ProjectTask::getRelatedDemandId, taskId).
                     set(ProjectTask::getRelatedDemandId, null).update();
         }
@@ -1354,7 +1379,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         ProjectSchemeRelation projectSchemeRelation = projectSchemeRelationService.queryEventId(project.getSchemeId(), projectTaskQueryBO.getType());
 
         List<ProjectSchemeRelationBoard> boardRelationList = projectSchemeRelationBoardService.lambdaQuery().
-                eq(ProjectSchemeRelationBoard::getSchemeRelationId, projectSchemeRelation.getId()).eq(ProjectSchemeRelationBoard::getProjectId,projectTaskQueryBO.getProjectId()).list();
+                eq(ProjectSchemeRelationBoard::getSchemeRelationId, projectSchemeRelation.getId()).eq(ProjectSchemeRelationBoard::getProjectId, projectTaskQueryBO.getProjectId()).list();
         List<ProjectTask> projectTasks = this.getTaskList(projectTaskQueryBO);
         for (ProjectSchemeRelationBoard board : boardRelationList) {
             ProjectBoardVO boardVO = BeanUtil.toBean(board, ProjectBoardVO.class);
@@ -1410,8 +1435,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             projectTaskUserSort.setSortNum(Integer.toUnsignedLong(sortList.size()) - i);
             projectTaskUserSort.setSortType(TaskUserSortEnum.TOPLAN.getType());
             projectTaskUserSortList.add(projectTaskUserSort);
-
-
         }
         projectTaskUserSortService.saveBatch(projectTaskUserSortList);
     }
@@ -1430,7 +1453,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getTaskId())) {
             lambdaQueryWrapper.eq(ProjectTask::getPid, projectTaskQueryBO.getTaskId());
         } else {
-
             if (ObjectUtil.isNotEmpty(projectTaskQueryBO.getType())) {
                 lambdaQueryWrapper.eq(ProjectTask::getType, projectTaskQueryBO.getType());
             }
@@ -1445,7 +1467,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         List<ProjectTask> projectTaskPage = this.list(lambdaQueryWrapper);
         return projectTaskPage;
     }
-
 
     /**
      * 判断日期格式是否正确
@@ -1463,7 +1484,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
     }
 
     private List<JSONObject> getRecordList(Integer taskType) {
-        //*事项标题	*描述	处理人	状态	团队成员	优先级	开始时间	截止时间	标签	进度	预估工时	实际投入时长	剩余工时
+        //事项标题 描述 处理人 状态 团队成员 优先级 开始时间 截止时间 标签 进度 预估工时 实际投入时长 剩余工时
         List<JSONObject> recordList = new LinkedList<>();
         recordList.add(new JSONObject().fluentPut("fieldName", "name").fluentPut("name", "事项标题").fluentPut("is_null", 1).fluentPut("type", 1));
         recordList.add(new JSONObject().fluentPut("fieldName", "description").fluentPut("name", "描述").fluentPut("is_null", 0).fluentPut("type", 1));
@@ -1477,7 +1498,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         recordList.add(new JSONObject().fluentPut("fieldName", "estimatedManHours").fluentPut("name", "预估工时").fluentPut("is_null", 0).fluentPut("type", 1));
         recordList.add(new JSONObject().fluentPut("fieldName", "actualHour").fluentPut("name", "实际投入时长").fluentPut("is_null", 0).fluentPut("type", 1));
         recordList.add(new JSONObject().fluentPut("fieldName", "surplusHours").fluentPut("name", "剩余工时").fluentPut("is_null", 0).fluentPut("type", 1));
-
         if (ObjectUtil.isNotEmpty(taskType)) {
             if (taskType.equals(4)) {
                 recordList.add(new JSONObject().fluentPut("fieldName", "wrongType").fluentPut("name", "缺陷类型").fluentPut("is_null", 0).fluentPut("type", 1));
@@ -1488,7 +1508,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
 
         return recordList;
     }
-
 
     public void getProjectTaskEmportQuery(LambdaQueryWrapper<ProjectTask> lambdaQueryWrapper, ProjectTaskExportBO projectTaskExportBO) {
         lambdaQueryWrapper.eq(ProjectTask::getProjectId, projectTaskExportBO.getProjectId());
@@ -1512,8 +1531,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                     .in(ObjectUtil.isNotEmpty(projectTaskExportBO.getLabelQuery()) && projectTaskExportBO.getLabelQuery().size() > 0, ProjectTask::getLabel, projectTaskExportBO.getLabelQuery())
                     .in(ObjectUtil.isNotEmpty(projectTaskExportBO.getMainUserIdQuery()) && projectTaskExportBO.getMainUserIdQuery().size() > 0, ProjectTask::getMainUserId, projectTaskExportBO.getMainUserIdQuery());
         }
-
-
     }
 
     private String getFilePath(MultipartFile file) {
@@ -1529,18 +1546,17 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
 
     @Override
     public BasePage<ProjectTask> queryUserTaskList(ProjectUserTaskQueryBO userTaskQueryBO) {
-
         userTaskQueryBO.setMainUserId(UserUtil.getUserId());
-        BasePage<ProjectTask> projectTaskPage=this.getBaseMapper().queryUserTaskList(userTaskQueryBO.parse(),userTaskQueryBO);
-        if(CollectionUtil.isNotEmpty(projectTaskPage.getList())){
-            projectTaskPage.getList().forEach(item->{
+        BasePage<ProjectTask> projectTaskPage = this.getBaseMapper().queryUserTaskList(userTaskQueryBO.parse(), userTaskQueryBO);
+        if (CollectionUtil.isNotEmpty(projectTaskPage.getList())) {
+            projectTaskPage.getList().forEach(item -> {
                 UserInfo mainUser = UserCacheUtil.getUserInfo(item.getMainUserId());
-                if(ObjectUtil.isNotEmpty(mainUser)){
+                if (ObjectUtil.isNotEmpty(mainUser)) {
                     item.setMainUserName(mainUser.getNickname());
                     item.setMainUserImg(mainUser.getUserImg());
                 }
                 UserInfo createUser = UserCacheUtil.getUserInfo(item.getCreateUserId());
-                if(ObjectUtil.isNotEmpty(createUser)){
+                if (ObjectUtil.isNotEmpty(createUser)) {
                     item.setCreateUserName(createUser.getNickname());
                     item.setCreateUserImg(createUser.getUserImg());
                 }
@@ -1548,9 +1564,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         }
         return projectTaskPage;
     }
-
-
-
     @Override
     public Boolean setProgress(ProjectTask projectTask) {
         ProjectTask oldProjectTask = this.getById(projectTask.getTaskId());
@@ -1608,50 +1621,49 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         String newStartTime = "";
         String oldStopTime = "";
         String newStopTime = "";
-        if(ObjectUtil.isNotEmpty(oldTask.getStartTime())){
+        if (ObjectUtil.isNotEmpty(oldTask.getStartTime())) {
             oldStartTime = DateUtil.formatDate(oldTask.getStartTime());
         }
-        if(ObjectUtil.isNotEmpty(projectTask.getStartTime())){
+        if (ObjectUtil.isNotEmpty(projectTask.getStartTime())) {
             newStartTime = DateUtil.formatDate(projectTask.getStartTime());
         }
-        if(ObjectUtil.isNotEmpty(oldTask.getStopTime())){
+        if (ObjectUtil.isNotEmpty(oldTask.getStopTime())) {
             oldStopTime = DateUtil.formatDate(oldTask.getStopTime());
         }
-        if(ObjectUtil.isNotEmpty(projectTask.getStopTime())){
+        if (ObjectUtil.isNotEmpty(projectTask.getStopTime())) {
             newStopTime = DateUtil.formatDate(projectTask.getStopTime());
         }
         if (!oldStartTime.equals(newStartTime)) {
             contentLog = ProjectUtil.getLogContent("开始时间", DateUtil.formatDate(oldTask.getStartTime()), DateUtil.formatDate(projectTask.getStartTime()));
-            if(StrUtil.isNotBlank(contentLog)){
+            if (StrUtil.isNotBlank(contentLog)) {
                 projectTaskLogService.saveTaskLog(projectTask.getTaskId(), contentLog);
             }
         }
         if (!oldStopTime.equals(newStopTime)) {
             contentLog = ProjectUtil.getLogContent("结束时间", DateUtil.formatDate(oldTask.getStopTime()), DateUtil.formatDate(projectTask.getStopTime()));
-            if(StrUtil.isNotBlank(contentLog)){
+            if (StrUtil.isNotBlank(contentLog)) {
                 projectTaskLogService.saveTaskLog(projectTask.getTaskId(), contentLog);
             }
         }
-
     }
-
     /**
      * 功能描述: <br>
      * 〈查询工作台中各类型数量〉
+     *
      * @param userTaskQueryBO
-     * @author zyh
+     * @author cpsxpl
      */
     @Override
     public ProjectUserTaskCountVO queryUserTaskCount(ProjectUserTaskQueryBO userTaskQueryBO) {
         userTaskQueryBO.setMainUserId(UserUtil.getUserId());
         ProjectUserTaskCountVO projectUserTaskCountVO = this.getBaseMapper().queryUserTaskCount(userTaskQueryBO);
         //查询迭代数量，所有的不包含已完成
-        List<Long> projectIds=ApplicationContextHolder.getBean(IProjectUserService.class).queryMyProjectIds();
-        if(ObjectUtil.isEmpty(projectIds) || CollUtil.isEmpty(projectIds)){
+        List<Long> projectIds = ApplicationContextHolder.getBean(IProjectUserService.class).queryMyProjectIds();
+        if (ObjectUtil.isEmpty(projectIds) || CollUtil.isEmpty(projectIds)) {
             projectUserTaskCountVO.setIteration(0L);
-        }else{
+        } else {
             Long iteration = this.lambdaQuery().eq(ProjectTask::getType, ModuleTypeEnum.ITERATION.getType()).ne(ProjectTask::getStatus, 3).
-                    in(ProjectTask::getProjectId,projectIds).count();
+                    in(ProjectTask::getProjectId, projectIds).count();
             projectUserTaskCountVO.setIteration(iteration);
         }
         return projectUserTaskCountVO;
@@ -1667,7 +1679,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
 
         ModuleTypeEnum moduleTypeEnum = ModuleTypeEnum.enumByType(task.getType());
         String typeName = "";
-        if(ObjectUtil.isNotEmpty(moduleTypeEnum)){
+        if (ObjectUtil.isNotEmpty(moduleTypeEnum)) {
             typeName = moduleTypeEnum.getDesc();
         }
         projectTaskLog.setContent(typeName.concat("名称从 ").concat(task.getName()).concat("修改为 ").concat(projectTaskNameBO.getName()));
@@ -1693,18 +1705,17 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
                 this.updateProjectTaskTime(projectTask);
             }
         }
-
-
     }
 
     /**
      * 功能描述: <br>
      * 〈添加事项任务基础信息〉
+     *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
-    public void saveProjectTaskBase(ProjectTask projectTask){
+    public void saveProjectTaskBase(ProjectTask projectTask) {
         projectTask.setCreateUserId(UserUtil.getUserId());
         if (ObjectUtil.isNull(projectTask.getFile()) || projectTask.getFile().size() == 0) {
             projectTask.setBatchId(IdUtil.simpleUUID());
@@ -1718,24 +1729,21 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             projectTask.setBoardStatusId(eventStatus.getId());
             projectTask.setStatus(eventStatus.getStatusType());
         }
-
-
         //查询最大编号
-
         projectTask.setNum(this.getBaseMapper().getMaxNum(projectTask.getProjectId()) + 1);
         projectTask.setUpdateTime(LocalDateTime.now());
-
         save(projectTask);
     }
 
     /**
      * 功能描述: <br>
      * 〈添加事项成员〉
+     *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
-    public void saveProjectTaskUser(ProjectTask projectTask){
+    public void saveProjectTaskUser(ProjectTask projectTask) {
         //添加任务成员
         ProjectTaskUserBO projectTaskUserBO = new ProjectTaskUserBO();
         projectTaskUserBO.setProjectId(projectTask.getProjectId());
@@ -1765,7 +1773,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
      *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
     public void saveProjectTaskLog(ProjectTask projectTask) {
         ProjectTaskLog projectTaskLog = new ProjectTaskLog();
@@ -1777,7 +1785,6 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             projectTaskLog.setContent(userName.concat("创建需求").concat(projectTask.getName()));
         } else if (3 == projectTask.getType()) {
             projectTaskLog.setContent(userName.concat("创建任务").concat(projectTask.getName()));
-
         } else if (4 == projectTask.getType()) {
             projectTaskLog.setContent(userName.concat("创建缺陷").concat(projectTask.getName()));
         } else {
@@ -1793,20 +1800,21 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
     /**
      * 功能描述: <br>
      * 〈添加事项任务工时记录〉
+     *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
-    public void saveProjectTaskTime(ProjectTask projectTask){
+    public void saveProjectTaskTime(ProjectTask projectTask) {
         List<ProjectTaskTime> taskTimeList = projectTask.getTaskTimeList()
                 .stream()
-                .filter(item->ObjectUtil.isNotEmpty(item.getActualHour()))
+                .filter(item -> ObjectUtil.isNotEmpty(item.getActualHour()))
                 .collect(Collectors.toList());
-        if(CollectionUtil.isEmpty(taskTimeList)){
+        if (CollectionUtil.isEmpty(taskTimeList)) {
             return;
         }
         //添加工时日志
-        Integer actualHour = taskTimeList.stream().filter(item->ObjectUtil.isNotEmpty(item.getActualHour())).mapToInt(ProjectTaskTime::getActualHour).filter(ObjectUtil::isNotEmpty).sum();
+        Integer actualHour = taskTimeList.stream().filter(item -> ObjectUtil.isNotEmpty(item.getActualHour())).mapToInt(ProjectTaskTime::getActualHour).filter(ObjectUtil::isNotEmpty).sum();
         ProjectTaskLog projectTaskLog = new ProjectTaskLog();
         projectTaskLog.setTaskId(projectTask.getTaskId());
         projectTaskLog.setType(2);
@@ -1819,19 +1827,19 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             taskTime.setEndTime(new Date());
         }
         projectTaskTimeService.saveBatch(taskTimeList);
-
     }
 
     /**
      * 功能描述: <br>
      * 〈添加事项子任务〉
+     *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
-    public void saveProjectTaskChild(ProjectTask projectTask){
+    public void saveProjectTaskChild(ProjectTask projectTask) {
         List<ProjectTask> taskList = projectTask.getChildTaskList();
-        if(CollectionUtil.isEmpty(taskList)){
+        if (CollectionUtil.isEmpty(taskList)) {
             return;
         }
         Integer maxNum = this.getBaseMapper().getMaxNum(projectTask.getProjectId());
@@ -1846,38 +1854,38 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         }
         //保存子任务
         this.saveBatch(taskList);
-
     }
 
     /**
      * 功能描述: <br>
      * 〈添加事项关联业务〉
+     *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
-    public void saveProjectTaskRelation(ProjectTask projectTask){
+    public void saveProjectTaskRelation(ProjectTask projectTask) {
         ProjectTaskRelation projectTaskRelation = projectTask.getProjectTaskRelation();
-        if(ObjectUtil.isEmpty(projectTaskRelation)){
+        if (ObjectUtil.isEmpty(projectTaskRelation)) {
             return;
         }
         projectTaskRelation.setTaskId(projectTask.getTaskId());
-        if(ObjectUtil.isEmpty(projectTaskRelation.getFlag())){
+        if (ObjectUtil.isEmpty(projectTaskRelation.getFlag())) {
             projectTaskRelation.setFlag(1);
         }
         //保存关联业务项
-//        projectTaskRelationService.saveProjectTaskRelation(projectTaskRelation);
-
+        //projectTaskRelationService.saveProjectTaskRelation(projectTaskRelation);
     }
 
     /**
      * 功能描述: <br>
      * 〈添加事项发送消息〉
+     *
      * @param
      * @return void
-     * @author zyh
+     * @author cpsxpl
      */
-    public void saveProjectTaskSend(ProjectTask projectTask){
+    public void saveProjectTaskSend(ProjectTask projectTask) {
         Project project = projectService.lambdaQuery().eq(Project::getProjectId, projectTask.getProjectId()).one();
         String content = "";
         if (ObjectUtil.isNotEmpty(projectTask.getMainUserId()) && !UserUtil.getUserId().equals(projectTask.getMainUserId())) {

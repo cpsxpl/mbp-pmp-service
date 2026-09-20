@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("工作台任务信息")
@@ -20,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyTaskVO {
-
     @ApiModelProperty("列表名")
     private String title;
 

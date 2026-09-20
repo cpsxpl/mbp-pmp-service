@@ -1,12 +1,14 @@
 package com.kakarote.work.service.impl;
 
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.work.entity.PO.ProjectBoard;
 import com.kakarote.work.entity.PO.ProjectEvent;
 import com.kakarote.work.mapper.ProjectBoardMapper;
-import com.kakarote.work.service.*;
+import com.kakarote.work.service.IProjectBoardService;
+import com.kakarote.work.service.IProjectBoardStatusService;
+import com.kakarote.work.service.IProjectEventService;
+import com.kakarote.work.service.IProjectSchemeRelationBoardService;
+import com.kakarote.work.service.IProjectSchemeRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ import java.util.List;
  * 项目管理 看板信息 服务实现类
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 @Service
@@ -43,11 +45,6 @@ public class ProjectBoardServiceImpl extends BaseServiceImpl<ProjectBoardMapper,
             this.lambdaUpdate().eq(ProjectBoard::getProjectBoardId, ids.get(i)).set(ProjectBoard::getSorting, i + 1);
         }
     }
-
-
-
-
-
 
     @Override
     public void initialize() {

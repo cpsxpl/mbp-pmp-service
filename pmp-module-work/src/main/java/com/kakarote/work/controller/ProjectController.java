@@ -1,12 +1,8 @@
 package com.kakarote.work.controller;
 
-
 import cn.hutool.core.bean.BeanUtil;
-
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.result.Result;
-
-
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
 import com.kakarote.work.entity.BO.ProjectGanttQueryBO;
 import com.kakarote.work.entity.BO.ProjectQueryBO;
@@ -18,9 +14,15 @@ import com.kakarote.work.service.IProjectTaskTimeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 /**
@@ -28,14 +30,13 @@ import java.util.List;
  * 项目表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @RestController
 @RequestMapping("/project")
 @Api(tags = "项目列表new")
 public class ProjectController {
-
     @Autowired
     IProjectService projectService;
     @Autowired
@@ -63,16 +64,16 @@ public class ProjectController {
 
     @PostMapping("/queryProjectById")
     @ApiOperation("项目详情查询")
-    public Result<Project> queryProjectById(@RequestParam("projectId") Long projectId,@RequestParam(value = "taskId",required = false) Long taskId) {
-        Project project1 = projectService.getProjectById(projectId,taskId);
+    public Result<Project> queryProjectById(@RequestParam("projectId") Long projectId, @RequestParam(value = "taskId", required = false) Long taskId) {
+        Project project1 = projectService.getProjectById(projectId, taskId);
 
         return Result.ok(project1);
     }
 
     @PostMapping("/getProjectById")
     @ApiOperation("通过ID查询项目")
-    public Result<ProjectVo> getProjectById(@RequestParam("projectId") Long projectId, @RequestParam(value = "taskId",required = false) Long taskId) {
-        Project project1 = projectService.getProjectById(projectId,taskId);
+    public Result<ProjectVo> getProjectById(@RequestParam("projectId") Long projectId, @RequestParam(value = "taskId", required = false) Long taskId) {
+        Project project1 = projectService.getProjectById(projectId, taskId);
         ProjectVo projectVo = new ProjectVo();
         BeanUtil.copyProperties(project1, projectVo);
         return Result.ok(projectVo);
@@ -127,10 +128,10 @@ public class ProjectController {
     public Result<List<ProjectGanttVO>> getProjectGantt(@RequestBody ProjectGanttQueryBO projectGanttQueryBO) {
         return Result.ok(projectTaskTimeService.getProjectGantt(projectGanttQueryBO));
     }
+
     @PostMapping("/myProjectList")
     @ApiOperation("查询我的全部项目")
     public Result<BasePage<Project>> myProjectList(@RequestBody ProjectQueryBO projectQueryBO) {
         return Result.ok(projectService.myProjectList(projectQueryBO));
     }
 }
-

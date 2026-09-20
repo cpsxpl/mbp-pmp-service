@@ -1,11 +1,19 @@
 package com.kakarote.work.entity.PO;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -18,7 +26,7 @@ import java.util.Map;
  * 自定义字段表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @Getter
@@ -30,7 +38,6 @@ import java.util.Map;
 @TableName("wk_project_field")
 @ApiModel(value = "ProjectField对象", description = "自定义字段表")
 public class ProjectField implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键ID")

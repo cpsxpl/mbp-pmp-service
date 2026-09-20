@@ -1,6 +1,9 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,10 +26,10 @@ import java.util.Objects;
 @TableName("wk_admin_menu")
 @ApiModel(value = "AdminMenu对象", description = "后台菜单表")
 public class AdminMenu implements Serializable {
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "菜单ID")
-    @TableId(value = "menu_id",type = IdType.ASSIGN_ID)
+    @TableId(value = "menu_id", type = IdType.ASSIGN_ID)
     private Long menuId;
 
     @ApiModelProperty(value = "上级菜单ID")
@@ -69,7 +72,7 @@ public class AdminMenu implements Serializable {
 
     @ApiModelProperty(value = "语言包map")
     @TableField(exist = false)
-    private Map<String,String> languageKeyMap;
+    private Map<String, String> languageKeyMap;
 
     @Override
     public boolean equals(Object o) {

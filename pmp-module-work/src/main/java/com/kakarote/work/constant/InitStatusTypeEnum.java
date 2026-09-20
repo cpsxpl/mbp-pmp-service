@@ -3,24 +3,23 @@ package com.kakarote.work.constant;
 import java.util.Objects;
 
 /**
- * @author zyh
+ * @author cpsxpl
  * 初始化状态
  */
 
 public enum InitStatusTypeEnum {
     //缺陷类型
-    NONE(1,"未开始"),
-    RUNNING(2,"进行中"),
-    END(3,"已完成"),
-    ;
+    NONE(1, "未开始"),
+    RUNNING(2, "进行中"),
+    END(3, "已完成");
 
-    private InitStatusTypeEnum(Integer type, String desc) {
+    InitStatusTypeEnum(Integer type, String desc) {
         this.type = type;
         this.desc = desc;
     }
 
-    private Integer type;
-    private String desc;
+    private final Integer type;
+    private final String desc;
 
     public Integer getType() {
         return type;
@@ -47,5 +46,4 @@ public enum InitStatusTypeEnum {
         }
         return null;
     }
-
 }

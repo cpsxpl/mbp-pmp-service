@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 @ApiModel("项目事项工时BO")
 public class ProjectTaskTimeQueryBO extends PageEntity {
-
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime beginTime;
 
@@ -21,6 +20,4 @@ public class ProjectTaskTimeQueryBO extends PageEntity {
 
     @ApiModelProperty(value = "项目ID")
     private Long projectId;
-
-
 }

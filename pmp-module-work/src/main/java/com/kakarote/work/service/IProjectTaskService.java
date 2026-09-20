@@ -6,13 +6,24 @@ import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.common.project.BatchSetTaskBO;
 import com.kakarote.work.common.project.ProjectTaskUserSortBO;
 import com.kakarote.work.common.project.ProjectUserTaskQueryBO;
-import com.kakarote.work.entity.BO.*;
+import com.kakarote.work.entity.BO.ProjectTaskCountBO;
+import com.kakarote.work.entity.BO.ProjectTaskExportBO;
+import com.kakarote.work.entity.BO.ProjectTaskNameBO;
+import com.kakarote.work.entity.BO.ProjectTaskQueryBO;
+import com.kakarote.work.entity.BO.RelevancyBelongIterationBO;
+import com.kakarote.work.entity.BO.RelevancyChildTaskBO;
+import com.kakarote.work.entity.BO.RelevancyRelatedDemandIdBO;
 import com.kakarote.work.entity.PO.ProjectTask;
-import com.kakarote.work.entity.VO.*;
+import com.kakarote.work.entity.VO.ProjectBoardVO;
+import com.kakarote.work.entity.VO.ProjectTaskBurnoutVO;
+import com.kakarote.work.entity.VO.ProjectTaskCountVO;
+import com.kakarote.work.entity.VO.ProjectTaskEventCountVO;
+import com.kakarote.work.entity.VO.ProjectUserTaskCountVO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -21,30 +32,29 @@ import java.util.List;
  * 任务表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 public interface IProjectTaskService extends BaseService<ProjectTask> {
+    void saveProjectTask(ProjectTask projectTask);
 
-    public void saveProjectTask(ProjectTask projectTask);
+    ProjectTask queryProjectTaskById(Long projectTaskId);
 
-    public ProjectTask queryProjectTaskById(Long projectTaskId);
+    Boolean updateProjectTask(ProjectTask projectTask);
 
-    public Boolean updateProjectTask(ProjectTask projectTask);
+    BasePage<ProjectTask> queryProjectTaskList(ProjectTaskQueryBO projectTaskQueryBO);
 
-    public BasePage<ProjectTask> queryProjectTaskList(ProjectTaskQueryBO projectTaskQueryBO);
+    ProjectTaskCountVO getProjectByTime(ProjectTaskCountBO projectTaskQueryBO);
 
-    public ProjectTaskCountVO getProjectByTime(ProjectTaskCountBO projectTaskQueryBO);
+    ProjectTaskCountVO getTaskByTime(ProjectTaskCountBO projectTaskQueryBO);
 
-    public ProjectTaskCountVO getTaskByTime(ProjectTaskCountBO projectTaskQueryBO);
+    List<ProjectTaskBurnoutVO> getTaskBurnout(ProjectTaskCountBO projectTaskQueryBO);
 
-    public List<ProjectTaskBurnoutVO> getTaskBurnout(ProjectTaskCountBO projectTaskQueryBO);
+    ProjectTaskEventCountVO getProjectTaskEvent(ProjectTaskCountBO projectTaskCountBO);
 
-    public ProjectTaskEventCountVO getProjectTaskEvent(ProjectTaskCountBO projectTaskCountBO);
+    BasePage<ProjectTask> getAllMatters(@RequestBody ProjectTaskQueryBO projectTaskQueryBO);
 
-    public BasePage<ProjectTask> getAllMatters(@RequestBody ProjectTaskQueryBO projectTaskQueryBO);
-
-    public BasePage<ProjectTask> getAllMattersByTaskId(@RequestBody ProjectTaskQueryBO projectTaskQueryBO);
+    BasePage<ProjectTask> getAllMattersByTaskId(@RequestBody ProjectTaskQueryBO projectTaskQueryBO);
 
     /**
      * 功能描述: 待规划列表
@@ -52,10 +62,10 @@ public interface IProjectTaskService extends BaseService<ProjectTask> {
      *
      * @Param:
      * @Return:
-     * @Author: guole
+     * @Author: cpsxpl
      * @Date: 2022/9/28 20:33
      */
-    public BasePage<ProjectTask> queryProjectPlanTaskList(ProjectTaskQueryBO projectTaskQueryBO);
+    BasePage<ProjectTask> queryProjectPlanTaskList(ProjectTaskQueryBO projectTaskQueryBO);
 
     /**
      * 功能描述: 迭代列表
@@ -63,10 +73,10 @@ public interface IProjectTaskService extends BaseService<ProjectTask> {
      *
      * @Param:
      * @Return:
-     * @Author: guole
+     * @Author: cpsxpl
      * @Date: 2022/9/28 20:33
      */
-    public BasePage<ProjectTask> queryProjectIterationTaskList(ProjectTaskQueryBO projectTaskQueryBO);
+    BasePage<ProjectTask> queryProjectIterationTaskList(ProjectTaskQueryBO projectTaskQueryBO);
 
     /**
      * 功能描述: 待规划列表
@@ -74,18 +84,25 @@ public interface IProjectTaskService extends BaseService<ProjectTask> {
      *
      * @Param:
      * @Return:
-     * @Author: guole
+     * @Author: cpsxpl
      * @Date: 2022/9/28 20:33
      */
-    public BasePage<ProjectTask> queryProjectTaskChildList(ProjectTaskQueryBO projectTaskQueryBO);
+    BasePage<ProjectTask> queryProjectTaskChildList(ProjectTaskQueryBO projectTaskQueryBO);
 
     void relevancyChildTask(RelevancyChildTaskBO relevancyChildTaskBO);
+
     ProjectTask getProjectTaskDetails(Long taskId);
+
     void relevancyBelongIteration(RelevancyBelongIterationBO relevancyBelongIterationBO);
+
     void relevancyRelatedDemand(RelevancyRelatedDemandIdBO relatedDemandIdBO);
+
     JSONObject excelImport(MultipartFile file, Long projectId, Integer taskType) throws IOException;
-    public void downloadExcel(HttpServletResponse response, Integer taskType) ;
-    public void projectTaskExport(  ProjectTaskExportBO taskExportBO, HttpServletResponse response) ;
+
+    void downloadExcel(HttpServletResponse response, Integer taskType);
+
+    void projectTaskExport(ProjectTaskExportBO taskExportBO, HttpServletResponse response);
+
     List<JSONObject> projectTaskExportColumn(Integer taskType);
 
     /**
@@ -102,26 +119,34 @@ public interface IProjectTaskService extends BaseService<ProjectTask> {
      * 对待办事项进行排序
      */
     void sortBackLog(ProjectTaskUserSortBO pojectTaskUserSortBO);
+
     /**
      * 功能描述: 查询当前用户的任务列表
      * 〈〉
+     *
      * @Param:
      * @Return:
-     * @Author: guole
+     * @Author: cpsxpl
      * @Date: 2023/2/25 15:53
      */
-    public BasePage<ProjectTask> queryUserTaskList(ProjectUserTaskQueryBO userTaskQueryBO);
-    Boolean setProgress( ProjectTask projectTask);
-    Boolean setPriority(  ProjectTask projectTask);
+    BasePage<ProjectTask> queryUserTaskList(ProjectUserTaskQueryBO userTaskQueryBO);
+
+    Boolean setProgress(ProjectTask projectTask);
+
+    Boolean setPriority(ProjectTask projectTask);
+
     void setProjectTaskMainUser(@RequestBody ProjectTask projectTask);
+
     void batchSetProjectTask(BatchSetTaskBO batchSetTaskBO);
-    void  updateProjectTaskTime( ProjectTask projectTask);
+
+    void updateProjectTaskTime(ProjectTask projectTask);
 
     /**
      * 功能描述: <br>
      * 〈查询工作台中各类型数量〉
+     *
      * @param userTaskQueryBO
-     * @author zyh
+     * @author cpsxpl
      */
     ProjectUserTaskCountVO queryUserTaskCount(ProjectUserTaskQueryBO userTaskQueryBO);
 

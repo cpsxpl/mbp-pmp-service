@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.BO.ProjectTransferStatusBO;
 import com.kakarote.work.entity.PO.ProjectEventStatus;
@@ -12,20 +11,19 @@ import java.util.List;
  * 事件属性表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 public interface IProjectEventStatusService extends BaseService<ProjectEventStatus> {
+    void add(ProjectEventStatus projectEventStatus);
 
-    public void add(ProjectEventStatus projectEventStatus);
+    void update(ProjectEventStatus projectEventStatus);
 
-    public void update(ProjectEventStatus projectEventStatus);
-
-    public void delete(Long id);
+    void delete(Long id);
 
     List<ProjectEventStatus> queryEventStatusByEventId(Long eventId);
 
-    List<ProjectEventStatus> queryEventStatusByEventId(Long eventId,Integer sysType,Long projectId);
+    List<ProjectEventStatus> queryEventStatusByEventId(Long eventId, Integer sysType, Long projectId);
 
     ProjectEventStatus queryEventStatusById(Long id);
 
@@ -33,23 +31,26 @@ public interface IProjectEventStatusService extends BaseService<ProjectEventStat
 
     List<ProjectEventStatus> notUserStatusList(Long eventId);
 
-    List<ProjectEventStatus> notAddStatus(Long eventId, Long schemeRelationId,Long projectId);
+    List<ProjectEventStatus> notAddStatus(Long eventId, Long schemeRelationId, Long projectId);
 
-    List<ProjectEventStatus> applicationSchemeStatusList(Long projectId,Long eventId);
+    List<ProjectEventStatus> applicationSchemeStatusList(Long projectId, Long eventId);
 
-     void transferStatus(ProjectTransferStatusBO projectTransferStatusBO) ;
-    void updateInitStatus(Long eventId,Long eventStatusId);
+    void transferStatus(ProjectTransferStatusBO projectTransferStatusBO);
+
+    void updateInitStatus(Long eventId, Long eventStatusId);
+
     void updateSorting(List<Long> ids);
-    ProjectEventStatus queryEventStatusByStatusName(String statusName, Integer eventId,Long projectId);
+
+    ProjectEventStatus queryEventStatusByStatusName(String statusName, Integer eventId, Long projectId);
+
     /**
      * 功能描述: 查询任务初始状态
      * 〈〉
+     *
      * @Param:
      * @Return:
-     * @Author: guole
+     * @Author: cpsxpl
      * @Date: 2023/2/24 17:05
      */
-    ProjectEventStatus queryInitEventStatusByTaskType(Integer taskType,Long projectId);
-
-
+    ProjectEventStatus queryInitEventStatusByTaskType(Integer taskType, Long projectId);
 }

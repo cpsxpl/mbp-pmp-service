@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
@@ -36,12 +37,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author : zjj
+ * @author cpsxpl
  * @since : 2023/1/9
  */
 @Service
 public class ProjectFileServiceImpl extends BaseServiceImpl<ProjectFileMapper, AdminFile> implements IProjectFileService {
-
     @Value("${wukong.common.upload.domain}")
     private String domain;
 
@@ -172,7 +172,6 @@ public class ProjectFileServiceImpl extends BaseServiceImpl<ProjectFileMapper, A
         vo.setFileType(fileEntity.getFileType());
         return vo;
     }
-
 
     @Override
     public String getUrl(Long fieldId) {

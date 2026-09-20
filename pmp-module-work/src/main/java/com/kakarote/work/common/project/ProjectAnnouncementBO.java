@@ -19,9 +19,8 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="ProjectAnnouncementBO对象", description="项目公告表")
+@ApiModel(value = "ProjectAnnouncementBO对象", description = "项目公告表")
 public class ProjectAnnouncementBO {
-
     @ApiModelProperty(value = "项目公告ID")
     private Long projectAnnouncementId;
 
@@ -45,6 +44,4 @@ public class ProjectAnnouncementBO {
 
     @ApiModelProperty(value = "批次 比如附件批次")
     private String batchId;
-
-
 }

@@ -17,7 +17,6 @@ import java.util.Map;
 @Data
 @ApiModel("文件对象")
 public class FileEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("文件ID")
@@ -39,7 +38,7 @@ public class FileEntity implements Serializable {
     private String url;
 
     @ApiModelProperty("创建时间")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
     private Long createUserId;
@@ -58,9 +57,8 @@ public class FileEntity implements Serializable {
 
     private String path;
 
-
     @ApiModelProperty(value = "语言包map")
-    private Map<String,String> languageKeyMap;
+    private Map<String, String> languageKeyMap;
 
     public String getUrl() {
         if (UploadEntity.PUBLIC_KEY.equals(isPublic)) {

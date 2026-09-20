@@ -1,17 +1,15 @@
 package com.kakarote.work.mapper;
 
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseMapper;
 import com.kakarote.work.entity.PO.ProjectFieldConfig;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 public interface ProjectFieldConfigMapper extends BaseMapper<ProjectFieldConfig> {
-
 }

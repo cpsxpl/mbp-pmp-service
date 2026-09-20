@@ -20,7 +20,7 @@ import java.util.Map;
 public class AdminMenuVO {
     @ApiModelProperty(value = "菜单ID")
     @TableId(value = "menu_id", type = IdType.AUTO)
-    private Long  menuId;
+    private Long menuId;
 
     @ApiModelProperty(value = "上级菜单ID")
     private Long parentId;
@@ -41,9 +41,8 @@ public class AdminMenuVO {
     private Integer projectType;
 
     @ApiModelProperty(value = "语言包map")
-    private Map<String,String> languageKeyMap;
+    private Map<String, String> languageKeyMap;
 
     @ApiModelProperty(value = "子菜单")
     private List<AdminMenuVO> childMenu;
-
 }

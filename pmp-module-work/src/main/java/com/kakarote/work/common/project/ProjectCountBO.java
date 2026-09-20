@@ -5,13 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author JiaS
+ * @author cpsxpl
  * @date 2020/11/6
  */
 @Data
 @ApiModel("项目统计参数")
 public class ProjectCountBO {
-
     @ApiModelProperty("项目ID")
     private Long projectId;
 
@@ -26,6 +25,4 @@ public class ProjectCountBO {
 
     @ApiModelProperty("已完成任务数量")
     private Integer taskThreeCount;
-
-
 }

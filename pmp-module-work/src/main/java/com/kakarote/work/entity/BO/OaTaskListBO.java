@@ -9,13 +9,12 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel("查询办公任务列表参数")
 public class OaTaskListBO extends PageEntity {
-
     @ApiModelProperty("用户范围 0全部1.我负责的2.我创建的3.我参与的")
     private Integer type;
 

@@ -1,21 +1,23 @@
 package com.kakarote.work.controller;
 
-
 import com.alibaba.fastjson.JSONObject;
-
 import com.kakarote.common.result.Result;
-
+import com.kakarote.work.common.admin.AdminEditProjectRoleBO;
 import com.kakarote.work.common.admin.AdminProjectRole;
 import com.kakarote.work.common.admin.AdminProjectRoleBO;
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
-import com.kakarote.work.common.admin.AdminEditProjectRoleBO;
 import com.kakarote.work.entity.BO.ProjectRoleQueryBO;
 import com.kakarote.work.entity.VO.ProjectRolesGroupVO;
 import com.kakarote.work.service.IProjectUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -24,14 +26,13 @@ import java.util.List;
  * 项目成员表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-10-27
  */
 @RestController
 @RequestMapping("/projectUser")
 @Api(tags = "项目成员管理")
 public class ProjectUserController {
-
     @Autowired
     private IProjectUserService projectUserService;
 
@@ -77,7 +78,6 @@ public class ProjectUserController {
     @PostMapping("/projectAuth/{projectId}")
     @ApiOperation("项目管理角色权限")
     public Result<JSONObject> projectAuth(@PathVariable("projectId") Long projectId) {
-
         JSONObject object = projectUserService.getProjectAuth(projectId);
         return Result.ok(object);
     }
@@ -85,9 +85,7 @@ public class ProjectUserController {
     @PostMapping("/projectAuthList")
     @ApiOperation("项目管理角色权限")
     public Result<List<JSONObject>> projectAuthList(@RequestParam("projectIds") List<Long> projectIds) {
-
         List<JSONObject> object = projectUserService.projectAuthList(projectIds);
         return Result.ok(object);
     }
 }
-

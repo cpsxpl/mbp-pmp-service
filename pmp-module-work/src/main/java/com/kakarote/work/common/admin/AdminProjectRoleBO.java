@@ -6,12 +6,11 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author JiaS
+ * @author cpsxpl
  * @date 2020/11/21
  */
 @Data
 public class AdminProjectRoleBO {
-
     @ApiModelProperty("人员ID")
     private Long userId;
 

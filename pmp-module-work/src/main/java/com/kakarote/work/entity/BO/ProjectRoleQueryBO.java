@@ -5,12 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author bai
+ * @author cpsxpl
  */
 @Data
 @ApiModel("查询项目关联成员")
 public class ProjectRoleQueryBO {
-
     @ApiModelProperty("项目ID")
     private Long projectId;
 

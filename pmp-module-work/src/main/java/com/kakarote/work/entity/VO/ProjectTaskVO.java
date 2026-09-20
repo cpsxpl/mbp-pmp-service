@@ -13,13 +13,12 @@ import java.util.Date;
  * 任务表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @Data
 @ApiModel(value = "ProjectTaskVO对象", description = "任务VO")
 public class ProjectTaskVO implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "任务id")

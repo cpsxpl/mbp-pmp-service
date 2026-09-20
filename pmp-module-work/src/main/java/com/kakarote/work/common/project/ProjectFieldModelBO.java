@@ -6,16 +6,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author ZZW
+ * @author cpsxpl
  */
 @Data
 @ApiModel(value = "ProjectFieldModelBO对象", description = "自定义字段新增定义类")
 public class ProjectFieldModelBO implements Serializable {
-
     @ApiModelProperty(value = "标签名")
     private String name;
 

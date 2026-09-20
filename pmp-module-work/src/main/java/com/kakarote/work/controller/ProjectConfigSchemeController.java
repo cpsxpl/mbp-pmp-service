@@ -1,7 +1,5 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.PO.ProjectConfigScheme;
 import com.kakarote.work.entity.PO.ProjectEvent;
@@ -21,14 +19,13 @@ import java.util.List;
  * 项目配置方案表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @RestController
 @RequestMapping("/projectConfigScheme")
 @Api(tags = "项目配置new")
 public class ProjectConfigSchemeController {
-
     @Autowired
     IProjectConfigSchemeService projectConfigSchemeService;
 
@@ -38,7 +35,6 @@ public class ProjectConfigSchemeController {
         projectConfigSchemeService.add(projectConfigScheme);
         return Result.ok();
     }
-
 
     @PostMapping("/add")
     @ApiOperation("新曾项目配置")
@@ -68,4 +64,3 @@ public class ProjectConfigSchemeController {
         return Result.ok();
     }
 }
-

@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.ProjectEventField;
 
@@ -9,9 +8,8 @@ import com.kakarote.work.entity.PO.ProjectEventField;
  * 事件绑定属性表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-20
  */
 public interface IProjectEventFieldService extends BaseService<ProjectEventField> {
-
 }

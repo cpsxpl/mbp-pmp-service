@@ -16,21 +16,42 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.DVConstraint;
 import org.apache.poi.hssf.usermodel.HSSFDataValidation;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.DataValidation;
+import org.apache.poi.ss.usermodel.DataValidationConstraint;
+import org.apache.poi.ss.usermodel.DataValidationHelper;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Name;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddressList;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.Closeable;
 import java.io.File;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
 public class ExcelParseUtil {
-
     private static final ThreadLocal<Closeable> THREAD_LOCAL = new ThreadLocal<>();
 
     /**
@@ -52,7 +73,7 @@ public class ExcelParseUtil {
         try {
             if (isXls == 1) {
                 fileName = URLEncoder.encode(excelParseService.getExcelName() + "信息", "utf-8") + ".xls" + (excelParseService.isXlsx() ? "x" : "");
-                exportExcelData(dataList, excelParseService,isXls, list, file);
+                exportExcelData(dataList, excelParseService, isXls, list, file);
             } else {
                 fileName = URLEncoder.encode(excelParseService.getExcelName() + "信息" + ".csv", "UTF-8");
                 exportExcelCsv(dataList, excelParseService, list, file);
@@ -74,8 +95,8 @@ public class ExcelParseUtil {
                     //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
                     response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
                     Closeable closeable = THREAD_LOCAL.get();
-                    if(ObjectUtil.isNotEmpty(closeable)){
-                        ((ExcelWriter)closeable).flush();
+                    if (ObjectUtil.isNotEmpty(closeable)) {
+                        ((ExcelWriter) closeable).flush();
                     }
                     FileUtil.writeToStream(file, response.getOutputStream());
                 } else {
@@ -97,19 +118,17 @@ public class ExcelParseUtil {
                 FileUtil.del(file);
             }
         }
-
     }
-
 
     /**
      * 统一导出数据模板
      */
-    public static void exportExcelData(List<? extends Map<String, Object>> dataList, ExcelParseService excelParseService,int isXls, List<?> list, File file) {
+    public static void exportExcelData(List<? extends Map<String, Object>> dataList, ExcelParseService excelParseService, int isXls, List<?> list, File file) {
         try {
             ExcelWriter writer;
             boolean isInit = false;
             if (THREAD_LOCAL.get() == null) {
-                writer = ObjectUtil.isNotEmpty(isXls) && 1== isXls ? ExcelUtil.getBigWriter(file) : ExcelUtil.getWriter();
+                writer = ObjectUtil.isNotEmpty(isXls) && 1 == isXls ? ExcelUtil.getBigWriter(file) : ExcelUtil.getWriter();
                 THREAD_LOCAL.set(writer);
                 isInit = true;
             } else {
@@ -181,7 +200,6 @@ public class ExcelParseUtil {
         }
     }
 
-
     /**
      * 统一导出数据模板
      */
@@ -224,15 +242,14 @@ public class ExcelParseUtil {
         writer.write(writerList);
     }
 
-
     public static void formatData(List<? extends Map<String, Object>> dataList, ExcelParseService excelParseService, Map<String, Integer> headMap) {
         for (Map<String, Object> record : dataList) {
             excelParseService.getFunc().call(record, headMap);
         }
     }
 
-
     private static final int TWO = 2;
+
     /**
      * 统一下载导入模板
      */
@@ -241,8 +258,8 @@ public class ExcelParseUtil {
         try (ExcelWriter writer = ExcelUtil.getWriter(excelParseService.isXlsx())) {
             //因为重复合并单元格会导致样式丢失，所以先获取全部字段一次合并
             int sum = dataEntities.stream().mapToInt(data -> excelParseService.addCell(null, 0, 0, data.getFieldName())).sum();
-            int addressSum = dataEntities.stream().filter(e -> ObjectUtil.equal(e.getType(),FieldEnum.AREA_POSITION.getType())).mapToInt(e ->{
-                switch (e.getPrecisions()){
+            int addressSum = dataEntities.stream().filter(e -> ObjectUtil.equal(e.getType(), FieldEnum.AREA_POSITION.getType())).mapToInt(e -> {
+                switch (e.getPrecisions()) {
                     case 1:
                         return 3;
                     case 2:
@@ -310,7 +327,7 @@ public class ExcelParseUtil {
                     dataEntity.setSetting(Arrays.asList("一星", "二星", "三星", "四星", "五星"));
                 }
                 //选择类型增加下拉框
-                if (CollUtil.isNotEmpty(dataEntity.getSetting()) && !ObjectUtil.equal(dataEntity.getType(),FieldEnum.CHECKBOX.getType())) {
+                if (CollUtil.isNotEmpty(dataEntity.getSetting()) && !ObjectUtil.equal(dataEntity.getType(), FieldEnum.CHECKBOX.getType())) {
                     String[] array = dataEntity.getSetting().stream().map(data -> {
                         if (data instanceof JSONObject && ((JSONObject) data).containsKey("name")) {
                             return ((JSONObject) data).getString("name");
@@ -331,10 +348,10 @@ public class ExcelParseUtil {
                         // 创建名称，可被其他单元格引用
                         Name namedCell = workbook.createName();
                         namedCell.setNameName(sheetName);
-                        namedCell.setRefersToFormula(sheetName+"!$A$1:$A$" + 1000);
+                        namedCell.setRefersToFormula(sheetName + "!$A$1:$A$" + 1000);
 
                         //创建单元格对象
-                        Cell cellSetting =null;
+                        Cell cellSetting = null;
                         //遍历我们上面的数组，将数据取出来放到新sheet的单元格中
                         for (int l = 0, length = array.length; l < length; l++) {
                             //取出数组中的每个元素
@@ -360,10 +377,8 @@ public class ExcelParseUtil {
                 } else if (FieldEnum.ATTENTION.getType().equals(dataEntity.getType())) {
                     writer.addSelect(new CellRangeAddressList(2, 10002, z, z), "一星", "二星", "三星", "四星", "五星");
                 }
-
-
                 // 省市区
-                if(ObjectUtil.equal(dataEntity.getType(),FieldEnum.AREA_POSITION.getType())) {
+                if (ObjectUtil.equal(dataEntity.getType(), FieldEnum.AREA_POSITION.getType())) {
                     crmFieldIndex++;
                     Workbook wb = writer.getWorkbook();
                     Sheet sheet = writer.getSheet();
@@ -378,7 +393,7 @@ public class ExcelParseUtil {
                     // 这个addressIndex是需要在省市区结束后给excel的x向右移动几位
                     int addressIndex = 0;
 
-                    if(dataEntity.getPrecisions() <= 4){
+                    if (dataEntity.getPrecisions() <= 4) {
                         Cell cell1 = writer.getOrCreateCell(z, 1);
                         if (Objects.equals(1, dataEntity.getIsNull())) {
                             cell1.setCellValue("*" + dataEntity.getName() + "-省");
@@ -388,28 +403,28 @@ public class ExcelParseUtil {
                             cellFont.setColor(Font.COLOR_RED);
                             cellStyle.setFont(cellFont);
                             cell1.setCellStyle(cellStyle);
-                        }else{
+                        } else {
                             cell1.setCellValue(dataEntity.getName() + "-省");
                         }
                     }
-                    if(dataEntity.getPrecisions() <= 3){
+                    if (dataEntity.getPrecisions() <= 3) {
                         Cell cell2 = writer.getOrCreateCell(z + 1, 1);
                         cell2.setCellValue(dataEntity.getName() + "-市");
                         addressIndex++;
                     }
-                    if(dataEntity.getPrecisions() <= 2){
+                    if (dataEntity.getPrecisions() <= 2) {
                         Cell cell3 = writer.getOrCreateCell(z + 2, 1);
                         cell3.setCellValue(dataEntity.getName() + "-区");
                         addressIndex++;
                     }
-                    if(dataEntity.getPrecisions() <= 1){
+                    if (dataEntity.getPrecisions() <= 1) {
                         Cell cell4 = writer.getOrCreateCell(z + 3, 1);
                         cell4.setCellValue(dataEntity.getName() + "-详细地址");
                         addressIndex++;
                     }
                     // 设置第一行，存省的信息
                     Row provinceRow = hideSheet.createRow(rowId++);
-                    provinceRow.createCell(0).setCellValue(dataEntity.getName() +  "-省列表");
+                    provinceRow.createCell(0).setCellValue(dataEntity.getName() + "-省列表");
                     String[] provinceList = CrmExcelUtil.getProvinceArray();
                     for (int line = 0; line < provinceList.length; line++) {
                         Cell provinceCell = provinceRow.createCell(line + 1);
@@ -417,7 +432,7 @@ public class ExcelParseUtil {
                     }
 
                     // 只执行一次
-                    if(crmFieldIndex == 1){
+                    if (crmFieldIndex == 1) {
                         // 将具体的数据写入到每一行中，行开头为父级区域，后面是子区域。
                         Map<String, List<String>> areaMap = CrmExcelUtil.getAreaMap();
                         for (String key : areaMap.keySet()) {
@@ -472,12 +487,10 @@ public class ExcelParseUtil {
         } catch (Exception e) {
             log.error("下载" + excelParseService.getExcelName() + "导入模板错误", e);
         }
-
     }
 
     @Data
     public static class ExcelDataEntity {
-
         /* 字段名称 */
         private String fieldName;
 
@@ -506,8 +519,7 @@ public class ExcelParseUtil {
         }
     }
 
-    public static abstract class ExcelParseService {
-
+    public abstract static class ExcelParseService {
         /**
          * 设置自定义数据处理方法
          *
@@ -537,8 +549,8 @@ public class ExcelParseUtil {
             } else {
                 entities.removeIf(head -> FieldEnum.HANDWRITING_SIGN.getType().equals(head.getType()));
             }
-            entities.stream().forEach(data->{
-                if(ObjectUtil.equal(data.getType(),FieldEnum.TAG.getType())){
+            entities.stream().forEach(data -> {
+                if (ObjectUtil.equal(data.getType(), FieldEnum.TAG.getType())) {
                     data.setSetting(new ArrayList<>());
                 }
             });
@@ -590,8 +602,7 @@ public class ExcelParseUtil {
                         "2、手机号：目前只支持中国大陆的11位手机号码；且手机号不允许重复\n" +
                         "3、登录密码：密码由6-20位字母、数字组成\n" +
                         "4、部门：上下级部门间用\"/\"隔开，且从最上级部门开始，例如“上海分公司/市场部/市场一部”。如出现相同的部门，则默认导入组织架构中顺序靠前的部门\n";
-            }
-            else if (ObjectUtil.equal("activity", module)) {
+            } else if (ObjectUtil.equal("activity", module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、跟进时间：推荐格式为2020-2-1\n" +
@@ -599,28 +610,24 @@ public class ExcelParseUtil {
                         "4、所属XX中的'XX'需要存在系统中，且填写的所属名称与系统中的名称必须保持一致否则会导入失败\n" +
                         "5、创建人为系统员工，请填写系统员工“姓名”，若匹配不到系统员工，则会导致导入失败\n" +
                         "6、如果系统中存在多个名称重复的情况，会默认导入到最新的数据中";
-            }
-            else if ("finance".equals(module)) {
+            } else if ("finance".equals(module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、凭证字要与系统保持一致\n" +
                         "3、同一天同一个凭证的凭证号要保持一致\n" +
                         "4、科目编码要与系统保持一致\n" +
                         "5、日期：推荐格式为2020-02-02";
-            }
-            else if ("subject".equals(module)) {
+            } else if ("subject".equals(module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
-                        "2、若导入的为一级科目，则上级科目编号填‘0’\n"+
+                        "2、若导入的为一级科目，则上级科目编号填‘0’\n" +
                         "3、多辅助核算以“/”隔开";
-            }
-            else if ("achievement".equals(module)) {
+            } else if ("achievement".equals(module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、业绩目标只能填写数字\n" +
                         "3、年份只填数字 例：2021";
-            }
-            else if ("marketing".equals(module)) {
+            } else if ("marketing".equals(module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、日期时间：推荐格式为2020-02-02 13:13:13\n" +
@@ -629,23 +636,20 @@ public class ExcelParseUtil {
                         "5、邮箱：只支持邮箱格式\n" +
                         "6、多行文本：字数限制为800字\n" +
                         "7、参与人员：多个参与人员用逗号隔开";
-            }
-            else if ("productCategory".equals(module)) {
+            } else if ("productCategory".equals(module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、产品类别编号不允许重复，重复则会导入失败\n" +
                         "3、产品类别父类编号为产品类别上一级类别\n" +
                         "4、若无产品类别父类编号则为一级分类\n" +
                         "5、产品类别最多设置20级";
-            }
-            else if ("fieldCheckIn".equals(module)) {
+            } else if ("fieldCheckIn".equals(module)) {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、拜访客户的名称需要存在系统中，且填写的拜访客户与系统中的名称必须保持一致否则会导入失败\n" +
                         "3、创建人为系统员工，请填写系统员工“姓名”，若匹配不到系统员工，则会导致导入失败\n" +
                         "4、如果系统中存在多个名称重复的情况，会默认导入到最新的数据中";
-            }
-            else {
+            } else {
                 return "注意事项：\n" +
                         "1、表头标“*”的红色字体为必填项\n" +
                         "2、日期时间：推荐格式为2020-02-02 13:13:13\n" +
@@ -656,8 +660,6 @@ public class ExcelParseUtil {
                         "7、标签字段：如果需要导入多个标签，标签之间用英文逗号隔开";
             }
         }
-
-
     }
 
     /**
@@ -682,7 +684,6 @@ public class ExcelParseUtil {
             FieldEnum.HANDWRITING_SIGN.getType(), FieldEnum.DESC_TEXT.getType(), FieldEnum.DETAIL_TABLE.getType(), FieldEnum.CALCULATION_FUNCTION.getType(),
             FieldEnum.FIELD_GROUP.getType(), FieldEnum.SERIAL_NUMBER.getType(), FieldEnum.ATTENTION.getType()
     );
-
 
     /**
      * 删除不支持导入的字段

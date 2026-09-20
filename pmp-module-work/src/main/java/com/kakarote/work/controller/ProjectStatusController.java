@@ -1,12 +1,8 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.exception.BusinessException;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.result.Result;
-
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.work.constant.ProjectCodeEnum;
 import com.kakarote.work.entity.BO.ProjectStatusQueryBO;
 import com.kakarote.work.entity.PO.ProjectEventStatus;
@@ -16,7 +12,11 @@ import com.kakarote.work.service.IProjectStatusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,14 +25,13 @@ import java.util.List;
  * 事件属性表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @RestController
 @RequestMapping("/projectStatus")
 @Api(tags = "项目管理：状态信息")
 public class ProjectStatusController {
-
     @Autowired
     IProjectStatusService projectStatusService;
     @Autowired
@@ -64,7 +63,6 @@ public class ProjectStatusController {
         }
         if (count > 0) {
             throw new BusinessException(ProjectCodeEnum.PROJECT_EVENT_STATUS_BAND_ERROR);
-
         }
         projectStatusService.removeById(projectStatusId);
         return Result.ok();
@@ -83,7 +81,4 @@ public class ProjectStatusController {
         projectStatusService.updateSorting(ids);
         return Result.ok();
     }
-
-
 }
-

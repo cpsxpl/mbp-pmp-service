@@ -23,9 +23,7 @@ import java.util.Map;
 @Accessors(chain = true)
 @ApiModel("jxc需要的自定义字段对象")
 public class ProjectModelFiledVO implements Serializable {
-
     public ProjectModelFiledVO() {
-
     }
 
     public ProjectModelFiledVO(String fieldName, String name) {
@@ -96,8 +94,8 @@ public class ProjectModelFiledVO implements Serializable {
     @ApiModelProperty(value = "操作值")
     private Integer operating;
 
-	@ApiModelProperty(value = "是否隐藏  0不隐藏 1隐藏")
-	private Integer isHidden;
+    @ApiModelProperty(value = "是否隐藏  0不隐藏 1隐藏")
+    private Integer isHidden;
 
     @ApiModelProperty(value = "设置列表")
     private List<Object> setting = new ArrayList<>();
@@ -142,7 +140,7 @@ public class ProjectModelFiledVO implements Serializable {
 
     /**
      * 坐标
-     * */
+     */
     @ApiModelProperty(value = "x轴")
     private Integer xAxis;
 
@@ -159,6 +157,5 @@ public class ProjectModelFiledVO implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "语言包map")
-    private Map<String,String> languageKeyMap;
-
+    private Map<String, String> languageKeyMap;
 }

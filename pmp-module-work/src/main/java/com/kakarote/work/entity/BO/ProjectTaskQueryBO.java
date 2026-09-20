@@ -8,13 +8,12 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author JiaS
+ * @author cpsxpl
  * @date 2020/11/6
  */
 @Data
 @ApiModel("项目任务查询参数")
 public class ProjectTaskQueryBO extends PageEntity {
-
     @ApiModelProperty("项目ID")
     private String projectId;
 

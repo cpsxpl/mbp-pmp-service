@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,12 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @RestController
 @RequestMapping("/projectFieldConfig")
 public class ProjectFieldConfigController {
-
 }
-

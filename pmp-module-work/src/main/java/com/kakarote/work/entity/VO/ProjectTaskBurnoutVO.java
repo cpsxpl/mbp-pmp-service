@@ -22,7 +22,6 @@ import java.util.Date;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskBurnoutVO", description = "迭代燃尽图")
 public class ProjectTaskBurnoutVO {
-
     @ApiModelProperty(value = "总剩余工时")
     private Integer surplus;
 
@@ -35,5 +34,4 @@ public class ProjectTaskBurnoutVO {
 
     @ApiModelProperty(value = "当前登记总工时")
     private Integer actualHour;
-
 }

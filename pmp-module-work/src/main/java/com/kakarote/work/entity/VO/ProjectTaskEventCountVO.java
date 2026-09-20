@@ -19,7 +19,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskEventCountVO对象", description = "迭代下事件分布图")
 public class ProjectTaskEventCountVO {
-
     @ApiModelProperty(value = "需求未开始数量")
     private Integer demandNoStartNum;
 
@@ -46,5 +45,4 @@ public class ProjectTaskEventCountVO {
 
     @ApiModelProperty(value = "缺陷已完成数量")
     private Integer defectsEndNum;
-
 }

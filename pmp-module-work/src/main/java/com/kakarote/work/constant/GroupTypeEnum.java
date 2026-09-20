@@ -3,24 +3,23 @@ package com.kakarote.work.constant;
 import java.util.Objects;
 
 /**
- * @author zyh
+ * @author cpsxpl
  * 分组类型
  */
 
 public enum GroupTypeEnum {
     //分组类型
-    ALL(1,"全部项目"),
-    NONE(2,"未分组"),
-    CUSTOM(3,"自定义"),
-    ;
+    ALL(1, "全部项目"),
+    NONE(2, "未分组"),
+    CUSTOM(3, "自定义");
 
-    private GroupTypeEnum(Integer type, String desc) {
+    GroupTypeEnum(Integer type, String desc) {
         this.type = type;
         this.desc = desc;
     }
 
-    private Integer type;
-    private String desc;
+    private final Integer type;
+    private final String desc;
 
     public Integer getType() {
         return type;
@@ -47,5 +46,4 @@ public enum GroupTypeEnum {
         }
         return null;
     }
-
 }

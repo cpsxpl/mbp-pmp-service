@@ -1,7 +1,5 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.PO.Project;
 import com.kakarote.work.entity.PO.ProjectGroupManagement;
@@ -9,7 +7,12 @@ import com.kakarote.work.service.IProjectGroupManagementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,14 +21,13 @@ import java.util.List;
  * 项目分组管理表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-17
  */
 @RestController
 @RequestMapping("/projectGroupManagement")
 @Api(tags = "项目分组管理new")
 public class ProjectGroupManagementController {
-
     @Autowired
     IProjectGroupManagementService projectGroupManagementService;
 
@@ -49,4 +51,3 @@ public class ProjectGroupManagementController {
         return Result.ok(projectGroupManagementService.searchProjectGroupList(groupId));
     }
 }
-

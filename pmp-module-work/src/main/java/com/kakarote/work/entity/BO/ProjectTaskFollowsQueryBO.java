@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @ApiModel("项目事项跟进记录/用户动态BO")
 public class ProjectTaskFollowsQueryBO extends PageEntity {
-
     @ApiModelProperty(value = "跟进类型 0 跟进记录 1 客户动态")
     private Integer followType;
 

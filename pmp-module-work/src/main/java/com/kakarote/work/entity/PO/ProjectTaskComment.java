@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.kakarote.common.entity.SimpleUser;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,10 +28,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_project_task_comment")
-@ApiModel(value="ProjectTaskComment对象", description="任务评论表")
+@ApiModel(value = "ProjectTaskComment对象", description = "任务评论表")
 public class ProjectTaskComment implements Serializable {
-
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "评论表")
     @TableId(value = "comment_id", type = IdType.ASSIGN_ID)
@@ -72,7 +75,6 @@ public class ProjectTaskComment implements Serializable {
     @ApiModelProperty(value = "评论列表")
     @TableField(exist = false)
     private List<ProjectTaskComment> childCommentList;
-
 
     @ApiModelProperty(value = "创建人ID")
     @TableField(fill = FieldFill.INSERT)

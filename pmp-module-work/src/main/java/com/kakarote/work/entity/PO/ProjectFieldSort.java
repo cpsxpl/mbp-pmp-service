@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,15 +18,14 @@ import java.time.LocalDateTime;
  * 字段排序表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("wk_project_field_sort")
-@ApiModel(value="ProjectFieldSort对象", description="字段排序表")
+@ApiModel(value = "ProjectFieldSort对象", description = "字段排序表")
 public class ProjectFieldSort implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "字段id")
@@ -86,5 +89,4 @@ public class ProjectFieldSort implements Serializable {
 
     @ApiModelProperty(value = "修改人")
     private Long updateUserId;
-
 }

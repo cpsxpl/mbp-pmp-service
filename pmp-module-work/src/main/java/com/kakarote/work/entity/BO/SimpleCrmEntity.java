@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Data
 @ApiModel("crm模板")
 public class SimpleCrmEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("id")

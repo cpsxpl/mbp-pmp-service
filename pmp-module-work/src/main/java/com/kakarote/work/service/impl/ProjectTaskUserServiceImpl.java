@@ -28,25 +28,22 @@ import java.util.stream.Collectors;
  * 项目成员表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-10-27
  */
 @Service
 public class ProjectTaskUserServiceImpl extends BaseServiceImpl<ProjectTaskUserMapper, ProjectTaskUser> implements IProjectTaskUserService {
-
-
     @Autowired
     private IProjectUserService projectUserService;
 
     @Autowired
     private IProjectTaskLogService projectTaskLogService;
 
-
     @Override
     public void relatedProjectUser(ProjectTaskUserBO projectTaskUserBO) {
-        if( ObjectUtil.isEmpty(projectTaskUserBO.getProjectId())
-           ||ObjectUtil.isEmpty(projectTaskUserBO.getTaskId())
-           || CollectionUtil.isEmpty(projectTaskUserBO.getUserIds())){
+        if (ObjectUtil.isEmpty(projectTaskUserBO.getProjectId())
+                || ObjectUtil.isEmpty(projectTaskUserBO.getTaskId())
+                || CollectionUtil.isEmpty(projectTaskUserBO.getUserIds())) {
             return;
         }
 
@@ -55,7 +52,7 @@ public class ProjectTaskUserServiceImpl extends BaseServiceImpl<ProjectTaskUserM
                 .eq(ProjectUser::getProjectId, projectTaskUserBO.getProjectId())
                 .in(ProjectUser::getUserId, projectTaskUserBO.getUserIds())
                 .list();
-        if(CollectionUtil.isEmpty(projectUsers)){
+        if (CollectionUtil.isEmpty(projectUsers)) {
             return;
         }
         //查询原有任务成员
@@ -66,7 +63,7 @@ public class ProjectTaskUserServiceImpl extends BaseServiceImpl<ProjectTaskUserM
         //删除原有的任务成员
         LambdaUpdateWrapper<ProjectTaskUser> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(ProjectTaskUser::getProjectId, projectTaskUserBO.getProjectId())
-                     .eq(ProjectTaskUser::getTaskId, projectTaskUserBO.getTaskId());
+                .eq(ProjectTaskUser::getTaskId, projectTaskUserBO.getTaskId());
         this.remove(updateWrapper);
         //添加任务成员
         List<ProjectTaskUser> projectTaskUsers = projectUsers.stream()
@@ -82,26 +79,25 @@ public class ProjectTaskUserServiceImpl extends BaseServiceImpl<ProjectTaskUserM
         String oldUser = "";
         String newUser = "";
         //原有成员与现有成员进行对比
-        if(CollectionUtil.isNotEmpty(oldUserList)){
+        if (CollectionUtil.isNotEmpty(oldUserList)) {
             List<Long> oldUserIds = oldUserList.stream().map(ProjectTaskUser::getUserId).collect(Collectors.toList());
             List<SimpleUser> simpleUsers = UserCacheUtil.getSimpleUsers(oldUserIds);
-            if(CollectionUtil.isNotEmpty(simpleUsers)){
+            if (CollectionUtil.isNotEmpty(simpleUsers)) {
                 oldUser = simpleUsers.stream().map(SimpleUser::getNickname).filter(StrUtil::isNotBlank).collect(Collectors.joining(","));
             }
         }
-        if(CollectionUtil.isNotEmpty(projectTaskUserBO.getUserIds())){
+        if (CollectionUtil.isNotEmpty(projectTaskUserBO.getUserIds())) {
             List<Long> newUserIds = projectTaskUserBO.getUserIds();
             List<SimpleUser> simpleUsers = UserCacheUtil.getSimpleUsers(newUserIds);
-            if(CollectionUtil.isNotEmpty(simpleUsers)){
+            if (CollectionUtil.isNotEmpty(simpleUsers)) {
                 newUser = simpleUsers.stream().map(SimpleUser::getNickname).filter(StrUtil::isNotBlank).collect(Collectors.joining(","));
             }
         }
-        if(ObjectUtil.isNotEmpty(oldUser) && !oldUser.equals(newUser)){
+        if (ObjectUtil.isNotEmpty(oldUser) && !oldUser.equals(newUser)) {
             contentLog = ProjectUtil.getLogContent("团队成员", oldUser, newUser);
         }
-        if(StrUtil.isNotBlank(contentLog)){
+        if (StrUtil.isNotBlank(contentLog)) {
             projectTaskLogService.saveTaskLog(projectTaskUserBO.getTaskId(), contentLog);
         }
     }
-
 }

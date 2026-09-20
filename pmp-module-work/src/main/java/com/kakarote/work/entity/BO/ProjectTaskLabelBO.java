@@ -5,12 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("任务移除标签参数")
 public class ProjectTaskLabelBO {
-
     @ApiModelProperty("标签id")
     private Long labelId;
 

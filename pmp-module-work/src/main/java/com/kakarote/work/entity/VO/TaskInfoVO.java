@@ -1,12 +1,11 @@
 package com.kakarote.work.entity.VO;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kakarote.common.entity.SimpleUser;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.work.entity.BO.TaskLabelBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,13 +17,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("任务信息")
 @Accessors(chain = true)
 public class TaskInfoVO {
-
     @ApiModelProperty(value = "任务id")
     @TableId(value = "task_id", type = IdType.AUTO)
     private Long taskId;
@@ -87,7 +85,7 @@ public class TaskInfoVO {
     private LocalDate startTime;
 
     @ApiModelProperty(value = "结束时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate stopTime;
 
     @ApiModelProperty(value = "优先级 从大到小 3高 2中 1低 0无")

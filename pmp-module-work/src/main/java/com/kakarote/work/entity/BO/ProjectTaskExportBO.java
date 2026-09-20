@@ -47,7 +47,6 @@ public class ProjectTaskExportBO {
 //    @ApiModelProperty(value = "看板状态id")
 //    private Long boardStatusId;
 
-
     @ApiModelProperty("事项类型筛选")
     private List<Integer> typeQuery;
     @ApiModelProperty(value = "优先级筛选 从大到小 3高 2中 1低 0无")

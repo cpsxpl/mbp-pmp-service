@@ -9,10 +9,10 @@ import com.kakarote.common.exception.BusinessException;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.RecursionUtil;
 import com.kakarote.common.utils.UserUtil;
-import com.kakarote.work.entity.PO.AdminMenu;
 import com.kakarote.work.common.admin.AdminMenuVO;
 import com.kakarote.work.common.project.BaseUtil;
 import com.kakarote.work.constant.ProjectCodeEnum;
+import com.kakarote.work.entity.PO.AdminMenu;
 import com.kakarote.work.entity.PO.AdminRole;
 import com.kakarote.work.mapper.ProjectRoleMapper;
 import com.kakarote.work.service.IProjectMenuService;
@@ -24,20 +24,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
 
 /**
  * <p>
  * 事件绑定属性表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-20
  */
 @Service
 public class ProjectRoleServiceImpl extends BaseServiceImpl<ProjectRoleMapper, AdminRole> implements IProjectRoleService {
-
     @Autowired
     private IProjectMenuService projectMenuService;
 
@@ -53,7 +59,6 @@ public class ProjectRoleServiceImpl extends BaseServiceImpl<ProjectRoleMapper, A
      * 默认角色的菜单ID
      */
     public static final List<Long> ROLE_MENU_LIST_8 = Arrays.asList(310L, 311L, 312L, 313L, 314L, 315L, 316L, 317L, 318L, 319L, 320L, 321L, 322L, 323L, 324L, 325L, 326L, 327L, 328L, 329L, 330L, 331L, 332L, 333L, 334L, 335L, 336L, 337L, 927L);
-
 
     @Override
     public List<AdminRole> queryProjectRoleByTypes(List<Integer> types) {
@@ -72,9 +77,10 @@ public class ProjectRoleServiceImpl extends BaseServiceImpl<ProjectRoleMapper, A
     /**
      * 功能描述: <br>
      * 〈〉
+     *
      * @param roleIds
      * @return java.util.List<java.lang.Long>
-     * @author zyh
+     * @author cpsxpl
      */
     @Override
     public List<Long> getAllRoleMenuId(List<Long> roleIds) {
@@ -153,37 +159,37 @@ public class ProjectRoleServiceImpl extends BaseServiceImpl<ProjectRoleMapper, A
         JSONObject word = new JSONObject();
         JSONObject project = new JSONObject();
         JSONObject data = new JSONObject();
-        project.put("addChildTask",true);
-        project.put("archiveTask",true);
-        project.put("cleanTask",true);
-        project.put("deleteChildTask",true);
-        project.put("deleteTask",true);
-        project.put("deleteTaskClass",true);
-        project.put("deleteTaskFile",true);
-        project.put("excelExport",true);
-        project.put("excelImport",true);
-        project.put("manageTaskOwnerUser",true);
-        project.put("restoreTask",true);
-        project.put("saveTask",true);
-        project.put("saveTaskClass",true);
-        project.put("saveTaskRelation",true);
-        project.put("setChildTaskStatus",true);
-        project.put("setTaskDescription",true);
-        project.put("setTaskLabel",true);
-        project.put("setTaskMainUser",true);
-        project.put("setTaskOrder",true);
-        project.put("setTaskOwnerUser",true);
-        project.put("setTaskPriority",true);
-        project.put("setTaskStatus",true);
-        project.put("setTaskTime",true);
-        project.put("setTaskTitle",true);
-        project.put("setWork",true);
-        project.put("updateChildTask",true);
-        project.put("updateClassOrder",true);
-        project.put("updateTaskClass",true);
-        project.put("uploadTaskFile",true);
-        data.put("project",project);
-        word.put("work",data);
+        project.put("addChildTask", true);
+        project.put("archiveTask", true);
+        project.put("cleanTask", true);
+        project.put("deleteChildTask", true);
+        project.put("deleteTask", true);
+        project.put("deleteTaskClass", true);
+        project.put("deleteTaskFile", true);
+        project.put("excelExport", true);
+        project.put("excelImport", true);
+        project.put("manageTaskOwnerUser", true);
+        project.put("restoreTask", true);
+        project.put("saveTask", true);
+        project.put("saveTaskClass", true);
+        project.put("saveTaskRelation", true);
+        project.put("setChildTaskStatus", true);
+        project.put("setTaskDescription", true);
+        project.put("setTaskLabel", true);
+        project.put("setTaskMainUser", true);
+        project.put("setTaskOrder", true);
+        project.put("setTaskOwnerUser", true);
+        project.put("setTaskPriority", true);
+        project.put("setTaskStatus", true);
+        project.put("setTaskTime", true);
+        project.put("setTaskTitle", true);
+        project.put("setWork", true);
+        project.put("updateChildTask", true);
+        project.put("updateClassOrder", true);
+        project.put("updateTaskClass", true);
+        project.put("uploadTaskFile", true);
+        data.put("project", project);
+        word.put("work", data);
         return word;
     }
 
@@ -270,7 +276,7 @@ public class ProjectRoleServiceImpl extends BaseServiceImpl<ProjectRoleMapper, A
         if (list.isEmpty()) {
             Long userId = UserUtil.getUserId();
             LocalDateTime dateTime = LocalDateTime.now();
-            AdminRole adminRole = new AdminRole(BaseUtil.getNextId(), "默认角色", 1, "cp", 1, 2, 1, 5,  userId, userId, dateTime, dateTime);
+            AdminRole adminRole = new AdminRole(BaseUtil.getNextId(), "默认角色", 1, "cp", 1, 2, 1, 5, userId, userId, dateTime, dateTime);
             save(adminRole);
             projectRoleMenuService.saveRoleMenu(adminRole.getRoleId(), ROLE_MENU_LIST_8);
             adminRole.setLanguageKeyMap(keymap);
@@ -278,5 +284,4 @@ public class ProjectRoleServiceImpl extends BaseServiceImpl<ProjectRoleMapper, A
         }
         return list.get(0).setLanguageKeyMap(keymap);
     }
-
 }

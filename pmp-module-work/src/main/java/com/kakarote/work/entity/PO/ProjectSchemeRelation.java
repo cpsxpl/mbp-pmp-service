@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,15 +18,14 @@ import java.time.LocalDateTime;
  * 项目配置方案和事件关系表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("wk_project_scheme_relation")
-@ApiModel(value="ProjectSchemeRelation对象", description="项目配置方案和事件关系表")
+@ApiModel(value = "ProjectSchemeRelation对象", description = "项目配置方案和事件关系表")
 public class ProjectSchemeRelation implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键ID")
@@ -61,6 +64,4 @@ public class ProjectSchemeRelation implements Serializable {
 
     @ApiModelProperty(value = "对应主键batchId")
     private String batchId;
-
-
 }

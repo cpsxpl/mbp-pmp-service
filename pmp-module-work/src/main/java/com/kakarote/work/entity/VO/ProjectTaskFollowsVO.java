@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * 项目事项跟进记录/客户活动表VO
  * </p>
  *
- * @author zhangyongjie
+ * @author cpsxpl
  * @since 2022-09-21
  */
 @Data
@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskFollowsVO对象", description = "项目事项跟进记录/客户活动表VO")
 public class ProjectTaskFollowsVO {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id")

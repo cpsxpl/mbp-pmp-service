@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.BO.ProjectFieldModelBO;
 import com.kakarote.work.entity.PO.ProjectField;
@@ -9,7 +8,11 @@ import com.kakarote.work.service.IProjectFieldService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,15 +21,13 @@ import java.util.List;
  * 自定义字段表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @RestController
 @RequestMapping("/projectField")
 @Api(tags = "自定义字段new")
 public class ProjectFieldController {
-
-
     @Autowired
     IProjectFieldService projectFieldService;
 
@@ -45,4 +46,3 @@ public class ProjectFieldController {
         return Result.ok();
     }
 }
-

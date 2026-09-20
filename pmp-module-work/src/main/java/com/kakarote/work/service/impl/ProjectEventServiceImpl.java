@@ -2,8 +2,6 @@ package com.kakarote.work.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.work.entity.PO.ProjectEvent;
@@ -17,17 +15,18 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
+
 /**
  * <p>
  * 事件表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @Service
 public class ProjectEventServiceImpl extends BaseServiceImpl<ProjectEventMapper, ProjectEvent> implements IProjectEventService {
-
     @Autowired
     private IProjectSchemeRelationService schemeRelationService;
 
@@ -38,7 +37,6 @@ public class ProjectEventServiceImpl extends BaseServiceImpl<ProjectEventMapper,
         }
         projectEvent.setCreateUserId(UserUtil.getUserId());
         save(projectEvent);
-
     }
 
     @Override
@@ -58,11 +56,9 @@ public class ProjectEventServiceImpl extends BaseServiceImpl<ProjectEventMapper,
         schemeRelationService.lambdaQuery().eq(ProjectSchemeRelation::getSchemeId, schemeId).select(ProjectSchemeRelation::getEventId).list().forEach(
                 sr -> {
                     eventIds.add(sr.getEventId());
-
                 }
-
         );
-        List<ProjectEvent> events=lambdaQuery().in(ProjectEvent::getId,eventIds).list();
+        List<ProjectEvent> events = lambdaQuery().in(ProjectEvent::getId, eventIds).list();
         return events;
     }
 }

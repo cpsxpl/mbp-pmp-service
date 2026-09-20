@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 @ApiModel("事项文件日志记录")
 public class ProjectTaskFileLog {
-
     @ApiModelProperty("事项ID")
     Long taskIds;
 

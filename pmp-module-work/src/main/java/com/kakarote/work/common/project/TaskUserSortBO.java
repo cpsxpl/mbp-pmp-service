@@ -5,16 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author zyh
+ * @author cpsxpl
  */
 @Data
 @ApiModel("项目任务排序")
 public class TaskUserSortBO {
-
     @ApiModelProperty("任务id")
     private Long taskId;
 
     @ApiModelProperty("排序值")
     private Long sortNum;
-
 }

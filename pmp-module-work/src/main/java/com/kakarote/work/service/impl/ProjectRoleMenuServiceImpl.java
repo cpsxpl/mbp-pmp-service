@@ -20,7 +20,6 @@ import java.util.List;
  */
 @Service
 public class ProjectRoleMenuServiceImpl extends BaseServiceImpl<ProjectRoleMenuMapper, AdminRoleMenu> implements IProjectRoleMenuService {
-
     @Override
     public void saveRoleMenu(Long roleId, List<Long> menuIdList) {
         List<AdminRoleMenu> adminRoleMenuList = new ArrayList<>();

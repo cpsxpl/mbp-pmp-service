@@ -1,8 +1,8 @@
 package com.kakarote.work.common.project;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.kakarote.work.entity.PO.AdminRole;
 import com.kakarote.work.entity.BO.ProjectRoleQueryBO;
+import com.kakarote.work.entity.PO.AdminRole;
 import com.kakarote.work.service.IProjectUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,16 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Component
 public class ProjectAuthUtil {
-
     @Autowired
     private IProjectUserService projectUserService;
-
 
     /**
      * 发送通知

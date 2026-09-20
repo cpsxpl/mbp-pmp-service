@@ -11,12 +11,10 @@ import java.util.List;
  * 项目表 Mapper 接口
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 public interface ProjectRoleMapper extends BaseMapper<AdminRole> {
-
-
     /**
      * 查询角色菜单
      *
@@ -24,5 +22,5 @@ public interface ProjectRoleMapper extends BaseMapper<AdminRole> {
      * @param roleId   roleId
      * @return data
      */
-    public List<Long> getRoleMenu(@Param("parentId") Long parentId, @Param("roleId") Long roleId);
+    List<Long> getRoleMenu(@Param("parentId") Long parentId, @Param("roleId") Long roleId);
 }

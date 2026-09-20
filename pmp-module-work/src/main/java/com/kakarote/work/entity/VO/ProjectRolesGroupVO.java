@@ -12,13 +12,12 @@ import java.util.List;
  * 项目管理 项目看板状态
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 @Data
 @ApiModel(value = "ProjectRolesGroupVO对象", description = "项目管理 查看角色关联成员数目列表")
 public class ProjectRolesGroupVO implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色ID")

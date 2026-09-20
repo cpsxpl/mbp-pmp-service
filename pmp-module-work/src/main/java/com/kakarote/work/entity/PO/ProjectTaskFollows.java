@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +20,7 @@ import java.time.LocalDateTime;
  * 项目事项跟进记录/客户活动表 前端控制器
  * </p>
  *
- * @author zhangyongjie
+ * @author cpsxpl
  * @since 2022-09-21
  */
 @Data
@@ -25,7 +29,6 @@ import java.time.LocalDateTime;
 @TableName("wk_project_task_follows")
 @ApiModel(value = "ProjectTaskFollowsVO对象", description = "项目事项跟进记录/客户活动表VO")
 public class ProjectTaskFollows implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id")

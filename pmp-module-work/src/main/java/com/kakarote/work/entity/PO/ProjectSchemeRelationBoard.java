@@ -8,11 +8,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+
 @Data
 @TableName("wk_project_scheme_relation_board")
-@ApiModel(value="ProjectSchemeRelationBoard对象", description="项目配置关联和看板关系表")
+@ApiModel(value = "ProjectSchemeRelationBoard对象", description = "项目配置关联和看板关系表")
 public class ProjectSchemeRelationBoard {
-
     private Long id;
     @ApiModelProperty(value = "项目配置关联")
     private Long schemeRelationId;

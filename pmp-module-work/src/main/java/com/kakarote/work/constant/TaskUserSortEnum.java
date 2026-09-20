@@ -3,23 +3,21 @@ package com.kakarote.work.constant;
 import java.util.Objects;
 
 /**
- * @author zyh
+ * @author cpsxpl
  * 任务排序类型
  */
 
 public enum TaskUserSortEnum {
-
     //个人排序类型
-    TOPLAN(0,"待规划"),
-    ;
+    TOPLAN(0, "待规划");
 
-    private TaskUserSortEnum(Integer type, String desc) {
+    TaskUserSortEnum(Integer type, String desc) {
         this.type = type;
         this.desc = desc;
     }
 
-    private Integer type;
-    private String desc;
+    private final Integer type;
+    private final String desc;
 
     public Integer getType() {
         return type;
@@ -46,5 +44,4 @@ public enum TaskUserSortEnum {
         }
         return null;
     }
-
 }

@@ -15,18 +15,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static com.baomidou.mybatisplus.extension.toolkit.Db.listObjs;
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
+
 /**
  * <p>
  * 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @Service
 public class ProjectFieldConfigServiceImpl extends BaseServiceImpl<ProjectFieldConfigMapper, ProjectFieldConfig> implements IProjectFieldConfigService {
-
-
     /**
      * @param fieldType     字段类型
      * @param existNameList 已存在的标签
@@ -81,7 +82,6 @@ public class ProjectFieldConfigServiceImpl extends BaseServiceImpl<ProjectFieldC
             return four;
         }
         if (Arrays.asList(date).contains(fieldType)) {
-
             if (Objects.equals(four, fieldType)) {
                 return 2;
             } else {

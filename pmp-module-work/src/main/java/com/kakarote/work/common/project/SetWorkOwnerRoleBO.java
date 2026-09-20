@@ -4,10 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.List;
-
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("设置项目成员角色参数")

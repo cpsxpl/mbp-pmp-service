@@ -2,13 +2,14 @@ package com.kakarote.work.service;
 
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.common.admin.AdminDeleteByBatchIdBO;
-import com.kakarote.work.entity.PO.AdminFile;
 import com.kakarote.work.common.project.FileUploadResultVO;
 import com.kakarote.work.common.project.RenameFileBO;
 import com.kakarote.work.entity.BO.FileEntity;
+import com.kakarote.work.entity.PO.AdminFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -21,7 +22,6 @@ import java.util.List;
  * @since 2020-04-27
  */
 public interface IProjectFileService extends BaseService<AdminFile> {
-
     /**
      * 文件上传
      *
@@ -91,5 +91,4 @@ public interface IProjectFileService extends BaseService<AdminFile> {
      * @return
      */
     String getUrl(Long fieldId);
-
 }

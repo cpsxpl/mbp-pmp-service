@@ -4,25 +4,27 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.kakarote.work.common.project.Const.SEPARATOR;
 
-
 /**
  * 字符串分割
  */
 public class SeparatorUtil {
-
-    public static Set<Integer> toSet(String tagStr){
-        Set<Integer> tag=new HashSet<>();
-        if(null==tagStr){
+    public static Set<Integer> toSet(String tagStr) {
+        Set<Integer> tag = new HashSet<>();
+        if (null == tagStr) {
             return tag;
         }
         for (String str : tagStr.split(SEPARATOR)) {
-            if(StrUtil.isEmpty(str)){
+            if (StrUtil.isEmpty(str)) {
                 continue;
             }
             tag.add(Integer.valueOf(str));
@@ -30,13 +32,13 @@ public class SeparatorUtil {
         return tag;
     }
 
-    public static Set<Long> toSetL(String tagStr){
-        Set<Long> tag=new HashSet<>();
-        if(null==tagStr){
+    public static Set<Long> toSetL(String tagStr) {
+        Set<Long> tag = new HashSet<>();
+        if (null == tagStr) {
             return tag;
         }
         for (String str : tagStr.split(SEPARATOR)) {
-            if(StrUtil.isEmpty(str)){
+            if (StrUtil.isEmpty(str)) {
                 continue;
             }
             tag.add(Long.valueOf(str));
@@ -44,13 +46,13 @@ public class SeparatorUtil {
         return tag;
     }
 
-    public static Set<Long> toLongSet(String tagStr){
-        Set<Long> tag=new HashSet<>();
-        if(StrUtil.isEmpty(tagStr)){
+    public static Set<Long> toLongSet(String tagStr) {
+        Set<Long> tag = new HashSet<>();
+        if (StrUtil.isEmpty(tagStr)) {
             return tag;
         }
         for (String str : tagStr.split(SEPARATOR)) {
-            if(StrUtil.isEmpty(str)){
+            if (StrUtil.isEmpty(str)) {
                 continue;
             }
             tag.add(Long.valueOf(str));
@@ -58,15 +60,13 @@ public class SeparatorUtil {
         return tag;
     }
 
-
-
-    public static String fromSet(Collection<Integer> tag){
-        if(CollectionUtil.isEmpty(tag)){
+    public static String fromSet(Collection<Integer> tag) {
+        if (CollectionUtil.isEmpty(tag)) {
             return "";
         }
-        StringBuilder sb=new StringBuilder(SEPARATOR);
+        StringBuilder sb = new StringBuilder(SEPARATOR);
         for (Integer integer : tag) {
-            if(integer==null){
+            if (integer == null) {
                 continue;
             }
             sb.append(integer).append(SEPARATOR);
@@ -74,13 +74,13 @@ public class SeparatorUtil {
         return sb.toString();
     }
 
-    public static String fromLongSet(Collection<Long> tag){
-        if(CollectionUtil.isEmpty(tag)){
+    public static String fromLongSet(Collection<Long> tag) {
+        if (CollectionUtil.isEmpty(tag)) {
             return "";
         }
-        StringBuilder sb=new StringBuilder(SEPARATOR);
+        StringBuilder sb = new StringBuilder(SEPARATOR);
         for (Long integer : tag) {
-            if(integer==null){
+            if (integer == null) {
                 continue;
             }
             sb.append(integer).append(SEPARATOR);
@@ -88,24 +88,24 @@ public class SeparatorUtil {
         return sb.toString();
     }
 
-    public static String fromString(String tagStr){
-        if(StrUtil.isEmpty(tagStr)){
+    public static String fromString(String tagStr) {
+        if (StrUtil.isEmpty(tagStr)) {
             return "";
         }
-        StringBuilder sb=new StringBuilder();
-        if(!tagStr.substring(0,1).equals(SEPARATOR)){
+        StringBuilder sb = new StringBuilder();
+        if (!tagStr.startsWith(SEPARATOR)) {
             sb.append(SEPARATOR);
         }
         sb.append(tagStr);
-        if(!tagStr.substring(tagStr.length()-1).equals(SEPARATOR)){
+        if (!tagStr.endsWith(SEPARATOR)) {
             sb.append(SEPARATOR);
         }
         return sb.toString();
     }
 
-    private static String REGEX_CHINESE = "[\u4e00-\u9fa5]";
+    private static final String REGEX_CHINESE = "[\u4e00-\u9fa5]";
 
-    public static String replaceChinese(String str, String replacement){
+    public static String replaceChinese(String str, String replacement) {
         if (StrUtil.isEmpty(str)) {
             return str;
         }
@@ -132,12 +132,12 @@ public class SeparatorUtil {
     }
 
     public static List<String> parseStrBetweenBracket(String exp) {
-		List<String> result = new ArrayList<>();
-		Pattern pattern = Pattern.compile(GET_STR_BETWEEN_BRACKET_REGEX_EXPRESSION);
-		Matcher matcher = pattern.matcher(exp);
-		while (matcher.find()) {
-			result.add(matcher.group(0));
-		}
-		return result;
-	}
+        List<String> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile(GET_STR_BETWEEN_BRACKET_REGEX_EXPRESSION);
+        Matcher matcher = pattern.matcher(exp);
+        while (matcher.find()) {
+            result.add(matcher.group(0));
+        }
+        return result;
+    }
 }

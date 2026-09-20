@@ -3,8 +3,6 @@ package com.kakarote.work.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.work.constant.GroupTypeEnum;
@@ -25,17 +23,18 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
+
 /**
  * <p>
  * 项目分组表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-09
  */
 @Service
 public class ProjectGroupServiceImpl extends BaseServiceImpl<ProjectGroupMapper, ProjectGroup> implements IProjectGroupService {
-
     @Autowired
     IProjectService projectService;
     @Autowired
@@ -69,17 +68,17 @@ public class ProjectGroupServiceImpl extends BaseServiceImpl<ProjectGroupMapper,
     public List<ProjectGroup> searchGroupList() {
         //查询当前人的的分组信息
         LambdaQueryWrapper<ProjectGroup> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ProjectGroup::getCreateUserId,UserUtil.getUserId());
+        queryWrapper.eq(ProjectGroup::getCreateUserId, UserUtil.getUserId());
         List<ProjectGroup> list = list(queryWrapper).stream().sorted(Comparator.comparing(ProjectGroup::getSort, Comparator.nullsLast(Integer::compareTo))).collect(Collectors.toList());
         //如果没有添加默认分组
-        if(CollectionUtil.isEmpty(list)){
+        if (CollectionUtil.isEmpty(list)) {
             //增加全部项目,未分组 两个默认分组，这两个分组不需要绑定项目，用途是页面分组排序
             this.saveBatch(this.getDefultGroup());
-        }else{
+        } else {
             //查询是否有全部项目，未分组项目，如果没有则添加，主要用途是页面排序
             List<ProjectGroup> defualt = list.stream().filter(item -> (ObjectUtil.isNotEmpty(item.getType()) && item.getType().equals(GroupTypeEnum.ALL.getType()))
                     || (ObjectUtil.isNotEmpty(item.getType()) && item.getType().equals(GroupTypeEnum.NONE.getType()))).collect(Collectors.toList());
-            if(CollectionUtil.isEmpty(defualt)){
+            if (CollectionUtil.isEmpty(defualt)) {
                 List<ProjectGroup> defultGroups = getDefultGroup();
                 this.saveBatch(defultGroups);
             }
@@ -101,7 +100,7 @@ public class ProjectGroupServiceImpl extends BaseServiceImpl<ProjectGroupMapper,
                 List<Project> projects = projectService.getBaseMapper().selectList(lambdaQueryWrapper);
                 allCount = projects.size();
                 //查询未分组的数据(分组根据根据个人自定义)
-                List<Long> groupProjects = projectGroupManagementService.lambdaQuery().eq(ProjectGroupManagement::getCreateUserId,UserUtil.getUserId()).list().stream().map(p -> p.getProjectId()).collect(Collectors.toList());
+                List<Long> groupProjects = projectGroupManagementService.lambdaQuery().eq(ProjectGroupManagement::getCreateUserId, UserUtil.getUserId()).list().stream().map(p -> p.getProjectId()).collect(Collectors.toList());
                 if (ObjectUtil.isNotEmpty(groupProjects)) {
                     List<Project> noneProjects = projects.stream().filter(f -> !groupProjects.contains(f.getProjectId())).distinct().collect(Collectors.toList());
                     noneCount = noneProjects.size();
@@ -114,19 +113,18 @@ public class ProjectGroupServiceImpl extends BaseServiceImpl<ProjectGroupMapper,
             }
             list.stream().forEach(l -> {
                 //如果是全部项目分组查询所有项目
-                if(ObjectUtil.isNotEmpty(l.getType()) && GroupTypeEnum.ALL.getType().equals(l.getType())){
+                if (ObjectUtil.isNotEmpty(l.getType()) && GroupTypeEnum.ALL.getType().equals(l.getType())) {
                     l.setNum(allCount);
-                }else if(ObjectUtil.isNotEmpty(l.getType()) && GroupTypeEnum.NONE.getType().equals(l.getType())){
+                } else if (ObjectUtil.isNotEmpty(l.getType()) && GroupTypeEnum.NONE.getType().equals(l.getType())) {
                     //如果是未分组查询所有未分组项目
                     l.setNum(noneCount);
-                }else{
-                    List<Long> projects = projectGroupManagementService.lambdaQuery().eq(ProjectGroupManagement::getCreateUserId,UserUtil.getUserId()).eq(ProjectGroupManagement::getGroupId, l.getGroupId()).list()
+                } else {
+                    List<Long> projects = projectGroupManagementService.lambdaQuery().eq(ProjectGroupManagement::getCreateUserId, UserUtil.getUserId()).eq(ProjectGroupManagement::getGroupId, l.getGroupId()).list()
                             .stream().map(m -> m.getProjectId()).distinct().collect(Collectors.toList());
                     if (CollectionUtil.isNotEmpty(projects)) {
                         l.setNum(projects.size());
                     }
                 }
-
             });
         }
         return list;
@@ -135,7 +133,7 @@ public class ProjectGroupServiceImpl extends BaseServiceImpl<ProjectGroupMapper,
     @Override
     public void removeGroupById(Long groupId) {
         //删除分组关系
-        projectGroupManagementService.lambdaUpdate().eq(ProjectGroupManagement::getCreateUserId,UserUtil.getUserId()).eq(ProjectGroupManagement::getGroupId, groupId).remove();
+        projectGroupManagementService.lambdaUpdate().eq(ProjectGroupManagement::getCreateUserId, UserUtil.getUserId()).eq(ProjectGroupManagement::getGroupId, groupId).remove();
         //删除分组
         removeById(groupId);
     }
@@ -154,8 +152,5 @@ public class ProjectGroupServiceImpl extends BaseServiceImpl<ProjectGroupMapper,
         noreGroup.setType(GroupTypeEnum.NONE.getType());
         list.add(noreGroup);
         return list;
-
     }
-
-
 }

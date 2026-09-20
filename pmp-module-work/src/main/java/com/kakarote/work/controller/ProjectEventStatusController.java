@@ -1,7 +1,5 @@
 package com.kakarote.work.controller;
 
-
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.entity.BO.ProjectTransferStatusBO;
 import com.kakarote.work.entity.PO.ProjectEventStatus;
@@ -9,7 +7,11 @@ import com.kakarote.work.service.IProjectEventStatusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,14 +20,13 @@ import java.util.List;
  * 事件属性表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @RestController
 @RequestMapping("/projectEventStatus")
 @Api(tags = "事件状态new")
 public class ProjectEventStatusController {
-
     @Autowired
     IProjectEventStatusService projectEventStatusService;
 
@@ -59,16 +60,16 @@ public class ProjectEventStatusController {
 
     @PostMapping("/list")
     @ApiOperation("事件状态列表")
-    public Result<List<ProjectEventStatus>> list(@RequestParam("eventId") Long eventId,@RequestParam(value = "sysType",required = false) Integer sysType,
+    public Result<List<ProjectEventStatus>> list(@RequestParam("eventId") Long eventId, @RequestParam(value = "sysType", required = false) Integer sysType,
                                                  @RequestParam("projectId") Long projectId) {
-        List<ProjectEventStatus> projectEventStatusList = projectEventStatusService.queryEventStatusByEventId(eventId,sysType,projectId);
+        List<ProjectEventStatus> projectEventStatusList = projectEventStatusService.queryEventStatusByEventId(eventId, sysType, projectId);
         return Result.ok(projectEventStatusList);
     }
 
     @PostMapping("/applicationSchemeStatusList")
     @ApiOperation("应用配置状态列表")
-    public Result<List<ProjectEventStatus>> applicationSchemeStatusList(@RequestParam("projectId") Long projectId,@RequestParam("eventId") Long eventId) {
-        List<ProjectEventStatus> projectEventStatusList = projectEventStatusService.applicationSchemeStatusList(projectId,eventId);
+    public Result<List<ProjectEventStatus>> applicationSchemeStatusList(@RequestParam("projectId") Long projectId, @RequestParam("eventId") Long eventId) {
+        List<ProjectEventStatus> projectEventStatusList = projectEventStatusService.applicationSchemeStatusList(projectId, eventId);
         return Result.ok(projectEventStatusList);
     }
 
@@ -99,8 +100,6 @@ public class ProjectEventStatusController {
         projectEventStatusService.lambdaUpdate().eq(ProjectEventStatus::getProjectEventId, eventId).eq(ProjectEventStatus::getUseStatus, 0).remove();
         projectEventStatusService.lambdaUpdate().eq(ProjectEventStatus::getProjectEventId, eventId).eq(ProjectEventStatus::getUseStatus, 2)
                 .set(ProjectEventStatus::getUseStatus, 1).update();
-
         return Result.ok();
     }
 }
-

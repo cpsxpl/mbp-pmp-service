@@ -40,5 +40,4 @@ public class ProjectBelongIterationVO {
 
     @ApiModelProperty(value = "负责人ID")
     private Long mainUserId;
-
 }

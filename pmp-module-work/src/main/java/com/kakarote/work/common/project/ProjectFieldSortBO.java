@@ -12,14 +12,13 @@ import java.io.Serializable;
  * 字段排序表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="ProjectFieldSortBO对象", description="字段排序表")
+@ApiModel(value = "ProjectFieldSortBO对象", description = "字段排序表")
 public class ProjectFieldSortBO implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "项目ID")
@@ -30,7 +29,6 @@ public class ProjectFieldSortBO implements Serializable {
 
     @ApiModelProperty(value = "字段中文名称")
     private String name;
-
 
     @ApiModelProperty(value = "字段排序")
     private Integer sort;
@@ -43,5 +41,4 @@ public class ProjectFieldSortBO implements Serializable {
 
     @ApiModelProperty(value = "模块类型")
     private Integer moduleType;
-
 }

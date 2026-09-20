@@ -22,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor
 @ApiModel(value = "crm关系DTO对象")
 public class CrmRelationDTO {
-
     @ApiModelProperty(value = "客户list")
     private List<SimpleCrmEntity> customerList;
     @ApiModelProperty(value = "商机list")
@@ -33,6 +32,4 @@ public class CrmRelationDTO {
     private List<SimpleCrmEntity> contractList;
     @ApiModelProperty(value = "回款列表")
     private List<SimpleCrmEntity> receivablesList;
-
-
 }

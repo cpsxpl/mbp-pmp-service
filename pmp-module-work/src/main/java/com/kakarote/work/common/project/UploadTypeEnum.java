@@ -31,17 +31,16 @@ public enum UploadTypeEnum {
      */
     AWS(5, "aws_s3"),
 
-    NULL(99, "null"),
-    ;
+    NULL(99, "null");
 
-    private UploadTypeEnum(Integer config, String type) {
+    UploadTypeEnum(Integer config, String type) {
         this.config = config;
         this.type = type;
     }
 
-    private Integer config;
+    private final Integer config;
 
-    private String type;
+    private final String type;
 
     public Integer getConfig() {
         return this.config;

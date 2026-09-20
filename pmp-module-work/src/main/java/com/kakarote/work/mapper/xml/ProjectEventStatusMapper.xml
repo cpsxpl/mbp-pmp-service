@@ -17,23 +17,23 @@
 
     <select id="queryEventStatusByEventIdAndSysType" resultType="com.kakarote.work.entity.PO.ProjectEventStatus">
         SELECT
-            pes.id,
-            pes.project_event_id,
-            ps.sys_type,
-            ps.status_name,
-            ps.project_status_id,
-            ps.status_type,
-            pes.init_status,
-            pes.use_status
+        pes.id,
+        pes.project_event_id,
+        ps.sys_type,
+        ps.status_name,
+        ps.project_status_id,
+        ps.status_type,
+        pes.init_status,
+        pes.use_status
         FROM
-            wk_project_event_status pes
-                INNER JOIN wk_project_status ps ON pes.project_status_id = ps.project_status_id
+        wk_project_event_status pes
+        INNER JOIN wk_project_status ps ON pes.project_status_id = ps.project_status_id
         WHERE
-            ( pes.use_status = 1 OR pes.use_status = 2 )
-          AND pes.project_event_id = #{eventId} AND pes.project_id = #{projectId}
-          <if test=" sysType != null ">
-              AND ps.sys_type = #{sysType}
-          </if>
+        ( pes.use_status = 1 OR pes.use_status = 2 )
+        AND pes.project_event_id = #{eventId} AND pes.project_id = #{projectId}
+        <if test=" sysType != null ">
+            AND ps.sys_type = #{sysType}
+        </if>
 
     </select>
 

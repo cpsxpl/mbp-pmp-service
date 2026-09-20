@@ -13,13 +13,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = { "com.kakarote.work","com.kakarote.ids.provider"})
+@EnableFeignClients(basePackages = {"com.kakarote.work", "com.kakarote.ids.provider"})
 @MapperScan(basePackages = "com.kakarote.work.mapper")
-@EnableMethodCache(basePackages = "com.kakarote.work",order = -9999)
+@EnableMethodCache(basePackages = "com.kakarote.work", order = -9999)
 @EnableCreateCacheAnnotation
 public class WorkApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(WorkApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WorkApplication.class, args);
+    }
 }

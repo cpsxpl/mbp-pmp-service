@@ -8,13 +8,12 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskTimeListVO对象", description = "迭代甘特图")
 public class ProjectGanttVO {
-
-
     @ApiModelProperty(value = "迭代主键ID")
     private Long taskId;
 

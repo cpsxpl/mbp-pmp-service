@@ -3,26 +3,24 @@ package com.kakarote.work.constant;
 import java.util.Objects;
 
 /**
- * @author zyh
+ * @author cpsxpl
  * 优先级类型
  */
 
 public enum PriorityEnum {
-
     //缺陷类型
-    NONE(0,"无"),
-    LOW(1,"低"),
-    MID(2,"中"),
-    HIGH(3,"高"),
-    ;
+    NONE(0, "无"),
+    LOW(1, "低"),
+    MID(2, "中"),
+    HIGH(3, "高");
 
-    private PriorityEnum(Integer type, String desc) {
+    PriorityEnum(Integer type, String desc) {
         this.type = type;
         this.desc = desc;
     }
 
-    private Integer type;
-    private String desc;
+    private final Integer type;
+    private final String desc;
 
     public Integer getType() {
         return type;
@@ -49,5 +47,4 @@ public enum PriorityEnum {
         }
         return NONE;
     }
-
 }

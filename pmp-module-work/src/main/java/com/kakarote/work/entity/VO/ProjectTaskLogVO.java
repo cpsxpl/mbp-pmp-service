@@ -7,12 +7,11 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("任务活动日志信息")
 public class ProjectTaskLogVO {
-
     @ApiModelProperty(value = "任务活动日志id")
     private Long logId;
 

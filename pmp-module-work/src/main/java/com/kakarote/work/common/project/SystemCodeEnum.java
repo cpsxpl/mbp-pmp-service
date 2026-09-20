@@ -44,18 +44,15 @@ public enum SystemCodeEnum implements ResultCode {
     COMPANY_USER_INFO_ERROR(415, "企业用户不存在!"),
 
     WORK_NO_TIME_VALID(1008, "开始时间结束时间至少要有一个有值"),
-    BOARD_ERROR(1009, "初始看板不能删除"),
-
-
-    ;
+    BOARD_ERROR(1009, "初始看板不能删除");
 
     SystemCodeEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    private int code;
-    private String msg;
+    private final int code;
+    private final String msg;
 
     public int getCode() {
         return code;

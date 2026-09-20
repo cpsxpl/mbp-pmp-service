@@ -3,8 +3,8 @@ package com.kakarote.work.entity.VO;
 import com.alibaba.fastjson.JSONObject;
 import com.kakarote.common.entity.SimpleUser;
 import com.kakarote.work.entity.BO.FileEntity;
-import com.kakarote.work.entity.BO.SimpleCrmEntity;
 import com.kakarote.work.entity.BO.ProjectTaskLabelBO;
+import com.kakarote.work.entity.BO.SimpleCrmEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("任务详情信息")

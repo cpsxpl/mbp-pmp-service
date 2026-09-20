@@ -44,9 +44,8 @@ public class ProjectTaskExportBO {
     private Long taskId;
     @ApiModelProperty(value = "1 平铺 2树结构")
     private Integer showType;
-//    @ApiModelProperty(value = "看板状态id")
+    //    @ApiModelProperty(value = "看板状态id")
 //    private Long boardStatusId;
-
 
     @ApiModelProperty("事项类型筛选")
     private List<Integer> typeQuery;

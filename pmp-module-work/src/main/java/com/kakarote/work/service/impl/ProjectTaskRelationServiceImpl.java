@@ -1,43 +1,21 @@
 package com.kakarote.work.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.date.LocalDateTimeUtil;
-import cn.hutool.core.util.StrUtil;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.kakarote.common.utils.UserUtil;
-import com.kakarote.work.entity.PO.ProjectTask;
-import com.kakarote.work.entity.PO.ProjectTaskLog;
 import com.kakarote.work.entity.PO.ProjectTaskRelation;
 import com.kakarote.work.mapper.ProjectTaskRelationMapper;
-import com.kakarote.work.service.IProjectTaskLogService;
 import com.kakarote.work.service.IProjectTaskRelationService;
-import com.kakarote.work.service.IProjectTaskService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
  * 任务关联业务表 服务实现类
  * </p>
  *
- * @author wyq
+ * @author cpsxpl
  * @since 2020-05-18
  */
 @Service
 public class ProjectTaskRelationServiceImpl extends BaseServiceImpl<ProjectTaskRelationMapper, ProjectTaskRelation> implements IProjectTaskRelationService {
-
 //    @Autowired
 //    private CrmService crmService;
 //    @Autowired
@@ -193,7 +171,6 @@ public class ProjectTaskRelationServiceImpl extends BaseServiceImpl<ProjectTaskR
 //     * @param type                 类型
 //     * @param relationIds          关系ids
 //     * @param projectTaskRelations 关系列表
-//     * @author jiao sir
 //     * @date 2021/11/19
 //     */
 //    private void handleRelation(Long taskId, int type, String relationIds, List<ProjectTaskRelation> projectTaskRelations, List<Long> longs) {

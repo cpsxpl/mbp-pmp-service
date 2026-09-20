@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("删除任务列表参数")

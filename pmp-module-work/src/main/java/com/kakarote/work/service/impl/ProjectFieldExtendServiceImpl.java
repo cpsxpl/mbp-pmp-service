@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
  * 自定义字段扩展数据表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @Service
 public class ProjectFieldExtendServiceImpl extends BaseServiceImpl<ProjectFieldExtendMapper, ProjectFieldExtend> implements IProjectFieldExtendService {
-
 }

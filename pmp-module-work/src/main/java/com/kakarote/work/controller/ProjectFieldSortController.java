@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import com.kakarote.common.result.Result;
 import com.kakarote.work.common.project.ProjectFieldSortAddBO;
 import com.kakarote.work.common.project.ProjectFieldSortQueryBO;
@@ -20,13 +19,12 @@ import java.util.List;
  * 字段排序表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 @RestController
 @RequestMapping("/projectFieldSort")
 public class ProjectFieldSortController {
-
     @Autowired
     private IProjectFieldSortService projectFieldSortService;
 
@@ -41,6 +39,4 @@ public class ProjectFieldSortController {
     public Result<Boolean> addOrUpdateUserSort(@RequestBody ProjectFieldSortAddBO projectFieldSortAddBO) {
         return Result.ok(projectFieldSortService.addOrUpdateUserSort(projectFieldSortAddBO));
     }
-
 }
-

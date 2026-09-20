@@ -19,9 +19,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="ProjectTaskCountVO对象", description="事项完成情况统计VO")
+@ApiModel(value = "ProjectTaskCountVO对象", description = "事项完成情况统计VO")
 public class ProjectTaskCountVO {
-
     @ApiModelProperty(value = "项目名称")
     private String projectName;
 
@@ -36,5 +35,4 @@ public class ProjectTaskCountVO {
 
     @ApiModelProperty(value = "每日进行中的数量统计")
     private List<ProjectTaskNumVO> projectTaskNumVOsRun;
-
 }

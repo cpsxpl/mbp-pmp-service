@@ -11,20 +11,19 @@ import java.util.List;
  * 项目角色表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-10-27
  */
 public interface IProjectRoleService extends BaseService<AdminRole> {
-
-
     List<AdminRole> queryProjectRoleByTypes(List<Integer> types);
 
     /**
      * 功能描述: <br>
      * 〈查询项目管理成员的权限〉
+     *
      * @param roleIds
      * @return java.util.List<java.lang.Long>
-     * @author zyh
+     * @author cpsxpl
      */
     List<Long> getAllRoleMenuId(List<Long> roleIds);
 
@@ -55,14 +54,14 @@ public interface IProjectRoleService extends BaseService<AdminRole> {
      *
      * @param roleId roleId
      */
-    public void delete(Long roleId);
+    void delete(Long roleId);
 
     /**
      * 修改角色菜单关系
      *
      * @param adminRole adminrole
      */
-    public void updateRoleMenu(AdminRole adminRole);
+    void updateRoleMenu(AdminRole adminRole);
 
     /**
      * 查询项目管理角色

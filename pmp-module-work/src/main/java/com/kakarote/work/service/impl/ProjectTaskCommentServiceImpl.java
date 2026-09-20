@@ -3,10 +3,6 @@ package com.kakarote.work.service.impl;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.kakarote.common.entity.SimpleUser;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
@@ -15,20 +11,26 @@ import com.kakarote.work.mapper.ProjectTaskCommentMapper;
 import com.kakarote.work.service.IProjectTaskCommentService;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
+import static com.baomidou.mybatisplus.extension.toolkit.Db.updateById;
 
 /**
  * <p>
  * 任务评论表 服务实现类
  * </p>
  *
- * @author wyq
+ * @author cpsxpl
  * @since 2020-05-18
  */
 @Service
 public class ProjectTaskCommentServiceImpl extends BaseServiceImpl<ProjectTaskCommentMapper, ProjectTaskComment> implements IProjectTaskCommentService {
-
     /**
      * 查询评论列表
      *
@@ -38,7 +40,7 @@ public class ProjectTaskCommentServiceImpl extends BaseServiceImpl<ProjectTaskCo
     @Override
     public List<ProjectTaskComment> queryCommentList(Long typeId) {
         LambdaQueryChainWrapper<ProjectTaskComment> chainWrapper = lambdaQuery();
-         chainWrapper.eq(ProjectTaskComment::getTypeId, typeId);
+        chainWrapper.eq(ProjectTaskComment::getTypeId, typeId);
         chainWrapper.orderByAsc(ProjectTaskComment::getCreateTime);
         List<ProjectTaskComment> taskCommentList = chainWrapper.list();
         if (taskCommentList == null || taskCommentList.size() == 0) {
@@ -78,7 +80,7 @@ public class ProjectTaskCommentServiceImpl extends BaseServiceImpl<ProjectTaskCo
             comment.setCreateTime(LocalDateTimeUtil.now());
             comment.setUserId(UserUtil.getUserId());
             save(comment);
-            int two=2;
+            int two = 2;
 //            AdminMessageBO adminMessageBO = new AdminMessageBO();
 //            adminMessageBO.setUserId(comment.getUserId());
 //            adminMessageBO.setContent(comment.getContent());
@@ -111,7 +113,6 @@ public class ProjectTaskCommentServiceImpl extends BaseServiceImpl<ProjectTaskCo
 //                adminMessageBO.setIds(list);
 //            }
 //            ApplicationContextHolder.getBean(AdminMessageService.class).sendMessage(adminMessageBO);
-
         } else {
             updateById(comment);
         }

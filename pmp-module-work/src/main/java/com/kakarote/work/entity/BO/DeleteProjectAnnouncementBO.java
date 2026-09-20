@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
+
 import java.util.List;
 
 /**
@@ -20,12 +21,9 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="DeleteProjectAnnouncementBO", description="项目公告表")
+@ApiModel(value = "DeleteProjectAnnouncementBO", description = "项目公告表")
 public class DeleteProjectAnnouncementBO {
-
     @ApiModelProperty(value = "项目公告ID")
     @NotEmpty(message = "id不能为空")
     private List<Long> projectAnnouncementId;
-
-
 }

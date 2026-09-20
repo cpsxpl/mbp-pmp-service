@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,12 +26,11 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_admin_user_role")
-@ApiModel(value="AdminUserRole对象", description="用户角色对应关系表")
+@ApiModel(value = "AdminUserRole对象", description = "用户角色对应关系表")
 public class AdminUserRole implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID=1L;
-
-    @TableId(value = "id",type = IdType.ASSIGN_ID)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "用户ID")
@@ -51,6 +54,4 @@ public class AdminUserRole implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
-
-
 }

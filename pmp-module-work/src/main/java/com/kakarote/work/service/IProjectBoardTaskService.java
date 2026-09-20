@@ -10,12 +10,11 @@ import java.util.List;
  * 项目管理 看板信息 服务类
  * </p>
  *
- * @author guole
+ * @author cpsxpl
  * @since 2022-09-22
  */
 public interface IProjectBoardTaskService {
-
     List<ProjectBoardVO> queryBoardTaskList(ProjectBoardTaskBO boardTaskBO);
-    void  setTaskStatus(Long taskId,Long statusId);
 
+    void setTaskStatus(Long taskId, Long statusId);
 }

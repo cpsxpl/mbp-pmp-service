@@ -8,11 +8,23 @@ import com.kakarote.ids.provider.utils.UserCacheUtil;
 import com.kakarote.work.common.project.ProjectAuthUtil;
 import com.kakarote.work.common.project.ProjectUtil;
 import com.kakarote.work.entity.BO.ProjectBoardTaskBO;
-import com.kakarote.work.entity.PO.*;
+import com.kakarote.work.entity.PO.Project;
+import com.kakarote.work.entity.PO.ProjectEventStatus;
+import com.kakarote.work.entity.PO.ProjectSchemeRelation;
+import com.kakarote.work.entity.PO.ProjectSchemeRelationBoard;
+import com.kakarote.work.entity.PO.ProjectTask;
+import com.kakarote.work.entity.PO.ProjectTaskLog;
 import com.kakarote.work.entity.VO.ProjectBoardStatusVO;
 import com.kakarote.work.entity.VO.ProjectBoardVO;
 import com.kakarote.work.entity.VO.ProjectTaskVO;
-import com.kakarote.work.service.*;
+import com.kakarote.work.service.IProjectBoardStatusService;
+import com.kakarote.work.service.IProjectBoardTaskService;
+import com.kakarote.work.service.IProjectEventStatusService;
+import com.kakarote.work.service.IProjectSchemeRelationBoardService;
+import com.kakarote.work.service.IProjectSchemeRelationService;
+import com.kakarote.work.service.IProjectService;
+import com.kakarote.work.service.IProjectTaskLogService;
+import com.kakarote.work.service.IProjectTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +33,6 @@ import java.util.List;
 
 @Service
 public class ProjectBoardTaskServiceImpl implements IProjectBoardTaskService {
-
     @Autowired
     private IProjectSchemeRelationBoardService srb;
     @Autowired
@@ -50,13 +61,13 @@ public class ProjectBoardTaskServiceImpl implements IProjectBoardTaskService {
 
         List<ProjectSchemeRelationBoard> boardRelationList = srb.lambdaQuery().
                 eq(ProjectSchemeRelationBoard::getSchemeRelationId, projectSchemeRelation.getId()).
-                eq(ProjectSchemeRelationBoard::getProjectId,project.getProjectId()).list();
+                eq(ProjectSchemeRelationBoard::getProjectId, project.getProjectId()).list();
         List<ProjectTask> projectTasks = taskService.lambdaQuery().eq(ProjectTask::getProjectId, boardTaskBO.getProjectId()).ne(ProjectTask::getType, 1).isNull(ProjectTask::getPid)
-                .and(StrUtil.isNotBlank(boardTaskBO.getSearch()),wrapper->{
-                    wrapper.or(newWrapper->{
+                .and(StrUtil.isNotBlank(boardTaskBO.getSearch()), wrapper -> {
+                    wrapper.or(newWrapper -> {
                         newWrapper.like(ProjectTask::getName, boardTaskBO.getSearch());
                     });
-                    wrapper.or(newWrapper->{
+                    wrapper.or(newWrapper -> {
                         newWrapper.like(ProjectTask::getNum, boardTaskBO.getSearch());
                     });
                 })
@@ -83,7 +94,7 @@ public class ProjectBoardTaskServiceImpl implements IProjectBoardTaskService {
                     if (ObjectUtil.isNotNull(projectTask.getBoardStatusId()) && projectBoardStatusVO.getStatusId().longValue() == projectTask.getBoardStatusId()) {
                         ProjectTaskVO projectTaskVO = BeanUtil.copyProperties(projectTask, ProjectTaskVO.class);
                         projectTaskVO.setBoardStatusName(projectBoardStatusVO.getStatusName());
-                        if(ObjectUtil.isNotEmpty(projectTask.getMainUserId())){
+                        if (ObjectUtil.isNotEmpty(projectTask.getMainUserId())) {
                             UserInfo userInfo = UserCacheUtil.getUserInfo(projectTask.getMainUserId());
                             projectTaskVO.setMainUserId(userInfo.getUserId());
                             projectTaskVO.setMainUserImg(userInfo.getUserImg());
@@ -110,7 +121,7 @@ public class ProjectBoardTaskServiceImpl implements IProjectBoardTaskService {
         projectTaskLog.setTaskId(taskId);
         projectTaskLog.setType(1);
 
-         String contentLog = ProjectUtil.getLogContent("状态",getStatusDesc(oldStatusType),getStatusDesc(newStatusType));
+        String contentLog = ProjectUtil.getLogContent("状态", getStatusDesc(oldStatusType), getStatusDesc(newStatusType));
         projectTaskLog.setContent(contentLog);
         projectTaskLogService.saveTaskLog(projectTaskLog);
         //状态修改状态功能 占时去掉
@@ -125,32 +136,29 @@ public class ProjectBoardTaskServiceImpl implements IProjectBoardTaskService {
 //            projectAuthUtil.sendMessage(UserUtil.getUserId(), id, projectTask.getTaskId(), AdminMessageEnum.PROJECT_CREATE_NOTICE.getType(), projectTask.getName(), content);
 //        }
 
-
         //String content1 = " 你在 " + project.getName().concat(" 项目中修改任务 " + projectTask.getName()).concat(" 状态为 " + status);
-     //   String content1=project.getName()+","+status;
+        //   String content1=project.getName()+","+status;
 
 //        projectAuthUtil.sendMessage(UserUtil.getUserId(), UserUtil.getUserId(), projectTask.getTaskId(), AdminMessageEnum.PROJECT_CREATE_NOTICE.getType(), projectTask.getName(), content1);
-     }
+    }
 
-     public Integer getEventStatus(Long boardStatusId){
-         ProjectEventStatus projectEventStatus = eventStatusService.queryEventStatusById(boardStatusId);
-         if(ObjectUtil.isNotEmpty(projectEventStatus) && ObjectUtil.isNotEmpty(projectEventStatus.getStatusType())){
-             return projectEventStatus.getStatusType();
-         }
-         return 0;
-     }
+    public Integer getEventStatus(Long boardStatusId) {
+        ProjectEventStatus projectEventStatus = eventStatusService.queryEventStatusById(boardStatusId);
+        if (ObjectUtil.isNotEmpty(projectEventStatus) && ObjectUtil.isNotEmpty(projectEventStatus.getStatusType())) {
+            return projectEventStatus.getStatusType();
+        }
+        return 0;
+    }
 
-
-     public String getStatusDesc(Integer statusType){
-         String status = "";
-         if (1 == statusType) {
-             status = "未完成";
-         } else if (2 == statusType) {
-             status = "进行中";
-         } else {
-             status = "已完成";
-         }
-         return status;
-     }
-
+    public String getStatusDesc(Integer statusType) {
+        String status = "";
+        if (1 == statusType) {
+            status = "未完成";
+        } else if (2 == statusType) {
+            status = "进行中";
+        } else {
+            status = "已完成";
+        }
+        return status;
+    }
 }

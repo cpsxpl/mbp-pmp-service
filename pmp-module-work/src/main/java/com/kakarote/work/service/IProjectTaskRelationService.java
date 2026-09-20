@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.ProjectTaskRelation;
 
@@ -9,7 +8,7 @@ import com.kakarote.work.entity.PO.ProjectTaskRelation;
  * 任务关联业务表 服务类
  * </p>
  *
- * @author wyq
+ * @author cpsxpl
  * @since 2020-05-18
  */
 public interface IProjectTaskRelationService extends BaseService<ProjectTaskRelation> {

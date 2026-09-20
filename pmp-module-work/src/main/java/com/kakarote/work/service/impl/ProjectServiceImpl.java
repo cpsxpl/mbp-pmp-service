@@ -8,48 +8,86 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
 import com.kakarote.common.entity.UserInfo;
 import com.kakarote.common.exception.BusinessException;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
-import com.kakarote.work.common.project.*;
 import com.kakarote.work.common.admin.AdminProjectRole;
 import com.kakarote.work.common.admin.AdminProjectRoleBO;
+import com.kakarote.work.common.project.ProjectAuthUtil;
+import com.kakarote.work.common.project.ProjectCountBO;
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
+import com.kakarote.work.common.project.SeparatorUtil;
+import com.kakarote.work.common.project.TaskOwnerBO;
 import com.kakarote.work.constant.GroupTypeEnum;
 import com.kakarote.work.constant.InitStatusTypeEnum;
 import com.kakarote.work.constant.ProjectCodeEnum;
-import com.kakarote.work.entity.BO.*;
 import com.kakarote.work.entity.BO.ProjectQueryBO;
+import com.kakarote.work.entity.BO.ProjectRoleQueryBO;
 import com.kakarote.work.entity.BO.ProjectVo;
-import com.kakarote.work.entity.PO.*;
+import com.kakarote.work.entity.PO.AdminRole;
+import com.kakarote.work.entity.PO.Project;
+import com.kakarote.work.entity.PO.ProjectBoard;
+import com.kakarote.work.entity.PO.ProjectBoardStatus;
+import com.kakarote.work.entity.PO.ProjectCollect;
+import com.kakarote.work.entity.PO.ProjectConfigScheme;
+import com.kakarote.work.entity.PO.ProjectEvent;
+import com.kakarote.work.entity.PO.ProjectEventStatus;
+import com.kakarote.work.entity.PO.ProjectGroup;
+import com.kakarote.work.entity.PO.ProjectGroupManagement;
+import com.kakarote.work.entity.PO.ProjectSchemeRelation;
+import com.kakarote.work.entity.PO.ProjectSchemeRelationBoard;
+import com.kakarote.work.entity.PO.ProjectStatus;
+import com.kakarote.work.entity.PO.ProjectTask;
+import com.kakarote.work.entity.PO.ProjectUser;
 import com.kakarote.work.mapper.ProjectMapper;
-import com.kakarote.work.service.*;
+import com.kakarote.work.service.IProjectBoardService;
+import com.kakarote.work.service.IProjectBoardStatusService;
+import com.kakarote.work.service.IProjectCollectService;
+import com.kakarote.work.service.IProjectConfigSchemeService;
+import com.kakarote.work.service.IProjectEventService;
+import com.kakarote.work.service.IProjectEventStatusService;
+import com.kakarote.work.service.IProjectGroupManagementService;
+import com.kakarote.work.service.IProjectGroupService;
+import com.kakarote.work.service.IProjectRoleService;
+import com.kakarote.work.service.IProjectSchemeRelationBoardService;
+import com.kakarote.work.service.IProjectSchemeRelationService;
+import com.kakarote.work.service.IProjectService;
+import com.kakarote.work.service.IProjectStatusService;
+import com.kakarote.work.service.IProjectTaskService;
+import com.kakarote.work.service.IProjectUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.baomidou.mybatisplus.extension.toolkit.Db.update;
 
 /**
  * <p>
  * 项目表 服务实现类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @Service
 public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> implements IProjectService {
-
     @Autowired
     private ProjectAuthUtil projectAuthUtil;
     @Autowired
@@ -132,7 +170,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
                     projectSchemeRelation.setCreateUserId(UserUtil.getUserId());
                     projectSchemeRelation.setEventId(projectEvent.getId());
                     projectSchemeRelationService.updateById(projectSchemeRelation);
-
                 } else {
                     projectSchemeRelation = new ProjectSchemeRelation();
                     projectSchemeRelation.setType(projectEvent.getType());
@@ -142,10 +179,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
                     projectSchemeRelation.setCreateUserId(UserUtil.getUserId());
                     projectSchemeRelation.setEventId(projectEvent.getId());
                     projectSchemeRelationService.save(projectSchemeRelation);
-
                 }
                 //初始化看板
-                List<ProjectEventStatus> eventStatusList = projectEventStatusService.applicationSchemeStatusList( project.getProjectId(),projectEvent.getId());
+                List<ProjectEventStatus> eventStatusList = projectEventStatusService.applicationSchemeStatusList(project.getProjectId(), projectEvent.getId());
                 List<ProjectBoard> projectBoards = projectBoardService.lambdaQuery().eq(ProjectBoard::getEventId, projectEvent.getId()).list();
                 for (ProjectBoard projectBoard : projectBoards) {
                     ProjectSchemeRelationBoard projectSchemeRelationBoard = BeanUtil.toBean(projectBoard, ProjectSchemeRelationBoard.class);
@@ -193,7 +229,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
         return project;
     }
 
-
     @Override
     public List<ProjectOwnerRoleBO> queryOwnerRoleList(Long projectId) {
         ProjectRoleQueryBO projectRoleQueryBO = new ProjectRoleQueryBO();
@@ -216,7 +251,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
             List<Project> list = projectList.getList().stream().map(p -> {
                 Project vo = new Project();
                 p.setUserProjectAuth(projectUserService.getProjectAuth(p.getProjectId()));
-               // p.setProjectOwnerRoleList(queryOwnerRoleList(p.getProjectId()));
+                // p.setProjectOwnerRoleList(queryOwnerRoleList(p.getProjectId()));
                 p.setProjectAdminList(this.projectUserService.queryProjectAdminUser(p.getProjectId()));
                 if (ObjectUtil.isNotEmpty(countBOMap) && countBOMap.containsKey(p.getProjectId())) {
                     ProjectCountBO countBO = countBOMap.get(p.getProjectId());
@@ -238,7 +273,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
 
             if (all) {
                 //查询全部项目
-
             } else if (none) {
                 //查询未分组的数据
                 if (CollectionUtil.isNotEmpty(list)) {
@@ -249,7 +283,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
                         list = list.stream().filter(f -> !groupProjects.contains(f.getProjectId())).distinct().collect(Collectors.toList());
                     }
                 }
-
             } else {
                 //查询当前分组项目
                 if (CollectionUtil.isNotEmpty(list) && ObjectUtil.isNotEmpty(projectQueryBO.getGroupId()) && projectQueryBO.getGroupId() != 0) {
@@ -298,7 +331,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
             List<Project> list = projectList.getList().stream().map(p -> {
                 Project vo = new Project();
                 p.setUserProjectAuth(projectUserService.getProjectAuth(p.getProjectId()));
-               // p.setProjectOwnerRoleList(queryOwnerRoleList(p.getProjectId()));
+                // p.setProjectOwnerRoleList(queryOwnerRoleList(p.getProjectId()));
                 p.setProjectAdminList(this.projectUserService.queryProjectAdminUser(p.getProjectId()));
 
                 if (ObjectUtil.isNotEmpty(countBOMap) && countBOMap.containsKey(p.getProjectId())) {
@@ -348,8 +381,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
                         orWrapper.in(Project::getProjectId, projectIds);
                     });
                 }
-
-
             });
             projectList = this.page(projectQueryBO.parse(), lambdaQueryWrapper);
         }
@@ -361,7 +392,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
             List<Project> list = projectList.getList().stream().map(p -> {
                 Project vo = new Project();
                 p.setUserProjectAuth(projectUserService.getProjectAuth(p.getProjectId()));
-              //  p.setProjectOwnerRoleList(queryOwnerRoleList(p.getProjectId()));
+                //  p.setProjectOwnerRoleList(queryOwnerRoleList(p.getProjectId()));
                 p.setProjectAdminList(this.projectUserService.queryProjectAdminUser(p.getProjectId()));
 
                 if (ObjectUtil.isNotEmpty(countBOMap) && countBOMap.containsKey(p.getProjectId())) {
@@ -489,7 +520,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
         try {
             projectUserService.deleteProjectRoles(adminProjectRole);
         } catch (Exception e) {
-
         }
     }
 
@@ -509,7 +539,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
         page.setList(list);
         return page;
     }
-
 
     @Override
     public void archiveProject(Long projectId, Integer setType) {
@@ -555,7 +584,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
             project = new Project().setStatus(1).setArchiveTime(null).setDeleteTime(null);
         }
         update(project, new QueryWrapper<Project>().eq("project_id", projectId));
-
     }
 
     @Override
@@ -575,32 +603,29 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
                 wrapper.or(orWrapper -> {
                     orWrapper.in(Project::getProjectId, projectIds);
                 });
-
             });
             projectList = this.page(projectQueryBO.parse(), lambdaQueryWrapper);
         }
 
         if (ObjectUtil.equal(projectQueryBO.getSortType(), 1)) {
-
             projectList.setList(projectList.getList().stream().sorted(Comparator.comparing(Project::getAccessTime, Comparator.nullsLast(LocalDateTime::compareTo))).collect(Collectors.toList()));
         } else {
             projectList.setList(projectList.getList().stream().sorted(Comparator.comparing(Project::getCreateTime, Comparator.nullsLast(LocalDateTime::compareTo))).collect(Collectors.toList()));
         }
-
         return projectList;
     }
 
     @Override
-    public void initEventStatus(Long projectId,Long eventId){
+    public void initEventStatus(Long projectId, Long eventId) {
         //初始化事件状态
         List<ProjectStatus> projectStatuses = projectStatusService.lambdaQuery().eq(ProjectStatus::getSysType, 1).list();
-        if(CollectionUtil.isEmpty(projectStatuses)){
+        if (CollectionUtil.isEmpty(projectStatuses)) {
             return;
         }
         Map<Integer, ProjectStatus> projectStatusMap = projectStatuses.stream().collect(Collectors.toMap(ProjectStatus::getStatusType, Function.identity(), (v1, v2) -> v2));
         List<ProjectEventStatus> projectEventStatuses = new ArrayList<>();
-        projectStatusMap.forEach((key,value) -> {
-            ProjectEventStatus projectEventStatus  = BeanUtil.copyProperties(value, ProjectEventStatus.class);
+        projectStatusMap.forEach((key, value) -> {
+            ProjectEventStatus projectEventStatus = BeanUtil.copyProperties(value, ProjectEventStatus.class);
             projectEventStatus.setProjectEventId(eventId);
             projectEventStatus.setUseStatus(1);
             projectEventStatus.setInitStatus(0);
@@ -612,5 +637,4 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectMapper, Project> 
         });
         projectEventStatusService.saveBatch(projectEventStatuses);
     }
-
 }

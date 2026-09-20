@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.Project;
 import com.kakarote.work.entity.PO.ProjectGroupManagement;
@@ -13,15 +12,13 @@ import java.util.List;
  * 项目分组管理表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-17
  */
 public interface IProjectGroupManagementService extends BaseService<ProjectGroupManagement> {
+    void moveToGroup(ProjectGroupManagement projectGroupManagement);
 
+    void removeToGroup(Long groupId, Long projectId);
 
-    public void moveToGroup(ProjectGroupManagement projectGroupManagement);
-
-    public void removeToGroup(Long groupId, Long projectId);
-
-    public List<Project> searchProjectGroupList(@RequestParam Long groupId);
+    List<Project> searchProjectGroupList(@RequestParam Long groupId);
 }

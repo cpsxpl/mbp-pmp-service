@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,10 +26,9 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_project_announcement")
-@ApiModel(value="ProjectAnnouncement对象", description="项目公告表")
+@ApiModel(value = "ProjectAnnouncement对象", description = "项目公告表")
 public class ProjectAnnouncement implements Serializable {
-
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @TableId(value = "project_announcement_id", type = IdType.ASSIGN_ID)
     private Long projectAnnouncementId;
@@ -53,6 +56,4 @@ public class ProjectAnnouncement implements Serializable {
 
     @ApiModelProperty(value = "批次 比如附件批次")
     private String batchId;
-
-
 }

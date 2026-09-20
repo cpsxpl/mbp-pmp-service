@@ -15,7 +15,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdminProjectRole implements Serializable {
-
     @ApiModelProperty(value = "项目Id")
     private Long projectId;
 

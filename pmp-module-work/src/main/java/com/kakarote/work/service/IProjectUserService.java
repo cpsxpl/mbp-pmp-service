@@ -1,12 +1,11 @@
 package com.kakarote.work.service;
 
 import com.alibaba.fastjson.JSONObject;
-
 import com.kakarote.common.servlet.BaseService;
+import com.kakarote.work.common.admin.AdminEditProjectRoleBO;
 import com.kakarote.work.common.admin.AdminProjectRole;
 import com.kakarote.work.common.admin.AdminProjectRoleBO;
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
-import com.kakarote.work.common.admin.AdminEditProjectRoleBO;
 import com.kakarote.work.entity.BO.ProjectRoleQueryBO;
 import com.kakarote.work.entity.PO.ProjectUser;
 import com.kakarote.work.entity.VO.ProjectRolesGroupVO;
@@ -18,11 +17,10 @@ import java.util.List;
  * 项目成员表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-10-27
  */
 public interface IProjectUserService extends BaseService<ProjectUser> {
-
     void relatedProjectUser(List<AdminProjectRoleBO> adminProjectRoleBOS);
 
     void editProjectUser(AdminEditProjectRoleBO adminEditProjectRoleBO);
@@ -34,12 +32,14 @@ public interface IProjectUserService extends BaseService<ProjectUser> {
     void deleteProjectRoles(AdminProjectRole adminProjectRole);
 
     List<ProjectOwnerRoleBO> queryProjectUser(ProjectRoleQueryBO projectRoleQueryBO);
-    List<Long> queryMyProjectIds();
-    public List<String> queryProjectAdminUser(Long projectId);
 
+    List<Long> queryMyProjectIds();
+
+    List<String> queryProjectAdminUser(Long projectId);
 
     /**
      * 根据项目id查询项目权限
+     *
      * @param projectId
      * @return
      */
@@ -47,8 +47,9 @@ public interface IProjectUserService extends BaseService<ProjectUser> {
 
     /**
      * 批量查询项目权限
+     *
      * @param projectIds
      * @return
      */
-    List<JSONObject> projectAuthList( List<Long> projectIds);
+    List<JSONObject> projectAuthList(List<Long> projectIds);
 }

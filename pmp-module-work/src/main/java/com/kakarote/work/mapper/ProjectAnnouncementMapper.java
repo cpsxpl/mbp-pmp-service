@@ -1,6 +1,5 @@
 package com.kakarote.work.mapper;
 
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseMapper;
 import com.kakarote.work.entity.PO.ProjectAnnouncement;
 
@@ -13,5 +12,4 @@ import com.kakarote.work.entity.PO.ProjectAnnouncement;
  * @since 2022-09-09
  */
 public interface ProjectAnnouncementMapper extends BaseMapper<ProjectAnnouncement> {
-
 }

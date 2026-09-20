@@ -1,6 +1,5 @@
 package com.kakarote.work.mapper;
 
-import com.kakarote.common.result.PageEntity;
 import com.kakarote.common.servlet.BaseMapper;
 import com.kakarote.work.entity.PO.ProjectData;
 
@@ -9,9 +8,8 @@ import com.kakarote.work.entity.PO.ProjectData;
  * 项目自定义字段存值表 Mapper 接口
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 public interface ProjectDataMapper extends BaseMapper<ProjectData> {
-
 }

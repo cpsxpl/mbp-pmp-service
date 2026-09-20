@@ -5,12 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("任务状态参数")
 public class ProjectTaskStatusBO {
-
     @ApiModelProperty("任务id")
     private Long taskId;
 

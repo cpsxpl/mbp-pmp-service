@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import com.alibaba.fastjson.JSONObject;
 import com.kakarote.common.ApiExplain;
 import com.kakarote.common.result.Result;
@@ -10,7 +9,11 @@ import com.kakarote.work.service.IProjectRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -41,7 +44,6 @@ public class ProjectRoleController {
     public Result<List<AdminRole>> queryProjectRoleByTypes(@RequestParam("types") List<Integer> types) {
         List<AdminRole> adminRoles = projectRoleService.queryProjectRoleByTypes(types);
         return Result.ok(adminRoles);
-
     }
 
     @PostMapping("/getRoleByType")
@@ -77,7 +79,4 @@ public class ProjectRoleController {
         JSONObject byType = projectRoleService.getMenuListByType();
         return Result.ok(byType);
     }
-
-
 }
-

@@ -1,6 +1,5 @@
 package com.kakarote.work.controller;
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,12 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 事件绑定属性表 前端控制器
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-20
  */
 @RestController
 @RequestMapping("/projectEventField")
 public class ProjectEventFieldController {
-
 }
-

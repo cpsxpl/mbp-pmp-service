@@ -19,7 +19,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskNumVO对象", description = "事项完成情况统计VO")
 public class ProjectUserTaskCountVO {
-
     @ApiModelProperty(value = "完成数量")
     private Integer all;
 
@@ -34,5 +33,4 @@ public class ProjectUserTaskCountVO {
 
     @ApiModelProperty(value = "迭代")
     private Long iteration;
-
 }

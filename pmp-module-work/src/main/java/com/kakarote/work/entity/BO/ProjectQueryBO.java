@@ -6,13 +6,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author JiaS
+ * @author cpsxpl
  * @date 2020/11/6
  */
 @Data
 @ApiModel("项目查询参数")
 public class ProjectQueryBO extends PageEntity {
-
     @ApiModelProperty("项目名称")
     private String name;
 
@@ -30,6 +29,4 @@ public class ProjectQueryBO extends PageEntity {
 
     @ApiModelProperty("项目状态 2归档 3删除")
     private Integer setType;
-
-
 }

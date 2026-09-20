@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RenameFileBO {
-
     @ApiModelProperty(value = "附件id")
     private Long fileId;
 

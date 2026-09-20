@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author bai
+ * @author cpsxpl
  */
 @Data
 @ApiModel("项目成员角色信息")

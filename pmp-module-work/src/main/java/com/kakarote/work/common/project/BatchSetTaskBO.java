@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
+
 @Data
 @ApiModel("批量设置任务")
 public class BatchSetTaskBO {

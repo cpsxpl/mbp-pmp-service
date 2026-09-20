@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author cpsxpl
  */
 @Data
 @ApiModel("移动项目任务更新信息")

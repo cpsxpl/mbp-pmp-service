@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 @ApiModel("绑定子任务")
 public class RelevancyChildTaskBO {

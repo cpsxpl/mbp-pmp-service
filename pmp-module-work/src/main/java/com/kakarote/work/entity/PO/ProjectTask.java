@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.kakarote.work.common.project.ProjectOwnerRoleBO;
 import com.kakarote.work.common.project.TaskOwnerBO;
 import com.kakarote.work.entity.BO.FileEntity;
@@ -21,7 +25,7 @@ import java.util.List;
  * 任务表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @Data
@@ -29,7 +33,6 @@ import java.util.List;
 @TableName("wk_project_task")
 @ApiModel(value = "ProjectTask对象", description = "任务表")
 public class ProjectTask implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "任务表")
@@ -44,7 +47,7 @@ public class ProjectTask implements Serializable {
 
     @ApiModelProperty(value = "事件团队成员")
     @TableField(exist = false)
-    private  List<TaskOwnerBO>  taskOwnerBOS;
+    private List<TaskOwnerBO> taskOwnerBOS;
 
     @ApiModelProperty(value = "0 带规划 1迭代 2需求 3任务 4缺陷 5工时 6子任务")
     private Integer type;
@@ -189,8 +192,6 @@ public class ProjectTask implements Serializable {
     @TableField(exist = false)
     @ApiModelProperty(value = "工时列表")
     private List<ProjectTaskTime> taskTimeList = new ArrayList<>();
-
-
     @ApiModelProperty(value = "项目成员列表")
     @TableField(exist = false)
     private List<ProjectOwnerRoleBO> projectOwnerRoleList;
@@ -246,5 +247,4 @@ public class ProjectTask implements Serializable {
     @ApiModelProperty(value = "项目图标")
     @TableField(exist = false)
     private String projectIcon;
-
 }

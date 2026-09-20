@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.ProjectFieldConfig;
 
@@ -11,11 +10,10 @@ import java.util.List;
  * 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-16
  */
 public interface IProjectFieldConfigService extends BaseService<ProjectFieldConfig> {
-
     /**
      * 获取下个字段名称
      *

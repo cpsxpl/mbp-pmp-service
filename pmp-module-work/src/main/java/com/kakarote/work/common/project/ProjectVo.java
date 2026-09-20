@@ -21,7 +21,7 @@ import java.util.List;
  * 项目表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 @Data
@@ -29,7 +29,6 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel(value = "Project对象", description = "项目表")
 public class ProjectVo implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "项目ID")
@@ -106,5 +105,4 @@ public class ProjectVo implements Serializable {
     @ApiModelProperty(value = "项目完成度")
     @TableField(exist = false)
     private Double theProgress;
-
 }

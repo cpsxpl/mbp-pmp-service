@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * 项目事项工时VO
  * </p>
  *
- * @author zhangyongjie
+ * @author cpsxpl
  * @since 2022-09-21
  */
 @Data
@@ -19,7 +19,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskTimeVO对象", description = "项目事项工时VO")
 public class ProjectTaskTimeVO {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
@@ -33,5 +32,4 @@ public class ProjectTaskTimeVO {
 
     @ApiModelProperty(value = "已登记工时")
     private Integer registeredHours;
-
 }

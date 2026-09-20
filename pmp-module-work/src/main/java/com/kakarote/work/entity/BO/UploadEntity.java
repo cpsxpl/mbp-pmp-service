@@ -9,7 +9,6 @@ import lombok.Data;
  */
 @Data
 public class UploadEntity {
-
     /**
      * 公共文件使用的key
      */
@@ -21,7 +20,6 @@ public class UploadEntity {
     public static final Integer PRIVATE_KEY = 0;
 
     public UploadEntity() {
-
     }
 
     public UploadEntity(String fileId, String name, Long size, String batchId, Integer isPublic) {
@@ -81,5 +79,4 @@ public class UploadEntity {
             return "/adminFile/down/" + fileId;
         }
     }
-
 }

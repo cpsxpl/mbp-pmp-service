@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -30,7 +34,6 @@ import java.time.LocalDateTime;
 @TableName("wk_project_task_relation")
 @ApiModel(value = "ProjectTaskRelation对象", description = "任务关联业务表")
 public class ProjectTaskRelation implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "任务ID")
@@ -60,7 +63,6 @@ public class ProjectTaskRelation implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
-
 
     @ApiModelProperty(value = "客户IDs")
     @TableField(exist = false)
@@ -95,7 +97,6 @@ public class ProjectTaskRelation implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startTime;
 
-
     @ApiModelProperty(value = "结束时间")
     @TableField(exist = false)
     private LocalDate endTime;
@@ -103,6 +104,4 @@ public class ProjectTaskRelation implements Serializable {
     @ApiModelProperty(value = "1新增或更新 2删除")
     @TableField(exist = false)
     private Integer flag;
-
-
 }

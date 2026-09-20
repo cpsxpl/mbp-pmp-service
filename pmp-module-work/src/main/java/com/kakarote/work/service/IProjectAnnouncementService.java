@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.BO.DeleteProjectAnnouncementBO;
 import com.kakarote.work.entity.BO.ProjectAnnouncementBO;
@@ -18,7 +17,6 @@ import java.util.List;
  * @since 2022-09-09
  */
 public interface IProjectAnnouncementService extends BaseService<ProjectAnnouncement> {
-
     /**
      * @Description：新建项目公告
      * @Author：GuoLei

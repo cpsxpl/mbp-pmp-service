@@ -1,6 +1,5 @@
 package com.kakarote.work.common.project;
 
-
 import com.alibaba.fastjson.JSONObject;
 import com.kakarote.common.exception.BusinessException;
 import org.apache.poi.hssf.usermodel.DVConstraint;
@@ -15,7 +14,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CrmExcelUtil {
-
     private static final int INDEX = 25;
 
     private static final int INDEX_TWO = 26;
@@ -26,7 +24,7 @@ public class CrmExcelUtil {
 
     static {
         try {
-            PROVINCE_ARRAY = JSONObject.parseObject(Objects.requireNonNull(CrmExcelUtil.class.getClassLoader().getResourceAsStream("province.json")),String[].class);
+            PROVINCE_ARRAY = JSONObject.parseObject(Objects.requireNonNull(CrmExcelUtil.class.getClassLoader().getResourceAsStream("province.json")), String[].class);
             AREA_MAP = JSONObject.parseObject(Objects.requireNonNull(CrmExcelUtil.class.getClassLoader().getResourceAsStream("area.json")), HashMap.class);
         } catch (IOException e) {
             throw new BusinessException(SystemCodeEnum.SYSTEM_ERROR);
@@ -90,8 +88,7 @@ public class CrmExcelUtil {
         if (columnNo < 1 || columnNo > maxIndex) {
             throw new IllegalArgumentException();
         }
-        String[] sources = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
-                , "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        String[] sources = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         StringBuilder sb = new StringBuilder(5);
         // 求最右边的字母
         int remainder = columnNo % 26;
@@ -125,7 +122,6 @@ public class CrmExcelUtil {
     public static Map<String, List<String>> getAreaMap() {
         return AREA_MAP;
     }
-
 
     /**
      * 获取所有省

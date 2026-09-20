@@ -1,6 +1,5 @@
 package com.kakarote.work.mapper;
 
-
 import com.kakarote.common.servlet.BaseMapper;
 import com.kakarote.work.entity.PO.AdminUserRole;
 
@@ -13,5 +12,4 @@ import com.kakarote.work.entity.PO.AdminUserRole;
  * @since 2020-04-27
  */
 public interface ProjectUserRoleMapper extends BaseMapper<AdminUserRole> {
-
 }

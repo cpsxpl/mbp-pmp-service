@@ -17,15 +17,13 @@ import java.util.Map;
  * @since 2020-04-27
  */
 public interface ProjectRoleMenuMapper extends BaseMapper<AdminRoleMenu> {
-
-
     /**
      * 初始化项目管理角色
      *
      * @param dataList 数据列表
      */
     @InterceptorIgnore(tenantLine = "1")
-    public void initProjectRole(@Param("dataList") List<Map<String, Object>> dataList);
+    void initProjectRole(@Param("dataList") List<Map<String, Object>> dataList);
 
     /**
      * 初始化项目状态
@@ -33,12 +31,13 @@ public interface ProjectRoleMenuMapper extends BaseMapper<AdminRoleMenu> {
      * @param dataList 数据列表
      */
     @InterceptorIgnore(tenantLine = "1")
-    public void initProjectStatus(@Param("dataList") List<Map<String, Object>> dataList);
+    void initProjectStatus(@Param("dataList") List<Map<String, Object>> dataList);
 
     /**
      * 初始化菜单
+     *
      * @param dataList 数据列表
      */
     @InterceptorIgnore(tenantLine = "1")
-    public void initRoleMenuList(@Param("dataList") List<AdminRoleMenu> dataList);
+    void initRoleMenuList(@Param("dataList") List<AdminRoleMenu> dataList);
 }

@@ -21,7 +21,6 @@ import java.util.Date;
 @Accessors(chain = true)
 @ApiModel(value = "ProjectTaskCountBO对象", description = "事项完成情况统计BO")
 public class ProjectTaskCountBO {
-
     @ApiModelProperty(value = "任务ID")
     private Long taskId;
 
@@ -33,5 +32,4 @@ public class ProjectTaskCountBO {
 
     @ApiModelProperty(value = "结束时间")
     private Date endTime;
-
 }

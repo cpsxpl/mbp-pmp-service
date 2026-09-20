@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.ProjectEvent;
 
@@ -11,17 +10,15 @@ import java.util.List;
  * 事件表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 public interface IProjectEventService extends BaseService<ProjectEvent> {
+    void add(ProjectEvent projectEvent);
 
-    public void add(ProjectEvent projectEvent);
+    void update(ProjectEvent projectEvent);
 
-    public void update(ProjectEvent projectEvent);
+    void delete(Long id);
 
-    public void delete(Long id);
-
-    public List<ProjectEvent> queryEventList(Long schemeId);
-
+    List<ProjectEvent> queryEventList(Long schemeId);
 }

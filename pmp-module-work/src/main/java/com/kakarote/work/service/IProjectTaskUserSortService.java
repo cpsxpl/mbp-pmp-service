@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.ProjectTaskUserSort;
 
@@ -9,9 +8,8 @@ import com.kakarote.work.entity.PO.ProjectTaskUserSort;
  * 任务表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-08
  */
 public interface IProjectTaskUserSortService extends BaseService<ProjectTaskUserSort> {
-
 }

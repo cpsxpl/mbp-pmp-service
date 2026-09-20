@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QueryTaskFileByWorkIdBO extends PageEntity {
-
     private Long workId;
 
     @Override

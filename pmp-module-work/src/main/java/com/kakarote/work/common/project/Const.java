@@ -8,7 +8,6 @@ import java.io.Serializable;
  * @author cpsxpl
  */
 public class Const implements Serializable {
-
     /**
      * 项目版本
      */
@@ -17,7 +16,7 @@ public class Const implements Serializable {
     /**
      * 默认分隔符
      */
-    public static final String SEPARATOR =",";
+    public static final String SEPARATOR = ",";
 
     /**
      * 查询数据权限递归次数,可以通过继承这个类修改
@@ -73,6 +72,4 @@ public class Const implements Serializable {
      * 部门名称缓存key
      */
     public static final String ADMIN_DEPT_NAME_CACHE_NAME = "ADMIN:DEPT:CACHE:";
-
 }
-

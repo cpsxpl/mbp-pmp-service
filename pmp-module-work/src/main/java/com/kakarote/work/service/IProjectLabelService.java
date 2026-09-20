@@ -1,6 +1,5 @@
 package com.kakarote.work.service;
 
-
 import com.kakarote.common.servlet.BaseService;
 import com.kakarote.work.entity.PO.ProjectLabel;
 
@@ -11,18 +10,17 @@ import java.util.List;
  * 任务标签表 服务类
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-20
  */
 public interface IProjectLabelService extends BaseService<ProjectLabel> {
+    void add(ProjectLabel projectLabel);
 
-    public void add(ProjectLabel projectLabel);
+    void update(ProjectLabel projectLabel);
 
-    public void update(ProjectLabel projectLabel);
+    void delete(Long id);
 
-    public void delete(Long id);
+    List<ProjectLabel> queryTaskLabelList(String ids);
 
-    public List<ProjectLabel> queryTaskLabelList(String ids);
-    public List<ProjectLabel> queryList(String name) ;
-
-    }
+    List<ProjectLabel> queryList(String name);
+}

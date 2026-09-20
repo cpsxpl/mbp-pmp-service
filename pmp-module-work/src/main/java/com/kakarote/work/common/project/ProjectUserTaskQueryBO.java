@@ -6,13 +6,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author JiaS
+ * @author cpsxpl
  * @date 2020/11/6
  */
 @Data
 @ApiModel("项目任务查询参数")
 public class ProjectUserTaskQueryBO extends PageEntity {
-
     @ApiModelProperty("项目ID")
     private Long projectId;
 
@@ -29,5 +28,4 @@ public class ProjectUserTaskQueryBO extends PageEntity {
     private String name;
     @ApiModelProperty("负责人")
     private Long mainUserId;
-
 }

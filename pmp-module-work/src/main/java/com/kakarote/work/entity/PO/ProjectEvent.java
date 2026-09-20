@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,7 +18,7 @@ import java.time.LocalDateTime;
  * 事件表
  * </p>
  *
- * @author bai
+ * @author cpsxpl
  * @since 2022-09-19
  */
 @Data
@@ -22,7 +26,6 @@ import java.time.LocalDateTime;
 @TableName("wk_project_event")
 @ApiModel(value = "ProjectEvent对象", description = "事件表")
 public class ProjectEvent implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键ID")
@@ -69,6 +72,4 @@ public class ProjectEvent implements Serializable {
     private Long projectId;
     @ApiModelProperty(value = "对应主键batchId")
     private String batchId;
-
-
 }

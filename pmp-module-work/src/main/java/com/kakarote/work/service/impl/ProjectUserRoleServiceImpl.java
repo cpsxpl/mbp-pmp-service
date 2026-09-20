@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.baomidou.mybatisplus.extension.toolkit.Db.lambdaQuery;
+import static com.baomidou.mybatisplus.extension.toolkit.Db.lambdaUpdate;
+import static com.baomidou.mybatisplus.extension.toolkit.Db.save;
+
 /**
  * <p>
  * 用户角色对应关系表 服务实现类
@@ -26,8 +30,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ProjectUserRoleServiceImpl extends BaseServiceImpl<ProjectUserRoleMapper, AdminUserRole> implements IProjectUserRoleService {
-
-
     @Autowired
     private IProjectRoleService adminRoleService;
 
@@ -36,7 +38,7 @@ public class ProjectUserRoleServiceImpl extends BaseServiceImpl<ProjectUserRoleM
      *
      * @param userId   用户ID
      * @param isRemove 是否删除原有角色
-     * @param roleIds   角色列表
+     * @param roleIds  角色列表
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -44,7 +46,7 @@ public class ProjectUserRoleServiceImpl extends BaseServiceImpl<ProjectUserRoleM
         //当前能设置的角色除了授权能看到的角色，还包含之前用户的历史角色,防止角色被意外删除
         List<Long> longs = lambdaQuery().select(AdminUserRole::getRoleId).eq(AdminUserRole::getUserId, userId).list().stream().map(AdminUserRole::getRoleId).collect(Collectors.toList());
         if (isRemove) {
-            lambdaUpdate().eq(AdminUserRole::getUserId,userId).remove();
+            lambdaUpdate().eq(AdminUserRole::getUserId, userId).remove();
         }
         List<AdminUserRole> adminUserRoleList = new ArrayList<>();
         for (String roleId : roleIds) {
@@ -56,13 +58,13 @@ public class ProjectUserRoleServiceImpl extends BaseServiceImpl<ProjectUserRoleM
 
     @Override
     public void saveByUserId(Long userId) {
-        List<AdminRole> roles = adminRoleService.lambdaQuery().eq(AdminRole::getRoleName,"默认角色")
-                .eq(AdminRole::getStatus,1).list();
-        if (roles.size() == 0){
+        List<AdminRole> roles = adminRoleService.lambdaQuery().eq(AdminRole::getRoleName, "默认角色")
+                .eq(AdminRole::getStatus, 1).list();
+        if (roles.size() == 0) {
             AdminRole adminRole = adminRoleService.queryDefaultRole();
             roles.add(adminRole);
         }
-        AdminUserRole adminUserRole =  new AdminUserRole().setUserId(userId).setRoleId(roles.get(0).getRoleId());
+        AdminUserRole adminUserRole = new AdminUserRole().setUserId(userId).setRoleId(roles.get(0).getRoleId());
         save(adminUserRole);
     }
 }

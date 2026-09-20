@@ -1,6 +1,10 @@
 package com.kakarote.work.entity.PO;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,14 +30,12 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_admin_role")
-@ApiModel(value="AdminRole对象", description="角色表")
+@ApiModel(value = "AdminRole对象", description = "角色表")
 @NoArgsConstructor
 public class AdminRole implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-
-    private static final long serialVersionUID=1L;
-
-    @TableId(value = "role_id",type = IdType.ASSIGN_ID)
+    @TableId(value = "role_id", type = IdType.ASSIGN_ID)
     private Long roleId;
 
     @ApiModelProperty(value = "名称")
@@ -59,7 +61,7 @@ public class AdminRole implements Serializable {
 
     @TableField(exist = false)
     @ApiModelProperty(value = "菜单列表")
-    private Map<String,List<Long>> rules;
+    private Map<String, List<Long>> rules;
 
     @TableField(exist = false)
     @ApiModelProperty(value = "菜单id列表")
@@ -83,8 +85,7 @@ public class AdminRole implements Serializable {
 
     @ApiModelProperty(value = "语言包map")
     @TableField(exist = false)
-    private Map<String,String> languageKeyMap;
-
+    private Map<String, String> languageKeyMap;
 
     public AdminRole(Long roleId, String roleName, Integer roleType, String remark, Integer status, Integer dataType, Integer isHidden, Integer label, Long createUserId, Long updateUserId, LocalDateTime createTime, LocalDateTime updateTime) {
         this.roleId = roleId;
