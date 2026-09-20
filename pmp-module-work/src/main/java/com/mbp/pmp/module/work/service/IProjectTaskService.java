@@ -13,7 +13,7 @@ import com.mbp.pmp.module.work.entity.BO.ProjectTaskQueryBO;
 import com.mbp.pmp.module.work.entity.BO.RelevancyBelongIterationBO;
 import com.mbp.pmp.module.work.entity.BO.RelevancyChildTaskBO;
 import com.mbp.pmp.module.work.entity.BO.RelevancyRelatedDemandIdBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectTask;
+import com.mbp.pmp.module.work.domain.ProjectTask;
 import com.mbp.pmp.module.work.entity.VO.ProjectBoardVO;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskBurnoutVO;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskCountVO;

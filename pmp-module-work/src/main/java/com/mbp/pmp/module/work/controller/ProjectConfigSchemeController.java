@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
-import com.mbp.pmp.module.work.entity.PO.ProjectConfigScheme;
-import com.mbp.pmp.module.work.entity.PO.ProjectEvent;
+import com.mbp.pmp.module.work.domain.ProjectConfigScheme;
+import com.mbp.pmp.module.work.domain.ProjectEvent;
 import com.mbp.pmp.module.work.service.IProjectConfigSchemeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

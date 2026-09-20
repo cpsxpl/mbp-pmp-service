@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
 import com.mbp.pmp.module.work.entity.BO.ProjectTransferStatusBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectEventStatus;
+import com.mbp.pmp.module.work.domain.ProjectEventStatus;
 import com.mbp.pmp.module.work.service.IProjectEventStatusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

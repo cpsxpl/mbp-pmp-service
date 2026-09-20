@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.entity.VO;
 
 import cn.hutool.core.util.StrUtil;
 import com.mbp.pmp.module.work.common.project.FieldEnum;
-import com.mbp.pmp.module.work.entity.PO.ProjectFieldExtend;
+import com.mbp.pmp.module.work.domain.ProjectFieldExtend;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

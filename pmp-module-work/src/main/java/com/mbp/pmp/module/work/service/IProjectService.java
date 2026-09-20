@@ -5,7 +5,7 @@ import com.kakarote.common.servlet.BaseService;
 import com.mbp.pmp.module.work.common.project.ProjectOwnerRoleBO;
 import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
 import com.mbp.pmp.module.work.entity.BO.ProjectVo;
-import com.mbp.pmp.module.work.entity.PO.Project;
+import com.mbp.pmp.module.work.domain.Project;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.constraints.NotNull;

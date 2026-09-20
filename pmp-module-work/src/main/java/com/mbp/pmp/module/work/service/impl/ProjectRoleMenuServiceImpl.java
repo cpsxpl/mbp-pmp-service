@@ -2,8 +2,8 @@ package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.mbp.pmp.module.work.common.project.Const;
-import com.mbp.pmp.module.work.entity.PO.AdminRoleMenu;
-import com.mbp.pmp.module.work.mapper.ProjectRoleMenuMapper;
+import com.mbp.pmp.module.work.domain.AdminRoleMenu;
+import com.mbp.pmp.module.work.dao.mapper.ProjectRoleMenuMapper;
 import com.mbp.pmp.module.work.service.IProjectRoleMenuService;
 import org.springframework.stereotype.Service;
 

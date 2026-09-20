@@ -2,9 +2,9 @@ package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
 import com.mbp.pmp.module.work.entity.BO.ResetBoardBO;
-import com.mbp.pmp.module.work.entity.PO.Project;
-import com.mbp.pmp.module.work.entity.PO.ProjectEventStatus;
-import com.mbp.pmp.module.work.entity.PO.ProjectSchemeRelation;
+import com.mbp.pmp.module.work.domain.Project;
+import com.mbp.pmp.module.work.domain.ProjectEventStatus;
+import com.mbp.pmp.module.work.domain.ProjectSchemeRelation;
 import com.mbp.pmp.module.work.entity.VO.ProjectBoardVO;
 import com.mbp.pmp.module.work.service.IProjectBoardService;
 import com.mbp.pmp.module.work.service.IProjectSchemeRelationBoardService;

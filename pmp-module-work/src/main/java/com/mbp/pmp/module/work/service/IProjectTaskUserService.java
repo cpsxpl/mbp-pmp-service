@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.servlet.BaseService;
 import com.mbp.pmp.module.work.entity.BO.ProjectTaskUserBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskUser;
+import com.mbp.pmp.module.work.domain.ProjectTaskUser;
 
 /**
  * <p>

@@ -1,6 +1,6 @@
 package com.mbp.pmp.module.work.entity.VO;
 
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskTime;
+import com.mbp.pmp.module.work.domain.ProjectTaskTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

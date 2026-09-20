@@ -3,8 +3,8 @@ package com.mbp.pmp.module.work.service;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseService;
 import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
-import com.mbp.pmp.module.work.entity.PO.Project;
-import com.mbp.pmp.module.work.entity.PO.ProjectCollect;
+import com.mbp.pmp.module.work.domain.Project;
+import com.mbp.pmp.module.work.domain.ProjectCollect;
 
 import java.util.List;
 

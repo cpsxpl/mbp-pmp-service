@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.servlet.BaseService;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskComment;
+import com.mbp.pmp.module.work.domain.ProjectTaskComment;
 
 import java.util.List;
 

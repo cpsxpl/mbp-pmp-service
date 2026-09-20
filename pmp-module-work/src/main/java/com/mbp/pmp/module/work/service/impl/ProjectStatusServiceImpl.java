@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.mbp.pmp.module.work.entity.BO.ProjectStatusQueryBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectStatus;
-import com.mbp.pmp.module.work.mapper.ProjectStatusMapper;
+import com.mbp.pmp.module.work.domain.ProjectStatus;
+import com.mbp.pmp.module.work.dao.mapper.ProjectStatusMapper;
 import com.mbp.pmp.module.work.service.IProjectStatusService;
 import org.springframework.stereotype.Service;
 

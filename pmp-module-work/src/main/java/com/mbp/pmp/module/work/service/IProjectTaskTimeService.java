@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.servlet.BaseService;
 import com.mbp.pmp.module.work.entity.BO.ProjectGanttQueryBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskTime;
+import com.mbp.pmp.module.work.domain.ProjectTaskTime;
 import com.mbp.pmp.module.work.entity.VO.ProjectGanttVO;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskTimeStatisticsVO;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskTimeVO;

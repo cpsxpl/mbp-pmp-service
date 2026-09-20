@@ -5,7 +5,7 @@ import com.mbp.pmp.module.work.common.admin.AdminDeleteByBatchIdBO;
 import com.mbp.pmp.module.work.common.project.FileUploadResultVO;
 import com.mbp.pmp.module.work.common.project.RenameFileBO;
 import com.mbp.pmp.module.work.entity.BO.FileEntity;
-import com.mbp.pmp.module.work.entity.PO.AdminFile;
+import com.mbp.pmp.module.work.domain.AdminFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;

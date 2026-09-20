@@ -3,7 +3,7 @@ package com.mbp.pmp.module.work.controller;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.result.Result;
 import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
-import com.mbp.pmp.module.work.entity.PO.Project;
+import com.mbp.pmp.module.work.domain.Project;
 import com.mbp.pmp.module.work.service.IProjectCollectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

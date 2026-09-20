@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.servlet.BaseService;
 import com.mbp.pmp.module.work.entity.BO.ProjectTransferStatusBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectEventStatus;
+import com.mbp.pmp.module.work.domain.ProjectEventStatus;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.servlet.BaseService;
-import com.mbp.pmp.module.work.entity.PO.AdminUserRole;
+import com.mbp.pmp.module.work.domain.AdminUserRole;
 
 import java.util.List;
 

@@ -19,10 +19,11 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${mbp.info.base-package}
-@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}.server", "${mbp.info.base-package}.module", "com.kakarote.ids.provider"}, exclude = {KafkaAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}", "${mbp.info.base-package}.server", "${mbp.info.base-package}.module", "com.kakarote.ids.provider"}, exclude = {KafkaAutoConfiguration.class})
+//@MapperScan(basePackages = {"${mbp.info.base-package}.module.work.mapper"})
 /*
 @EnableFeignClients(basePackages = {"${mbp.info.base-package}.module.work", "com.kakarote.ids.provider"})
-@MapperScan(basePackages = {"${mbp.info.base-package}.module.mapper"})
+
 @EnableMethodCache(basePackages = "${mbp.info.base-package}.module.work", order = -9999)
 */
 @EnableCreateCacheAnnotation

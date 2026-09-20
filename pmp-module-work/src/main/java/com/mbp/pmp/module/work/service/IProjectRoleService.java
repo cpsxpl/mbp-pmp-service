@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kakarote.common.servlet.BaseService;
-import com.mbp.pmp.module.work.entity.PO.AdminRole;
+import com.mbp.pmp.module.work.domain.AdminRole;
 
 import java.util.List;
 

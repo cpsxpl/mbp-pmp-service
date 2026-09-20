@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskUserSort;
-import com.mbp.pmp.module.work.mapper.ProjectTaskUserSortMapper;
+import com.mbp.pmp.module.work.domain.ProjectTaskUserSort;
+import com.mbp.pmp.module.work.dao.mapper.ProjectTaskUserSortMapper;
 import com.mbp.pmp.module.work.service.IProjectTaskUserSortService;
 import org.springframework.stereotype.Service;
 

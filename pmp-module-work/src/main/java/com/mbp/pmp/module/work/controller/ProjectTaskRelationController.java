@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskRelation;
+import com.mbp.pmp.module.work.domain.ProjectTaskRelation;
 import com.mbp.pmp.module.work.service.IProjectTaskRelationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

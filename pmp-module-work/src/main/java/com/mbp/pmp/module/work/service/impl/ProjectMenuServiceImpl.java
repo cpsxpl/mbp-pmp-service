@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.AdminMenu;
-import com.mbp.pmp.module.work.mapper.ProjectMenuMapper;
+import com.mbp.pmp.module.work.domain.AdminMenu;
+import com.mbp.pmp.module.work.dao.mapper.ProjectMenuMapper;
 import com.mbp.pmp.module.work.service.IProjectMenuService;
 import org.springframework.stereotype.Service;
 

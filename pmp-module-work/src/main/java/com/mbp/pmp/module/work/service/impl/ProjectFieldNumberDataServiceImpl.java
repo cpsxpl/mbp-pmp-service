@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectFieldNumberData;
-import com.mbp.pmp.module.work.mapper.ProjectFieldNumberDataMapper;
+import com.mbp.pmp.module.work.domain.ProjectFieldNumberData;
+import com.mbp.pmp.module.work.dao.mapper.ProjectFieldNumberDataMapper;
 import com.mbp.pmp.module.work.service.IProjectFieldNumberDataService;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
-import com.mbp.pmp.module.work.entity.PO.Project;
-import com.mbp.pmp.module.work.entity.PO.ProjectGroupManagement;
+import com.mbp.pmp.module.work.domain.Project;
+import com.mbp.pmp.module.work.domain.ProjectGroupManagement;
 import com.mbp.pmp.module.work.service.IProjectGroupManagementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

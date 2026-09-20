@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
 import com.mbp.pmp.module.work.entity.BO.ProjectFieldModelBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectField;
+import com.mbp.pmp.module.work.domain.ProjectField;
 import com.mbp.pmp.module.work.service.IProjectEventService;
 import com.mbp.pmp.module.work.service.IProjectFieldService;
 import io.swagger.annotations.Api;

@@ -3,7 +3,7 @@ package com.mbp.pmp.module.work.controller;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.result.Result;
 import com.mbp.pmp.module.work.entity.BO.ProjectTaskFollowsQueryBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskFollows;
+import com.mbp.pmp.module.work.domain.ProjectTaskFollows;
 import com.mbp.pmp.module.work.entity.VO.ProjectTaskFollowsVO;
 import com.mbp.pmp.module.work.service.IProjectTaskFollowsService;
 import io.swagger.annotations.Api;

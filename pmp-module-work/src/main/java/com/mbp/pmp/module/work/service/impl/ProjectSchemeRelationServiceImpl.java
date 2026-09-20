@@ -2,9 +2,9 @@ package com.mbp.pmp.module.work.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectEvent;
-import com.mbp.pmp.module.work.entity.PO.ProjectSchemeRelation;
-import com.mbp.pmp.module.work.mapper.ProjectSchemeRelationMapper;
+import com.mbp.pmp.module.work.domain.ProjectEvent;
+import com.mbp.pmp.module.work.domain.ProjectSchemeRelation;
+import com.mbp.pmp.module.work.dao.mapper.ProjectSchemeRelationMapper;
 import com.mbp.pmp.module.work.service.IProjectEventService;
 import com.mbp.pmp.module.work.service.IProjectSchemeRelationService;
 import org.springframework.beans.factory.annotation.Autowired;

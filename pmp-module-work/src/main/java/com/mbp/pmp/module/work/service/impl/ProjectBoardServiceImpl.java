@@ -1,9 +1,9 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectBoard;
-import com.mbp.pmp.module.work.entity.PO.ProjectEvent;
-import com.mbp.pmp.module.work.mapper.ProjectBoardMapper;
+import com.mbp.pmp.module.work.domain.ProjectBoard;
+import com.mbp.pmp.module.work.domain.ProjectEvent;
+import com.mbp.pmp.module.work.dao.mapper.ProjectBoardMapper;
 import com.mbp.pmp.module.work.service.IProjectBoardService;
 import com.mbp.pmp.module.work.service.IProjectBoardStatusService;
 import com.mbp.pmp.module.work.service.IProjectEventService;

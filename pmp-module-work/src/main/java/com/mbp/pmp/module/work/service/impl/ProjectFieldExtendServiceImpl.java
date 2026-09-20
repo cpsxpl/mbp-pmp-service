@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectFieldExtend;
-import com.mbp.pmp.module.work.mapper.ProjectFieldExtendMapper;
+import com.mbp.pmp.module.work.domain.ProjectFieldExtend;
+import com.mbp.pmp.module.work.dao.mapper.ProjectFieldExtendMapper;
 import com.mbp.pmp.module.work.service.IProjectFieldExtendService;
 import org.springframework.stereotype.Service;
 

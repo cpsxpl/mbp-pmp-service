@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.controller;
 
 import com.kakarote.common.result.Result;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskComment;
+import com.mbp.pmp.module.work.domain.ProjectTaskComment;
 import com.mbp.pmp.module.work.service.IProjectTaskCommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

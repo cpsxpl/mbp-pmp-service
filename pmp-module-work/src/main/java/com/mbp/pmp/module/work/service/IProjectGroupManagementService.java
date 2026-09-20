@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.servlet.BaseService;
-import com.mbp.pmp.module.work.entity.PO.Project;
-import com.mbp.pmp.module.work.entity.PO.ProjectGroupManagement;
+import com.mbp.pmp.module.work.domain.Project;
+import com.mbp.pmp.module.work.domain.ProjectGroupManagement;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;

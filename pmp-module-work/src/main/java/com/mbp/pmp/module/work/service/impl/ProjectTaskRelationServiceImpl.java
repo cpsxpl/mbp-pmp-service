@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectTaskRelation;
-import com.mbp.pmp.module.work.mapper.ProjectTaskRelationMapper;
+import com.mbp.pmp.module.work.domain.ProjectTaskRelation;
+import com.mbp.pmp.module.work.dao.mapper.ProjectTaskRelationMapper;
 import com.mbp.pmp.module.work.service.IProjectTaskRelationService;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package com.mbp.pmp.module.work.service.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.entity.PO.ProjectEventField;
-import com.mbp.pmp.module.work.mapper.ProjectEventFieldMapper;
+import com.mbp.pmp.module.work.domain.ProjectEventField;
+import com.mbp.pmp.module.work.dao.mapper.ProjectEventFieldMapper;
 import com.mbp.pmp.module.work.service.IProjectEventFieldService;
 import org.springframework.stereotype.Service;
 

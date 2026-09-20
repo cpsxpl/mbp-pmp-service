@@ -3,8 +3,8 @@ package com.mbp.pmp.module.work.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.entity.PO.ProjectLabel;
-import com.mbp.pmp.module.work.mapper.ProjectLabelMapper;
+import com.mbp.pmp.module.work.domain.ProjectLabel;
+import com.mbp.pmp.module.work.dao.mapper.ProjectLabelMapper;
 import com.mbp.pmp.module.work.service.IProjectLabelService;
 import org.springframework.stereotype.Service;
 

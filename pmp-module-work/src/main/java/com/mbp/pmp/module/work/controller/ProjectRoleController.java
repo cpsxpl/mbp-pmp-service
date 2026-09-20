@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.kakarote.common.ApiExplain;
 import com.kakarote.common.result.Result;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.entity.PO.AdminRole;
+import com.mbp.pmp.module.work.domain.AdminRole;
 import com.mbp.pmp.module.work.service.IProjectRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

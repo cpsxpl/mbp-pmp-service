@@ -10,8 +10,8 @@ import com.mbp.pmp.module.work.common.project.ProjectFieldSortAddBO;
 import com.mbp.pmp.module.work.common.project.ProjectFieldSortBO;
 import com.mbp.pmp.module.work.common.project.ProjectFieldSortQueryBO;
 import com.mbp.pmp.module.work.constant.ModuleTypeEnum;
-import com.mbp.pmp.module.work.entity.PO.ProjectFieldSort;
-import com.mbp.pmp.module.work.mapper.ProjectFieldSortMapper;
+import com.mbp.pmp.module.work.domain.ProjectFieldSort;
+import com.mbp.pmp.module.work.dao.mapper.ProjectFieldSortMapper;
 import com.mbp.pmp.module.work.service.IProjectFieldSortService;
 import org.springframework.stereotype.Service;
 

@@ -3,7 +3,7 @@ package com.mbp.pmp.module.work.controller;
 import com.kakarote.common.result.Result;
 import com.mbp.pmp.module.work.common.project.ProjectFieldSortAddBO;
 import com.mbp.pmp.module.work.common.project.ProjectFieldSortQueryBO;
-import com.mbp.pmp.module.work.entity.PO.ProjectFieldSort;
+import com.mbp.pmp.module.work.domain.ProjectFieldSort;
 import com.mbp.pmp.module.work.service.IProjectFieldSortService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

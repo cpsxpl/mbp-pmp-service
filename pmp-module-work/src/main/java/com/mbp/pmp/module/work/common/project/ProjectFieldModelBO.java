@@ -1,6 +1,6 @@
 package com.mbp.pmp.module.work.common.project;
 
-import com.mbp.pmp.module.work.entity.PO.ProjectField;
+import com.mbp.pmp.module.work.domain.ProjectField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
