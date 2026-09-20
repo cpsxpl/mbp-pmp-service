@@ -1,6 +1,9 @@
 package com.mbp.pmp.server;
 
+import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
+import com.alicp.jetcache.anno.config.EnableMethodCache;
 import com.mbp.eng.framework.common.util.date.DateUtil;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,11 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${mbp.info.base-package}
-@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}.server", "${mbp.info.base-package}.module"}, exclude = {KafkaAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}", "${mbp.info.base-package}.server", "${mbp.info.base-package}.module", "com.kakarote.ids.provider"}, exclude = {KafkaAutoConfiguration.class})
+//@EnableFeignClients(basePackages = {"${mbp.info.base-package}.module.work", "com.kakarote.ids.provider"})
+@MapperScan(basePackages = {"${mbp.info.base-package}.module.mapper"})
+@EnableMethodCache(basePackages = "${mbp.info.base-package}.module.work", order = -9999)
+@EnableCreateCacheAnnotation
 @PropertySource(value = {"${important.properties.filepath}", /*"classpath:quartz.properties",*/ /*"classpath:spark.properties"*/}, encoding = "utf-8")
 //@ImportResource(value = {"classpath:spring/applicationContext.xml"})
 @EnableScheduling

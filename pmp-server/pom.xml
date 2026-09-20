@@ -45,19 +45,6 @@
             <version>${revision}</version>
         </dependency>
         <!--模块_服务相关end-->
-
-        <!--测试相关_start-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <!--测试相关_end-->
     </dependencies>
 
     <profiles>

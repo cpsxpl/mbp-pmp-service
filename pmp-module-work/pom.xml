@@ -38,25 +38,6 @@
     </properties>
 
     <dependencies>
-        <!--模块-framework-common相关_start-->
-        <!--<dependency>
-            <groupId>com.mbp.xxx.pmp</groupId>
-            <artifactId>res</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
-        <!--模块-framework-common相关_end-->
-
-        <dependency>
-            <groupId>com.mbp.xxx.pmp</groupId>
-            <artifactId>pmp-spring-boot-starter-mybatis</artifactId>
-            <version>${revision}</version>
-        </dependency>
-
         <!-- 通用core -->
         <dependency>
             <groupId>com.kakarote</groupId>
@@ -83,47 +64,69 @@
             <systemPath>${basedir}/src/main/resources/lib/wk_common_file-1.0.6.jar</systemPath>
         </dependency>
 
-        <!-- mysql驱动 -->
-        <!--<dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-        </dependency>-->
+        <dependency>
+            <groupId>com.mbp.xxx.pmp</groupId>
+            <artifactId>pmp-spring-boot-starter-mybatis</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
-        <!--db操作-->
-        <!--<dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>-->
+        <!-- spring-boot_start -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-        </dependency>-->
-
-        <!--参数验证-->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>-->
 
-        <!-- spring aop -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- spring-boot_end -->
+
+        <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-autoconfigure</artifactId>
+        </dependency>
+
+        <!--测试相关_start-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <!--测试相关_end-->
 
         <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
         </dependency>
-
-        <!-- web依赖 -->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <optional>true</optional>
-        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -146,71 +149,6 @@
             <groupId>com.alicp.jetcache</groupId>
             <artifactId>jetcache-starter-redis-lettuce</artifactId>
         </dependency>-->
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- 工具类 -->
-        <!--<dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>-->
-
-        <!-- jackson注解 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
-        <!--<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>-->
-
-        <!-- fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.oneandone.reflections8</groupId>
-            <artifactId>reflections8</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.aliyun.openservices</groupId>
-            <artifactId>ons-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.googlecode.aviator</groupId>
-            <artifactId>aviator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-        </dependency>
-
-        <!--Knife4j的官方ui包-->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-ui</artifactId>
-        </dependency>
 
         <!-- lombok插件 -->
         <dependency>
