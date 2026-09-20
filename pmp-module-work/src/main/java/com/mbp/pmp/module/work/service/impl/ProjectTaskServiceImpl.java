@@ -780,7 +780,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             projectTask.setOwnerUserId(projectTask.getCreateUserId().toString());
         }
         Set<Long> userIds = SeparatorUtil.toLongSet(projectTask.getOwnerUserId());
-        List<TaskOwnerBO> TaskOwnerBOS = new ArrayList<>();
+        List<TaskOwnerBO> taskOwnerBOList = new ArrayList<>();
         for (Long id : userIds) {
             UserInfo userInfo = UserCacheUtil.getUserInfo(id);
             TaskOwnerBO taskOwnerBO = new TaskOwnerBO();
@@ -788,9 +788,9 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             taskOwnerBO.setName(userInfo.getNickname());
             taskOwnerBO.setEmail(userInfo.getEmail());
             taskOwnerBO.setMobile(userInfo.getMobile());
-            TaskOwnerBOS.add(taskOwnerBO);
+            taskOwnerBOList.add(taskOwnerBO);
         }
-        projectTask.setTaskOwnerBOS(TaskOwnerBOS);
+        projectTask.setTaskOwnerBOS(taskOwnerBOList);
 
         //获取子任务，只获取单级，同一数据太多树结构耗时
         List<ProjectTask> childTask = this.lambdaQuery().eq(ProjectTask::getPid, taskId).list();
@@ -1562,6 +1562,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
         }
         return projectTaskPage;
     }
+
     @Override
     public Boolean setProgress(ProjectTask projectTask) {
         ProjectTask oldProjectTask = this.getById(projectTask.getTaskId());
@@ -1644,6 +1645,7 @@ public class ProjectTaskServiceImpl extends BaseServiceImpl<ProjectTaskMapper, P
             }
         }
     }
+
     /**
      * 功能描述: <br>
      * 〈查询工作台中各类型数量〉
