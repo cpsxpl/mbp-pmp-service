@@ -13,3 +13,6 @@ import com.mbp.pmp.module.work.domain.ProjectAnnouncement;
  */
 public interface ProjectAnnouncementMapper extends BaseMapper<ProjectAnnouncement> {
 }
+
+/*public interface ProjectAnnouncementMapper extends Mapper<ProjectAnnouncement> {
+}*/
