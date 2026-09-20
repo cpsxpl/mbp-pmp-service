@@ -1,0 +1,28 @@
+package com.mbp.pmp.module.work.common.admin;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author cpsxpl
+ */
+@Data
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@ApiModel("项目管理编辑角色权限")
+public class AdminEditProjectRoleBO implements Serializable {
+    @ApiModelProperty("项目id")
+    private Long projectId;
+
+    @ApiModelProperty("用户Id")
+    private Long userId;
+
+    @ApiModelProperty("角色ID")
+    private List<Long> roleIds;
+}
