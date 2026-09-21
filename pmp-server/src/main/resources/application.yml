@@ -9,6 +9,11 @@ spring:
     allow-circular-references: true # 允许循环依赖,因为项目是三层架构,无法避免这个情况.
     allow-bean-definition-overriding: true #允许后加载的覆盖先加载的
 
+  # mvc 配置
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
   # Servlet 配置
   servlet:
     # 文件上传相关配置项
@@ -124,6 +129,7 @@ spring:
 mbp:
   info:
     version: 1.0.0
+    framework-package: com.mbp.eng
     base-package: com.mbp.pmp
     # 动态控制全局异常处理器的拦截范围(固定前缀 + 任意层级 + controller + 任意子包）
     controller-pattern: "${mbp.info.base-package}.**.controller.**"

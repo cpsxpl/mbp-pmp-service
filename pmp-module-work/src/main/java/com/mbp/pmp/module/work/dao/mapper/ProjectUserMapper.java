@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.dao.mapper;
 
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
-import com.kakarote.common.servlet.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mbp.pmp.module.work.domain.AdminMenu;
 import com.mbp.pmp.module.work.domain.ProjectUser;
 import com.mbp.pmp.module.work.entity.VO.ProjectRolesGroupVO;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author cpsxpl
  * @since 2022-10-27
  */
-public interface ProjectUserMapper extends BaseMapper<ProjectUser> {
+public interface ProjectUserMapper extends BaseMapper<ProjectUser>, com.kakarote.common.servlet.BaseMapper<ProjectUser> {
     //查询角色关联用户数目
     List<ProjectRolesGroupVO> queryRolesRelation(@Param("projectId") Long projectId);
 

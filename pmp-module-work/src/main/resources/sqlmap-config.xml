@@ -18,13 +18,77 @@
 
     <!-- 全局别名设置,在映射文件中只需写别名,而不必写出整个类路径 -->
     <typeAliases>
-        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectAnnouncement" alias="ProjectAnnouncement"/>
-        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectUser" alias="ProjectUser"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectAnnouncement" alias="projectAnnouncement"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectBoard" alias="projectBoard"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectBoardStatus" alias="projectBoardStatus"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectCollect" alias="projectCollect"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectConfigScheme" alias="projectConfigScheme"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectData" alias="projectData"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectEventField" alias="projectEventField"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectEvent" alias="projectEvent"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectEventStatus" alias="projectEventStatus"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectFieldConfig" alias="projectFieldConfig"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectFieldExtend" alias="projectFieldExtend"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectField" alias="projectField"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectFieldNumberData" alias="projectFieldNumberData"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectFieldSort" alias="projectFieldSort"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectGroupManagement" alias="projectGroupManagement"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectGroup" alias="projectGroup"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectLabel" alias="projectLabel"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.Project" alias="project"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.AdminMenu" alias="adminMenu"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.AdminRole" alias="adminRole"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.AdminRoleMenu" alias="adminRoleMenu"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectSchemeRelationBoard" alias="projectSchemeRelationBoard"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectSchemeRelation" alias="projectSchemeRelation"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectStatus" alias="projectStatus"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskComment" alias="projectTaskComment"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskFollows" alias="projectTaskFollows"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskLog" alias="projectTaskLog"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTask" alias="projectTask"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskRelation" alias="projectTaskRelation"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskTime" alias="projectTaskTime"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskUser" alias="projectTaskUser"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectTaskUserSort" alias="projectTaskUserSort"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.ProjectUser" alias="projectUser"/>
+        <typeAlias type="com.mbp.pmp.module.work.domain.AdminUserRole" alias="adminUserRole"/>
     </typeAliases>
 
     <!-- 映射文件路径 -->
     <mappers>
         <mapper resource="sqlmap/ProjectAnnouncementMapper.xml"/>
+        <mapper resource="sqlmap/ProjectBoardMapper.xml"/>
+        <mapper resource="sqlmap/ProjectBoardStatusMapper.xml"/>
+        <mapper resource="sqlmap/ProjectCollectMapper.xml"/>
+        <mapper resource="sqlmap/ProjectConfigSchemeMapper.xml"/>
+        <mapper resource="sqlmap/ProjectDataMapper.xml"/>
+        <mapper resource="sqlmap/ProjectEventFieldMapper.xml"/>
+        <mapper resource="sqlmap/ProjectEventMapper.xml"/>
+        <mapper resource="sqlmap/ProjectEventStatusMapper.xml"/>
+        <mapper resource="sqlmap/ProjectFieldConfigMapper.xml"/>
+        <mapper resource="sqlmap/ProjectFieldExtendMapper.xml"/>
+        <mapper resource="sqlmap/ProjectFieldMapper.xml"/>
+        <mapper resource="sqlmap/ProjectFieldNumberDataMapper.xml"/>
+        <mapper resource="sqlmap/ProjectFieldSortMapper.xml"/>
+        <mapper resource="sqlmap/ProjectGroupManagementMapper.xml"/>
+        <mapper resource="sqlmap/ProjectGroupMapper.xml"/>
+        <mapper resource="sqlmap/ProjectLabelMapper.xml"/>
+        <mapper resource="sqlmap/ProjectMapper.xml"/>
+        <mapper resource="sqlmap/ProjectMenuMapper.xml"/>
+        <mapper resource="sqlmap/ProjectRoleMapper.xml"/>
+        <mapper resource="sqlmap/ProjectRoleMenuMapper.xml"/>
+        <mapper resource="sqlmap/ProjectSchemeRelationBoardMapper.xml"/>
+        <mapper resource="sqlmap/ProjectSchemeRelationMapper.xml"/>
+        <mapper resource="sqlmap/ProjectStatusMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskCommentMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskFollowsMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskLogMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskRelationMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskTimeMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskUserMapper.xml"/>
+        <mapper resource="sqlmap/ProjectTaskUserSortMapper.xml"/>
         <mapper resource="sqlmap/ProjectUserMapper.xml"/>
+        <mapper resource="sqlmap/ProjectUserRoleMapper.xml"/>
     </mappers>
 </configuration>

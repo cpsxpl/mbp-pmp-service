@@ -2,6 +2,7 @@ package com.mbp.pmp.server;
 
 import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
 import com.mbp.eng.framework.common.util.date.DateUtil;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -19,16 +21,23 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${mbp.info.base-package}
-@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}", "${mbp.info.base-package}.server", "${mbp.info.base-package}.module", "com.kakarote.ids.provider"}, exclude = {KafkaAutoConfiguration.class})
-//@MapperScan(basePackages = {"${mbp.info.base-package}.module.work.mapper"})
-/*
+@SpringBootApplication(
+        scanBasePackages = {
+                "${mbp.info.framework-package}",
+                "${mbp.info.base-package}.server",
+                "${mbp.info.base-package}.module",
+                "com.kakarote.ids.provider"
+        },
+        exclude = {
+                KafkaAutoConfiguration.class,
+                org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration.class
+        }
+)
+@MapperScan(basePackages = {"com.mbp.pmp.module.work.dao.mapper"})
 @EnableFeignClients(basePackages = {"${mbp.info.base-package}.module.work", "com.kakarote.ids.provider"})
-
-@EnableMethodCache(basePackages = "${mbp.info.base-package}.module.work", order = -9999)
-*/
+//@EnableMethodCache(basePackages = "${mbp.info.base-package}.module.work", order = -9999)
 @EnableCreateCacheAnnotation
-@PropertySource(value = {"${important.properties.filepath}", /*"classpath:quartz.properties",*/ /*"classpath:spark.properties"*/}, encoding = "utf-8")
-//@ImportResource(value = {"classpath:spring/applicationContext.xml"})
+@PropertySource(value = {"${important.properties.filepath}"}, encoding = "utf-8")
 @EnableScheduling
 public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);

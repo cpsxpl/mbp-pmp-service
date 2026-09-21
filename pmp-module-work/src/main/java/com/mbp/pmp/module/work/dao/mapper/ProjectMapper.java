@@ -3,8 +3,8 @@ package com.mbp.pmp.module.work.dao.mapper;
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.kakarote.common.servlet.BaseMapper;
 import com.mbp.pmp.module.work.common.project.ProjectCountBO;
-import com.mbp.pmp.module.work.entity.BO.ProjectOwnerRoleSimpleBO;
 import com.mbp.pmp.module.work.domain.Project;
+import com.mbp.pmp.module.work.entity.BO.ProjectOwnerRoleSimpleBO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
