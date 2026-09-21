@@ -202,7 +202,7 @@ public class MbpMybatisAutoConfiguration {
         // 对应 <property name="mapperLocations" value="classpath:sqlmap/*.xml"/>
         //sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources("classpath:sqlmap/*.xml"));
         // 对应 <property name="typeAliasesPackage" value="com.mbp.test.eng.domain"/>
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.mbp.test.eng.domain");
+        //sqlSessionFactoryBean.setTypeAliasesPackage("com.mbp.test.eng.domain");
 
         return sqlSessionFactoryBean.getObject();
     }
