@@ -27,8 +27,10 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -175,6 +177,19 @@ public class MbpMybatisAutoConfiguration {
      * 对应原 XML 中的 <bean id="sessionFactory" ...>
      */
     @Bean(name = "sessionFactory")
+    @ConditionalOnMissingBean(SqlSessionFactory.class)
+    /*1. 允许应用层自定义配置(防止 Bean 重复定义冲突)
+    如果使用该自研框架的某个具体业务项目有特殊需求,自己写了一个配置类并手动通过 @Bean 注入了一个特殊的 SqlSessionFactory(例如需要配置多数据源、复杂的拦截器插件、或者自定义类型转换器)。
+    如果不加这个注解:
+    Spring 容器启动时会同时加载业务项目定义的 SqlSessionFactory 和你框架里定义的 SqlSessionFactory,直接抛出 BeanDefinitionOverrideException(Bean 定义冲突崩溃)。
+    加上这个注解后:Spring 看到业务项目自己已经造了一个 SqlSessionFactory,就会全自动跳过框架里这个默认的方法,完美实现“业务定制优先”。
+    2. 完美兼容 MyBatis-Plus 的官方自动配置
+    你们的项目引入了 MybatisPlusAutoConfiguration。当你的自动配置类运行之后,MyBatis-Plus 官方的自动配置类也会跟着启动。
+    MyBatis-Plus 的源码在创建它自己的 SqlSessionFactory 时,类头上就带有 @ConditionalOnMissingBean(SqlSessionFactory.class) 注解。
+    只要你先于它执行并创建了 SqlSessionFactory,加上这个注解能让团队内其他维护者一眼看出:“这个工厂是由我们 MBP 框架强行接管并提供的,后续官方的应该被跳过”。它明确了 Bean 的创建边界。
+    3. 为"多数据源组件"留出兼容后路
+    在企业级架构升级中,很多项目后续会引入类似 dynamic-datasource-spring-boot-starter(动态多数据源)或者原生的多数据源配置。
+    多数据源框架通常会接管并批量创建多个 SqlSessionFactory。加上这个注解,可以让基础框架在遇到多数据源环境时优雅地自动隐退,而不会成为由于硬编码强制注入而导致项目卡死、报错的"绊脚石"。*/
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         // 注入数据源
@@ -184,11 +199,11 @@ public class MbpMybatisAutoConfiguration {
         PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setConfigLocation(pathMatchingResourcePatternResolver.getResource("classpath:sqlmap-config.xml"));
 
-        /*
-        如果后续需要解开 XML 中被注释的别名包或 Mapper 映射文件路径,可以参考以下写法:
-        sessionFactoryBean.setTypeAliasesPackage("com.mbp.test.eng.domain");
-        sessionFactoryBean.setMapperLocations(resolver.getResources("classpath:sqlmap/*.xml"));
-        */
+        // 对应 <property name="mapperLocations" value="classpath:sqlmap/*.xml"/>
+        //sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources("classpath:sqlmap/*.xml"));
+        // 对应 <property name="typeAliasesPackage" value="com.mbp.test.eng.domain"/>
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.mbp.test.eng.domain");
+
         return sqlSessionFactoryBean.getObject();
     }
 
@@ -196,9 +211,22 @@ public class MbpMybatisAutoConfiguration {
      * 对应原 XML 中的 <bean id="sqlTemplate" scope="prototype">
      * 使用构造函数注入第一个参数 index="0" -> sqlSessionFactory
      */
-    @Bean(name = "sqlTemplate")
+    /*@Bean(name = "sqlTemplate")
+    @Primary
     @Scope("prototype")
     public SqlSessionTemplate sqlTemplate(SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }*/
+
+    /**
+     * 对应原 XML 中的 <bean id="sqlTemplate" scope="prototype">
+     * 使用构造函数注入第一个参数 index="0" -> sqlSessionFactory
+     * 更名为 sqlSessionTemplate 并打上 @Primary 终结多 Bean 抉择冲突
+     */
+    @Bean(name = {"sqlSessionTemplate", "sqlTemplate"})
+    @Primary
+    @Scope("prototype")
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
