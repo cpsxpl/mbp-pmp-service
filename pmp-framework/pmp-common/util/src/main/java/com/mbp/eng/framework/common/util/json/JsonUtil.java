@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -34,7 +35,8 @@ public class JsonUtil {
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     static {
-        objectMapper.setDateFormat(simpleDateFormat);
+        //objectMapper.setDateFormat(simpleDateFormat);
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     private JsonUtil() {

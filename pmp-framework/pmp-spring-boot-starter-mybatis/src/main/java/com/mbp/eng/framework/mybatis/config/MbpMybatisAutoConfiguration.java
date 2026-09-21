@@ -16,15 +16,17 @@ import com.baomidou.mybatisplus.extension.parser.JsqlParserGlobal;
 import com.baomidou.mybatisplus.extension.parser.cache.JdkSerialCaffeineJsqlParseCache;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbp.eng.framework.common.util.json.JsonUtils;
 import com.mbp.eng.framework.mybatis.core.handler.DefaultDBFieldHandler;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -46,7 +48,9 @@ import java.util.concurrent.TimeUnit;
 @AutoConfiguration(before = MybatisPlusAutoConfiguration.class)
 // 目的:先于 MyBatis Plus 自动配置,避免 @MapperScan 可能扫描不到 Mapper 打印 warn 日志
 //MapperScan包的路径和主启动路径不一致或者重复扫描都会导致启动时WARN
-//@MapperScan(value = "${mbp.info.base-package}", annotationClass = Mapper.class, lazyInitialization = "${mybatis.lazy-initialization:false}")
+@MapperScan(value = "${mbp.info.base-package}.module",
+        annotationClass = Mapper.class,
+        lazyInitialization = "${mybatis-plus.lazy-initialization:false}")
 // Mapper 懒加载,目前仅用于单元测试
 public class MbpMybatisAutoConfiguration {
     // ==========================================
@@ -191,7 +195,9 @@ public class MbpMybatisAutoConfiguration {
     在企业级架构升级中,很多项目后续会引入类似 dynamic-datasource-spring-boot-starter(动态多数据源)或者原生的多数据源配置。
     多数据源框架通常会接管并批量创建多个 SqlSessionFactory。加上这个注解,可以让基础框架在遇到多数据源环境时优雅地自动隐退,而不会成为由于硬编码强制注入而导致项目卡死、报错的"绊脚石"。*/
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        //SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
+
         // 注入数据源
         sqlSessionFactoryBean.setDataSource(dataSource);
 
@@ -201,8 +207,8 @@ public class MbpMybatisAutoConfiguration {
 
         // 对应 <property name="mapperLocations" value="classpath:sqlmap/*.xml"/>
         //sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources("classpath:sqlmap/*.xml"));
-        // 对应 <property name="typeAliasesPackage" value="com.mbp.test.eng.domain"/>
-        //sqlSessionFactoryBean.setTypeAliasesPackage("com.mbp.test.eng.domain");
+        // 对应 <property name="typeAliasesPackage" value="com.xxx.xxx.xxx.domain"/>
+        //sqlSessionFactoryBean.setTypeAliasesPackage("com.xxx.xxx.xxx.domain");
 
         return sqlSessionFactoryBean.getObject();
     }
