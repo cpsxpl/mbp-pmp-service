@@ -2,7 +2,6 @@ package com.mbp.pmp.server;
 
 import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
 import com.mbp.eng.framework.common.util.date.DateUtil;
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +20,10 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${mbp.info.base-package}
-@SpringBootApplication(
-        scanBasePackages = {
-                "${mbp.info.framework-package}",
-                "${mbp.info.base-package}.server",
-                "${mbp.info.base-package}.module",
-                "com.kakarote.ids.provider"
-        },
-        exclude = {
-                KafkaAutoConfiguration.class,
-                org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration.class
-        }
-)
-@MapperScan(basePackages = {"com.mbp.pmp.module.work.dao.mapper"})
+@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}.**"}, exclude = {KafkaAutoConfiguration.class, org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration.class})
 @EnableFeignClients(basePackages = {"${mbp.info.base-package}.module.work", "com.kakarote.ids.provider"})
-//@EnableMethodCache(basePackages = "${mbp.info.base-package}.module.work", order = -9999)
 @EnableCreateCacheAnnotation
-@PropertySource(value = {"${important.properties.filepath}"}, encoding = "utf-8")
+@PropertySource(value = {"${important.properties.filepath}"}, encoding = "utf-8", ignoreResourceNotFound = true)
 @EnableScheduling
 public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -50,25 +36,6 @@ public class Application {
 
     @Autowired
     ApplicationContext applicationContext;
-
-    /*@Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory tomcatEmbeddedServletContainerFactory = new TomcatEmbeddedServletContainerFactory();
-        return tomcatEmbeddedServletContainerFactory;
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-        synchronized (Application.class) {
-            while (true) {
-                try {
-                    Application.class.wait();
-                } catch (InterruptedException e) {
-                    logger.error("mbp service interrupted ...");
-                }
-            }
-        }
-    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

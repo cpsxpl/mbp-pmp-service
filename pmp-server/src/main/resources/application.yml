@@ -133,6 +133,7 @@ mbp:
     version: 1.0.0
     framework-package: com.mbp.eng
     base-package: com.mbp.pmp
+    mapper-scan-path: ${mbp.info.base-package}.module.**.mapper
     # 动态控制全局异常处理器的拦截范围(固定前缀 + 任意层级 + controller + 任意子包）
     controller-pattern: "${mbp.info.base-package}.**.controller.**"
   web:
