@@ -40,8 +40,9 @@
         <mybatis.version>3.5.19</mybatis.version>
         <mybatis.spring.version>2.1.2</mybatis.spring.version>
         <druid.version>1.2.28</druid.version>
-        <!--<mybatis.plus.version>2.1.2</mybatis.plus.version>-->
+        <mybatis.plus.old.version>2.1.2</mybatis.plus.old.version>
         <mybatis.plus.version>3.5.16</mybatis.plus.version>
+        <mybatis.plus.boot.starter.version>${mybatis.plus.version}</mybatis.plus.boot.starter.version>
         <mybatis.plus.extension.version>${mybatis.plus.version}</mybatis.plus.extension.version>
         <mybatis.plus.jsqlparser.version>${mybatis.plus.version}</mybatis.plus.jsqlparser.version>
         <mybatis.plus.generator.version>${mybatis.plus.version}</mybatis.plus.generator.version>
@@ -437,7 +438,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis.plus.version}</version>
+                <version>${mybatis.plus.boot.starter.version}</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>jsqlparser</artifactId>
