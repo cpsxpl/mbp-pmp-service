@@ -134,66 +134,56 @@ spring:
   quartz:
     auto-startup: true # 本地开发环境,尽量不要开启 Job
     scheduler-name: schedulerName # Scheduler 名字.默认为 schedulerName
-    job-store-type: memory # Job 存储器类型.默认为 memory 表示内存,可选 jdbc 使用数据库.
+    job-store-type: jdbc # Job 存储器类型.默认为 memory 表示内存,可选 jdbc 使用数据库.
     # 容器初始化后，延迟多少秒启动定时任务
     startup-delay: 5s
     # 冲突时是否覆盖已存在的 Job 定义
     overwrite-existing-jobs: true
     wait-for-jobs-to-complete-on-shutdown: true # 应用关闭时,是否等待定时任务执行完成.默认为 false ,建议设置为 true
-    properties: # 添加 Quartz Scheduler 附加属性,更多可以看 http://www.quartz-scheduler.org/documentation/2.4.0-SNAPSHOT/configuration.html 文档
-      org:
-        quartz:
-          applicationContextSchedulerContextKey: applicationContextKey
-          autoStartup: true #设置自动启动
-          dataSource:
-            driver: ${spring.datasource.dbcp2.driver-class-name}
-            url: ${spring.datasource.dbcp2.url}
-            username: ${spring.datasource.username}
-            password: ${spring.datasource.password}
-            minIdle: ${spring.datasource.dbcp2.min-idle}
-            maxActive: ${spring.datasource.dbcp2.max-active} # 数据库最大连接数(如果Scheduler很忙,比如执行的任务与线程池的数量差不多相同,那就需要配置DataSource的连接数量为线程池数量+1)
-            maxIdle: ${spring.datasource.dbcp2.max-idle}
-            maxWait: ${spring.datasource.dbcp2.max-wait}
-            testWhileIdle: ${spring.datasource.dbcp2.test-while-idle}
-            defaultAutoCommit: ${spring.datasource.dbcp2.default-auto-commit}
-            timeBetweenEvictionRunsMillis: ${spring.datasource.dbcp2.time-between-eviction-runs-millis}
-            minEvictableIdleTimeMillis: ${spring.datasource.dbcp2.min-evictable-idle-time-millis}
-            validationQuery: ${spring.datasource.dbcp2.validation-query} # dataSource用于检测connection是否failed/corrupt的SQL语句
-            connectionProperties: ${spring.datasource.dbcp2.connection-properties}
-          # JobStore 相关配置
-          jobStore:
-            # JobStore 实现类.可见博客:https://blog.csdn.net/weixin_42458219/article/details/122247162
-            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
-            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            isClustered: false  #是否集群模式
-            clusterCheckinInterval: 15000 # 调度实例失效的检查时间间隔(集群检查频率),单位:毫秒.默认为 15000,即 15 秒
-            misfireThreshold: 120000 # 容许的最大作业延 misfire 阀值,单位:毫秒.
-            maxMisfiresToHandleAtATime: 1 # jobStore处理未按时触发的Job的数量
-            tablePrefix: QRTZ_  #数据库表前缀
-            useProperties: true
-          overwriteExistingJobs: true #可选,QuartzScheduler 启动时更新己存在的Job,这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了
-          # Scheduler 相关配置
-          scheduler:
-            instanceId: AUTO # 自动生成 instance ID,设置为自动获取 每一个必须不同
-            # 调度器实例名称
-            instanceName: ClusterScheduler
-            #远程管理相关的配置,全部关闭
-            rmi:
-              export: false
-              proxy: false
-            wrapJobExecutionInUserTransaction: false
-          schedulerName: ${spring.quartz.properties.org.quartz.scheduler.instanceName}
-          startupDelay: 30  #必须的,QuartzScheduler 延时启动,应用启动完后 QuartzScheduler 再启动
-          # 线程池相关配置
-          threadPool:
-            # 线程池实现类
-            class: org.quartz.simpl.SimpleThreadPool # 线程池类型
-            # 核心并发线程数
-            threadCount: 100 # 线程池大小.默认为 10 .
-            threadPriority: 5 # 线程优先级
-            threadsInheritContextClassLoaderOfInitializingThread: true  #自创建父线程
     jdbc: # 使用 JDBC 的 JobStore 的时候,JDBC 的配置
       initialize-schema: NEVER # 是否自动使用 SQL 初始化 Quartz 表结构.这里设置成 never,我们手动创建表结构.
+    properties: # 添加 Quartz Scheduler 附加属性,更多可以看 http://www.quartz-scheduler.org/documentation/2.4.0-SNAPSHOT/configuration.html 文档
+      'applicationContextSchedulerContextKey': 'applicationContextKey'
+      'autoStartup': 'true' #设置自动启动
+      # 数据源相关(去除 org.quartz 前缀)
+      'dataSource.driver': '${spring.datasource.dbcp2.driver-class-name}'
+      'dataSource.url': '${spring.datasource.dbcp2.url}'
+      'dataSource.username': '${spring.datasource.username}'
+      'dataSource.password': '${spring.datasource.password}'
+      'dataSource.minIdle': '${spring.datasource.dbcp2.min-idle}'
+      'dataSource.maxActive': '${spring.datasource.dbcp2.max-active}' # 数据库最大连接数(如果Scheduler很忙,比如执行的任务与线程池的数量差不多相同,那就需要配置DataSource的连接数量为线程池数量+1)
+      'dataSource.maxIdle': '${spring.datasource.dbcp2.max-idle}'
+      'dataSource.maxWait': '${spring.datasource.dbcp2.max-wait}'
+      'dataSource.testWhileIdle': '${spring.datasource.dbcp2.test-while-idle}'
+      'dataSource.defaultAutoCommit': '${spring.datasource.dbcp2.default-auto-commit}'
+      'dataSource.timeBetweenEvictionRunsMillis': '${spring.datasource.dbcp2.time-between-eviction-runs-millis}'
+      'dataSource.minEvictableIdleTimeMillis': '${spring.datasource.dbcp2.min-evictable-idle-time-millis}'
+      'dataSource.validationQuery': '${spring.datasource.dbcp2.validation-query}' # dataSource用于检测connection是否failed/corrupt的SQL语句
+      'dataSource.connectionProperties': '${spring.datasource.dbcp2.connection-properties}'
+      # JobStore 相关配置
+      'jobStore.class': 'org.springframework.scheduling.quartz.LocalDataSourceJobStore'
+      'jobStore.driverDelegateClass': 'org.quartz.impl.jdbcjobstore.StdJDBCDelegate'
+      'jobStore.isClustered': 'false'  #是否集群模式
+      'jobStore.clusterCheckinInterval': '15000' # 调度实例失效的检查时间间隔(集群检查频率),单位:毫秒.默认为 15000,即 15 秒
+      'jobStore.misfireThreshold': '120000' # 容许的最大作业延 misfire 阀值,单位:毫秒.
+      'jobStore.maxMisfiresToHandleAtATime': '1' # jobStore处理未按时触发的Job的数量
+      'jobStore.tablePrefix': 'QRTZ_' #数据库表前缀
+      'jobStore.useProperties': 'true'
+      # Scheduler 相关配置
+      'scheduler.instanceId': 'AUTO' # 自动生成 instance ID,设置为自动获取 每一个必须不同
+      'scheduler.instanceName': 'ClusterScheduler' # 调度器实例名称
+      #远程管理相关的配置,全部关闭
+      'scheduler.rmi.export': 'false'
+      'scheduler.rmi.proxy': 'false'
+      'scheduler.wrapJobExecutionInUserTransaction': 'false'
+      'schedulerName': 'ClusterScheduler'
+      'startupDelay': '30'  #必须的,QuartzScheduler 延时启动,应用启动完后 QuartzScheduler 再启动
+      # 线程池相关配置
+      'threadPool.class': 'org.quartz.simpl.SimpleThreadPool' # 线程池类型
+      # 核心并发线程数
+      'threadPool.threadCount': '100' # 线程池大小.默认为 10 .
+      'threadPool.threadPriority': '5' # 线程优先级
+      'threadPool.threadsInheritContextClassLoaderOfInitializingThread': 'true' #自创建父线程
 
 --- #################### 消息队列相关 ####################
 

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
-import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
@@ -21,7 +20,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${mbp.info.base-package}
-@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}"}, exclude = {KafkaAutoConfiguration.class, QuartzAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = {"${mbp.info.base-package}"}, exclude = {KafkaAutoConfiguration.class})
 @EnableFeignClients(basePackages = {"${mbp.info.base-package}.module.work", "com.kakarote.ids.provider"})
 @EnableCreateCacheAnnotation
 @PropertySource(value = {"${important.properties.filepath}"}, encoding = "utf-8", ignoreResourceNotFound = true)
