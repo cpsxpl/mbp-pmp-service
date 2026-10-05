@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.mbp.pmp.module.work.entity.BO.ProjectOwnerRoleSimpleBO;
+import com.mbp.pmp.module.work.domain.entity.bo.ProjectOwnerRoleSimpleBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

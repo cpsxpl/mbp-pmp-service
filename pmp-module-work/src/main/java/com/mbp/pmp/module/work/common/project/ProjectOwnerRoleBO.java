@@ -1,6 +1,6 @@
 package com.mbp.pmp.module.work.common.project;
 
-import com.mbp.pmp.module.work.domain.AdminRole;
+import com.mbp.pmp.module.work.domain.model.wk.AdminRole;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.mbp.pmp.module.work.common.project;
 
-import com.mbp.pmp.module.work.entity.BO.ProjectBoardStatusBO;
+import com.mbp.pmp.module.work.domain.entity.bo.ProjectBoardStatusBO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
