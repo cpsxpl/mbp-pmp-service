@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
-import com.mbp.pmp.module.work.entity.BO.ProjectTaskCountBO;
+import com.mbp.pmp.module.work.dao.mapper.ProjectCollectMapper;
 import com.mbp.pmp.module.work.domain.Project;
 import com.mbp.pmp.module.work.domain.ProjectCollect;
-import com.mbp.pmp.module.work.dao.mapper.ProjectCollectMapper;
+import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
+import com.mbp.pmp.module.work.entity.BO.ProjectTaskCountBO;
 import com.mbp.pmp.module.work.service.IProjectCollectService;
 import com.mbp.pmp.module.work.service.IProjectService;
 import com.mbp.pmp.module.work.service.IProjectTaskService;
@@ -21,8 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.baomidou.mybatisplus.extension.toolkit.Db.count;
 
 /**
  * <p>

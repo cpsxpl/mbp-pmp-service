@@ -825,7 +825,7 @@ public class DateUtil {
      * 判断给定日期是不是润年
      *
      * @param date 给定日期
-     * @return boolean 如果给定的年份为闰年,则返回 true；否则返回 false.
+     * @return boolean 如果给定的年份为闰年,则返回 true;否则返回 false.
      */
     public static boolean isLeapYear(Date date) {
         int year = getYearOfDate(date);
@@ -834,7 +834,7 @@ public class DateUtil {
     }
 
     /**
-     * 在给定的日期基础上添加年,月,日、时,分,秒 例如要再2006－10－21（uitl日期）添加3个月,并且格式化为yyyy-MM-dd格式,
+     * 在给定的日期基础上添加年,月,日、时,分,秒 例如要再2006－10－21(uitl日期)添加3个月,并且格式化为yyyy-MM-dd格式,
      * 这里调用的方式为 addDate(2006－10－21,3,Calendar.MONTH,"yyyy-MM-dd")
      *
      * @param startDate 给定的日期
@@ -1792,7 +1792,7 @@ public class DateUtil {
      * 秒 Seconds           0-59
      * 分钟 Minutes         0-59
      * 小时 Hours           0-23
-     * 日 Day of month      1-31 或者 L（the last day of the month）
+     * 日 Day of month      1-31 或者 L(the last day of the month)
      * 月份 Month           1-12 或者 JAN-DEC
      * 星期 Day of week     1-7 或者 SUN-SAT
      * 年度 Year            empty, 1970-2099

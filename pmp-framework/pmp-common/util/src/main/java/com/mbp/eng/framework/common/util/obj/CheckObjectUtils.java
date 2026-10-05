@@ -161,7 +161,7 @@ public class CheckObjectUtils {
     }
 
     /**
-     * 构建字段映射(缓存）
+     * 构建字段映射(缓存)
      *
      * @param clazz 类
      * @return 字段映射

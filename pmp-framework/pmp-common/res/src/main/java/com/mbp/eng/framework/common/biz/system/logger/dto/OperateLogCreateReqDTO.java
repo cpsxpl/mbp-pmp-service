@@ -1,6 +1,6 @@
 package com.mbp.eng.framework.common.biz.system.logger.dto;
 
-import com.mbp.eng.framework.common.enums.UserTypeEnum;
+import com.mbp.eng.framework.common.res.enums.UserTypeEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

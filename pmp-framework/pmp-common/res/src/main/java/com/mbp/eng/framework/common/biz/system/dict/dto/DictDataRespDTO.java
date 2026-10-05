@@ -1,6 +1,6 @@
 package com.mbp.eng.framework.common.biz.system.dict.dto;
 
-import com.mbp.eng.framework.common.enums.CommonStatusEnum;
+import com.mbp.eng.framework.common.res.enums.CommonStatusEnum;
 import lombok.Data;
 
 /**

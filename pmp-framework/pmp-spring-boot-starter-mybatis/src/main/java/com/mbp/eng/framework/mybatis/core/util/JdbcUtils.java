@@ -2,7 +2,7 @@ package com.mbp.eng.framework.mybatis.core.util;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.mbp.eng.framework.common.util.object.ObjectUtils;
+import com.mbp.eng.framework.common.util.obj.ObjectUtils;
 import com.mbp.eng.framework.common.util.spring.SpringUtils;
 import com.mbp.eng.framework.mybatis.core.enums.DbTypeEnum;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

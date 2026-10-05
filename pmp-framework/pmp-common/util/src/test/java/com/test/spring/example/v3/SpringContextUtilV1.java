@@ -18,7 +18,7 @@ public class SpringContextUtilV1 {
     }
 
     /**
-     * 取得ApplicationContext(双重检查锁保证线程安全懒加载）
+     * 取得ApplicationContext(双重检查锁保证线程安全懒加载)
      */
     public static ApplicationContext getApplicationContext(String... configLocations) {
         if (abstractApplicationContext == null) {

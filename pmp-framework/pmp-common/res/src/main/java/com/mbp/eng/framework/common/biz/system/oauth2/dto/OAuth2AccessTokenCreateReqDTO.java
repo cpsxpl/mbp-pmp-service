@@ -1,7 +1,7 @@
 package com.mbp.eng.framework.common.biz.system.oauth2.dto;
 
-import com.mbp.eng.framework.common.enums.UserTypeEnum;
-import com.mbp.eng.framework.common.validation.InEnum;
+import com.mbp.eng.framework.common.res.enums.UserTypeEnum;
+import com.mbp.eng.framework.common.res.validation.InEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

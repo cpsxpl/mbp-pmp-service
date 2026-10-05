@@ -6,10 +6,10 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
+import com.mbp.pmp.module.work.dao.mapper.ProjectConfigSchemeMapper;
 import com.mbp.pmp.module.work.domain.ProjectConfigScheme;
 import com.mbp.pmp.module.work.domain.ProjectEvent;
 import com.mbp.pmp.module.work.domain.ProjectSchemeRelation;
-import com.mbp.pmp.module.work.dao.mapper.ProjectConfigSchemeMapper;
 import com.mbp.pmp.module.work.service.IProjectConfigSchemeService;
 import com.mbp.pmp.module.work.service.IProjectEventService;
 import com.mbp.pmp.module.work.service.IProjectSchemeRelationService;
@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.baomidou.mybatisplus.extension.toolkit.Db.removeById;
 
 /**
  * <p>

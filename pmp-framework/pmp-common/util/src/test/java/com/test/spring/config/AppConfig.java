@@ -14,23 +14,23 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 // 1. 自动扫描指定包下的组件
-@ComponentScan(basePackages = "com.example")
+@ComponentScan(basePackages = "com.test")
 // 2. 加载类路径下的属性配置文件
 @PropertySource("classpath:application.properties")
 public class AppConfig {
     private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
     // 动态读取配置文件中的各项参数
-    @Value("${jdbc.url}")
+    @Value("${spring.datasource.dbcp2.url}")
     private String jdbcUrl;
 
-    @Value("${jdbc.username}")
+    @Value("${spring.datasource.username}")
     private String jdbcUsername;
 
-    @Value("${jdbc.password}")
+    @Value("${spring.datasource.password}")
     private String jdbcPassword;
 
-    @Value("${jdbc.driver-class-name}")
+    @Value("${spring.datasource.dbcp2.driver-class-name}")
     private String driverClassName;
 
     /**
@@ -56,7 +56,7 @@ public class AppConfig {
         basicDataSource.setMinIdle(5);          // 最小空闲连接数
         basicDataSource.setMaxWaitMillis(2000); // 获得连接的最大等待毫秒数
 
-        // 维持连接可用性的心跳配置(防止数据库单方面断开长连接）
+        // 维持连接可用性的心跳配置(防止数据库单方面断开长连接)
         basicDataSource.setTestOnBorrow(true);
         basicDataSource.setValidationQuery("SELECT 1");
 

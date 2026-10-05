@@ -2,9 +2,9 @@ package com.mbp.pmp.module.work.service;
 
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseService;
-import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
 import com.mbp.pmp.module.work.domain.Project;
 import com.mbp.pmp.module.work.domain.ProjectCollect;
+import com.mbp.pmp.module.work.entity.BO.ProjectQueryBO;
 
 import java.util.List;
 

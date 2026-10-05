@@ -4,7 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
-import com.mbp.eng.framework.common.util.collection.ArrayUtils;
+import com.mbp.eng.framework.common.res.collection.ArrayUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;

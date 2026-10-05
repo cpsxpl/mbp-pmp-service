@@ -1,7 +1,7 @@
 package com.mbp.eng.framework.common.util.os.tail;
 
 import com.mbp.eng.framework.common.util.date.DateUtil;
-import com.mbp.eng.framework.common.util.num.NumUtil;
+import com.mbp.eng.framework.common.util.num.NumberUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,7 +23,7 @@ public class JavaTail {
             System.out.println("请输入正确的参数个数!");
             System.exit(0);
         }
-        if (!NumUtil.isNumeric2(args[0])) {
+        if (!NumberUtils.isNumeric2(args[0])) {
             System.out.println("参数必须为数字!");
             System.exit(0);
         }

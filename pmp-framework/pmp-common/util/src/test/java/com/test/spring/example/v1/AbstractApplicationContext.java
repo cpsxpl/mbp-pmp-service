@@ -7,7 +7,7 @@ import java.util.Map;
  * 抽象父类:掌管整个生命周期的核心骨架
  */
 public abstract class AbstractApplicationContext {
-    // 模拟 Spring 底层的单例池(一级缓存）,存放最终创建好的 Bean 实例
+    // 模拟 Spring 底层的单例池(一级缓存),存放最终创建好的 Bean 实例
     protected Map<String, Object> singletonObjects = new HashMap<>();
 
     /**
@@ -35,7 +35,7 @@ public abstract class AbstractApplicationContext {
      * 父类的通用公共方法:模拟 Bean 的创建和依赖注入
      */
     private void createAndCacheBeans() {
-        // 真实 Spring 会通过反射技术(如 clazz.newInstance()）创建
+        // 真实 Spring 会通过反射技术(如 clazz.newInstance())创建
         singletonObjects.put("userService", "我是通过容器创建的 UserService 业务对象");
     }
 

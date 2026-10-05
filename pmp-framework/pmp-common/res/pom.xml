@@ -76,12 +76,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 监控相关 -->
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-api</artifactId>
-        </dependency>
-
         <!-- 工具类相关 -->
         <dependency>
             <groupId>org.projectlombok</groupId>

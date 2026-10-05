@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kakarote.common.exception.BusinessException;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.mbp.pmp.module.work.common.project.SystemCodeEnum;
-import com.mbp.pmp.module.work.domain.ProjectFieldConfig;
 import com.mbp.pmp.module.work.dao.mapper.ProjectFieldConfigMapper;
+import com.mbp.pmp.module.work.domain.ProjectFieldConfig;
 import com.mbp.pmp.module.work.service.IProjectFieldConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import static com.baomidou.mybatisplus.extension.toolkit.Db.listObjs;
 
 /**
  * <p>

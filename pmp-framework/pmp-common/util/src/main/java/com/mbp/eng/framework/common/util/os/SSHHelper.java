@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
  */
 public class SSHHelper {
     /**
-     * 远程 执行命令并返回结果调用过程 是同步的(执行完才会返回）
+     * 远程 执行命令并返回结果调用过程 是同步的(执行完才会返回)
      *
      * @param host    主机名
      * @param user    用户名

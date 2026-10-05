@@ -38,6 +38,7 @@ public class TimestampLocalDateTimeSerializer extends JsonSerializer<LocalDateTi
                 Class<?> clazz = currentValue.getClass();
                 Map<String, Field> fieldMap = FIELD_CACHE.computeIfAbsent(clazz, this::buildFieldMap);
                 Field field = fieldMap.get(fieldName);
+                // 进一步修复
                 if (field != null && field.isAnnotationPresent(JsonFormat.class)) {
                     JsonFormat jsonFormat = field.getAnnotation(JsonFormat.class);
                     try {

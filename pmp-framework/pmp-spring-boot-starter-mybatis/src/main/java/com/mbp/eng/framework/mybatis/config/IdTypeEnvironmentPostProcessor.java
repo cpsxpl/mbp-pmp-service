@@ -3,7 +3,7 @@ package com.mbp.eng.framework.mybatis.config;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.mbp.eng.framework.common.util.collection.SetUtils;
+import com.mbp.eng.framework.common.res.collection.SetUtils;
 import com.mbp.eng.framework.mybatis.core.util.JdbcUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

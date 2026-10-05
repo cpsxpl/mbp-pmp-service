@@ -1,7 +1,7 @@
 package com.mbp.eng.framework.mybatis.core.type;
 
 import cn.hutool.core.collection.CollUtil;
-import com.mbp.eng.framework.common.util.string.StrUtils;
+import com.mbp.eng.framework.common.util.str.StrUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;

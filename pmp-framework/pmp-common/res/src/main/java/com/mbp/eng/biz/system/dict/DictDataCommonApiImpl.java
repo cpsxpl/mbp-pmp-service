@@ -2,7 +2,7 @@ package com.mbp.eng.biz.system.dict;
 
 import com.mbp.eng.framework.common.biz.system.dict.DictDataCommonApi;
 import com.mbp.eng.framework.common.biz.system.dict.dto.DictDataRespDTO;
-import com.mbp.eng.framework.common.util.object.BeanUtils;
+import com.mbp.eng.framework.common.res.object.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

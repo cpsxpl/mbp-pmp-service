@@ -2,10 +2,10 @@ package com.mbp.eng.framework.common.util.sql;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mbp.eng.framework.common.enums.ClientTypeEnum;
 import com.mbp.eng.framework.common.util.date.DateUtil;
+import com.mbp.eng.framework.common.util.enums.ClientTypeEnum;
 import com.mbp.eng.framework.common.util.obj.CheckObjectUtils;
-import com.mbp.eng.framework.common.util.str.StrUtil;
+import com.mbp.eng.framework.common.util.str.StrUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.quartz.CronExpression;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class SQLTests {
         params.put("eid", eid);
         params.put("eid_name", eidName);
         params.put("hive_db_cname", eidName);
-        StrUtil.resolvedResult(template, params);
+        StrUtils.resolvedResult(template, params);
     }
 
     public void testListNull() {

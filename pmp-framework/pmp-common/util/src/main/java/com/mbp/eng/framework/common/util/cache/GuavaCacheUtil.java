@@ -164,7 +164,7 @@ public class GuavaCacheUtil {
      */
     private static void tongji() {
         CacheStats cacheStats = localCache.stats();
-        // 缓存命中率；
+        // 缓存命中率;
         System.out.println("缓存命中率:" + cacheStats.hitRate());
         // 缓存项被回收的总数,不包括显式清除.
         System.out.println("缓存项被回收的总数,不包括显式清除:" + cacheStats.evictionCount());
