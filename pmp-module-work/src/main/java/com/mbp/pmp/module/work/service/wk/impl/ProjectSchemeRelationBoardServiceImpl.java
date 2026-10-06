@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.service.wk.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectSchemeRelationBoardMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectSchemeRelationBoardMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectBoardBO;
 import com.mbp.pmp.module.work.domain.entity.bo.ResetBoardBO;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectBoardVO;

@@ -6,7 +6,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.IdUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectGroupManagementMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectGroupManagementMapper;
 import com.mbp.pmp.module.work.domain.model.wk.Project;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectGroupManagement;
 import com.mbp.pmp.module.work.service.wk.IProjectGroupManagementService;

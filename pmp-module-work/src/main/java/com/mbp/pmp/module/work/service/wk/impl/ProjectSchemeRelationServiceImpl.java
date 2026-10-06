@@ -2,7 +2,7 @@ package com.mbp.pmp.module.work.service.wk.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectSchemeRelationMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectSchemeRelationMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectEvent;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectSchemeRelation;
 import com.mbp.pmp.module.work.service.wk.IProjectEventService;

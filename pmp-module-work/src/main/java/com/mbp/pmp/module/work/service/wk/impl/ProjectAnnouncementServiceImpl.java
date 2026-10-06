@@ -8,7 +8,7 @@ import com.kakarote.common.entity.UserInfo;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectAnnouncementMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectAnnouncementMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.DeleteProjectAnnouncementBO;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectAnnouncementBO;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectAnnouncementVO;

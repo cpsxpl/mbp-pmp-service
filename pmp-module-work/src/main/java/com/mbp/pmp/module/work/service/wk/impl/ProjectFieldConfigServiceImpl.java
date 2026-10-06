@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kakarote.common.exception.BusinessException;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.mbp.pmp.module.work.common.project.SystemCodeEnum;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectFieldConfigMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectFieldConfigMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectFieldConfig;
 import com.mbp.pmp.module.work.service.wk.IProjectFieldConfigService;
 import org.springframework.stereotype.Service;

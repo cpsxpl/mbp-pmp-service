@@ -3,7 +3,7 @@ package com.mbp.pmp.module.work.service.wk.impl;
 import cn.hutool.core.convert.Convert;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.mbp.pmp.module.work.common.project.Const;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectUserRoleMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectUserRoleMapper;
 import com.mbp.pmp.module.work.domain.model.wk.AdminRole;
 import com.mbp.pmp.module.work.domain.model.wk.AdminUserRole;
 import com.mbp.pmp.module.work.service.wk.IProjectRoleService;

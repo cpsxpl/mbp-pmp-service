@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.mbp.pmp.module.work.constant.GroupTypeEnum;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectGroupMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectGroupMapper;
 import com.mbp.pmp.module.work.domain.model.wk.Project;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectGroup;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectGroupManagement;

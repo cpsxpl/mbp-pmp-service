@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.service.wk.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectBoardMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectBoardMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectBoard;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectEvent;
 import com.mbp.pmp.module.work.service.wk.IProjectBoardService;

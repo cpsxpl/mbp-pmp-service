@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.service.wk.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectFieldNumberDataMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectFieldNumberDataMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectFieldNumberData;
 import com.mbp.pmp.module.work.service.wk.IProjectFieldNumberDataService;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.pmp.module.work.dao.mapper.wk.ProjectBoardStatusMapper">
+<mapper namespace="com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectBoardStatusMapper">
 
     <select id="queryBoardStatusByBoardId" resultType="com.mbp.pmp.module.work.domain.entity.vo.ProjectBoardStatusVO">
         select  bs.project_board_status_id,ps.status_name,bs.board_id,ps.status_type,es.id

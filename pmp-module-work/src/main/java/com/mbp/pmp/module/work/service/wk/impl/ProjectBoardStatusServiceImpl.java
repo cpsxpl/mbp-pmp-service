@@ -1,7 +1,7 @@
 package com.mbp.pmp.module.work.service.wk.impl;
 
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectBoardStatusMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectBoardStatusMapper;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectBoardStatusVO;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectBoardStatus;
 import com.mbp.pmp.module.work.service.wk.IProjectBoardStatusService;

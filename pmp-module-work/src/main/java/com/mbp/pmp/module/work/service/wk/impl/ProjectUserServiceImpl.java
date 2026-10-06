@@ -14,7 +14,7 @@ import com.mbp.pmp.module.work.common.admin.AdminProjectRole;
 import com.mbp.pmp.module.work.common.admin.AdminProjectRoleBO;
 import com.mbp.pmp.module.work.common.project.ProjectOwnerRoleBO;
 import com.mbp.pmp.module.work.constant.ProjectCodeEnum;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectUserMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectUserMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectRoleQueryBO;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectRolesGroupVO;
 import com.mbp.pmp.module.work.domain.model.wk.AdminMenu;

@@ -24,7 +24,7 @@ import com.mbp.pmp.module.work.common.project.TaskOwnerBO;
 import com.mbp.pmp.module.work.constant.GroupTypeEnum;
 import com.mbp.pmp.module.work.constant.InitStatusTypeEnum;
 import com.mbp.pmp.module.work.constant.ProjectCodeEnum;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectQueryBO;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectRoleQueryBO;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectVo;

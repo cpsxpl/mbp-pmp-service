@@ -6,7 +6,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.dao.mapper.wk.ProjectConfigSchemeMapper;
+import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectConfigSchemeMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectConfigScheme;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectEvent;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectSchemeRelation;
