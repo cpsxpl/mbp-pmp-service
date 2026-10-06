@@ -10,7 +10,7 @@ import com.kakarote.common.entity.SimpleUser;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
 import com.mbp.pmp.module.work.common.project.ProjectUtil;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectTaskUserMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectTaskUserMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectTaskUserBO;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectTaskUser;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectUser;

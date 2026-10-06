@@ -3,7 +3,7 @@ package com.mbp.pmp.module.work.service.wk.impl;
 import cn.hutool.core.util.StrUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectLabelMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectLabelMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectLabel;
 import com.mbp.pmp.module.work.service.wk.IProjectLabelService;
 import org.springframework.stereotype.Service;

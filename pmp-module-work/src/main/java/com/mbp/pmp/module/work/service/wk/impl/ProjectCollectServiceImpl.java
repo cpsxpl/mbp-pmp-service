@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectCollectMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectCollectMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectQueryBO;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectTaskCountBO;
 import com.mbp.pmp.module.work.domain.model.wk.Project;

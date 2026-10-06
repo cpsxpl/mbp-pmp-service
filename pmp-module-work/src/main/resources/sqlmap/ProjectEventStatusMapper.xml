@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectEventStatusMapper">
+<mapper namespace="com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectEventStatusMapper">
     <select id="queryEventStatusByEventId" resultType="com.mbp.pmp.module.work.domain.model.wk.ProjectEventStatus">
         select pes.id,
                pes.project_event_id,

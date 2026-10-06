@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectTaskTimeMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectTaskTimeMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectGanttQueryBO;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectGanttTaskVO;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectGanttVO;

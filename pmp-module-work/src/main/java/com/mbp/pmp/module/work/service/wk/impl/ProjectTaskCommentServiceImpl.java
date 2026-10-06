@@ -6,7 +6,7 @@ import com.kakarote.common.entity.SimpleUser;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectTaskCommentMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectTaskCommentMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectTaskComment;
 import com.mbp.pmp.module.work.service.wk.IProjectTaskCommentService;
 import org.springframework.stereotype.Service;

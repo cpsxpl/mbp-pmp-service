@@ -16,7 +16,7 @@ import com.mbp.pmp.module.work.common.admin.AdminDeleteByBatchIdBO;
 import com.mbp.pmp.module.work.common.project.FileUploadResultVO;
 import com.mbp.pmp.module.work.common.project.RenameFileBO;
 import com.mbp.pmp.module.work.common.project.UploadTypeEnum;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectFileMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectFileMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.FileEntity;
 import com.mbp.pmp.module.work.domain.model.wk.AdminFile;
 import com.mbp.pmp.module.work.service.wk.IProjectFileService;

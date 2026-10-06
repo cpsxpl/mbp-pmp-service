@@ -12,7 +12,7 @@ import com.kakarote.common.utils.UserUtil;
 import com.mbp.pmp.module.work.common.admin.AdminMenuVO;
 import com.mbp.pmp.module.work.common.project.BaseUtil;
 import com.mbp.pmp.module.work.constant.ProjectCodeEnum;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectRoleMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectRoleMapper;
 import com.mbp.pmp.module.work.domain.model.wk.AdminMenu;
 import com.mbp.pmp.module.work.domain.model.wk.AdminRole;
 import com.mbp.pmp.module.work.service.wk.IProjectMenuService;

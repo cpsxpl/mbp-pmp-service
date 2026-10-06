@@ -4,7 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectEventMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectEventMapper;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectEvent;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectSchemeRelation;
 import com.mbp.pmp.module.work.service.wk.IProjectEventService;

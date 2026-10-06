@@ -3,7 +3,7 @@ package com.mbp.pmp.module.work.service.wk.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseServiceImpl;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectStatusMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectStatusMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectStatusQueryBO;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectStatus;
 import com.mbp.pmp.module.work.service.wk.IProjectStatusService;

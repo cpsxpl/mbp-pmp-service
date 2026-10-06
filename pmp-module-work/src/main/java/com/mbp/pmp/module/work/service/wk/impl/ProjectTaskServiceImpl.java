@@ -45,7 +45,7 @@ import com.mbp.pmp.module.work.constant.PriorityEnum;
 import com.mbp.pmp.module.work.constant.ProjectCodeEnum;
 import com.mbp.pmp.module.work.constant.TaskUserSortEnum;
 import com.mbp.pmp.module.work.constant.WrongTypeEnum;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectTaskMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectTaskMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.FileEntity;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectTaskCountBO;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectTaskExportBO;

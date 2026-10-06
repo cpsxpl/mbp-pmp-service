@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.kakarote.common.result.BasePage;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.ids.provider.utils.UserCacheUtil;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectTaskFollowsMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectTaskFollowsMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectTaskFollowsQueryBO;
 import com.mbp.pmp.module.work.domain.entity.vo.ProjectTaskFollowsVO;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectTaskFollows;

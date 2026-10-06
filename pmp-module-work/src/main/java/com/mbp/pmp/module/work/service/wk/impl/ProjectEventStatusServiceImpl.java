@@ -7,7 +7,7 @@ import com.kakarote.common.exception.BusinessException;
 import com.kakarote.common.servlet.BaseServiceImpl;
 import com.kakarote.common.utils.UserUtil;
 import com.mbp.pmp.module.work.constant.ProjectCodeEnum;
-import com.mbp.pmp.module.work.dao.mapper.baseMapper.wk.ProjectEventStatusMapper;
+import com.mbp.pmp.module.work.dao.mybatis.mapper.baseMapper.wk.ProjectEventStatusMapper;
 import com.mbp.pmp.module.work.domain.entity.bo.ProjectTransferStatusBO;
 import com.mbp.pmp.module.work.domain.model.wk.Project;
 import com.mbp.pmp.module.work.domain.model.wk.ProjectBoardStatus;
